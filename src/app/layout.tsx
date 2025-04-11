@@ -1,17 +1,21 @@
-import "./globals.css";
+import { Raleway } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
 
-const inter = Inter({
+import "./globals.css";
+
+const raleway = Raleway({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-raleway",
   display: "swap",
-  variable: "--font-inter",
 });
 
-const playfair = Playfair_Display({
+const montserrat = Montserrat({
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-montserrat",
   display: "swap",
-  variable: "--font-playfair",
 });
 
 export const metadata: Metadata = {
@@ -27,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="font-sans bg-white">{children}</body>
+    <html lang="pt-BR" className={`${raleway.variable} ${montserrat.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

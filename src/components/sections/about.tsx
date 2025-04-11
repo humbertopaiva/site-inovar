@@ -33,7 +33,7 @@ const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-primary shadow-md">
-              <h3 className="text-xl text-primary font-serif mb-3">MISSÃO</h3>
+              <h3 className="text-xl text-primary font-heading mb-3">MISSÃO</h3>
               <p className="text-gray-700">
                 Contribuir para que as empresas estabeleçam seus próprios
                 objetivos, com o aprimoramento dos seus processos operacionais e
@@ -42,7 +42,9 @@ const About = () => {
             </div>
 
             <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-secondary shadow-md">
-              <h3 className="text-xl text-secondary font-serif mb-3">VISÃO</h3>
+              <h3 className="text-xl text-secondary font-heading mb-3">
+                VISÃO
+              </h3>
               <p className="text-gray-700">
                 Ser uma empresa referência em gestão estratégica e
                 desenvolvimento organizacional.
@@ -50,7 +52,7 @@ const About = () => {
             </div>
 
             <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-accent shadow-md md:col-span-2">
-              <h3 className="text-xl text-accent font-serif mb-3">VALORES</h3>
+              <h3 className="text-xl text-accent font-heading mb-3">VALORES</h3>
               <ul className="list-disc pl-5 text-gray-700 space-y-1">
                 <li>
                   Transparência na relação com os colaboradores, clientes e
