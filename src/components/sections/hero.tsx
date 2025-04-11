@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { formatWhatsAppLink } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { ArrowRight, ArrowDown } from "lucide-react";
+import Image from "next/image";
 
 const Hero = () => {
   // Variantes para animações de entrada
@@ -178,56 +179,309 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Image */}
+          {/* Right Column - Image with Animated Business Graphics */}
           <motion.div
             className="relative rounded-2xl overflow-hidden h-[28rem] bg-gradient-to-br from-gray-100 to-gray-200 shadow-lg"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           >
-            {/* Placeholder para a imagem que será escolhida */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-secondary/70 to-accent/60 z-10 mix-blend-multiply" />
-            <div className="absolute inset-0 flex items-center justify-center z-20">
-              <div className="text-center px-8 py-12 backdrop-blur-sm bg-white/10 rounded-xl max-w-md">
-                <motion.h3
-                  className="text-2xl font-montserrat font-semibold text-white mb-4"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8 }}
-                >
-                  Compromisso e Responsabilidade
-                </motion.h3>
-                <motion.div
-                  className="w-16 h-1 bg-white/70 mx-auto mb-4"
-                  initial={{ width: 0 }}
-                  animate={{ width: 64 }}
-                  transition={{ delay: 1, duration: 0.5 }}
+            {/* Animated Business Graphics Background */}
+            <div className="absolute inset-0 z-5">
+              {/* Linha gráfica animada 1 */}
+              <motion.svg
+                className="absolute top-10 left-10 w-40 h-40 text-primary/30"
+                viewBox="0 0 100 100"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: [0, 0.7, 0],
+                  rotate: [0, 5],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  times: [0, 0.5, 1],
+                }}
+              >
+                <motion.path
+                  d="M10,80 L20,65 L30,70 L40,40 L50,50 L60,35 L70,50 L80,25 L90,30"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeDasharray="200"
+                  initial={{ strokeDashoffset: 200 }}
+                  animate={{ strokeDashoffset: 0 }}
+                  transition={{ duration: 3, delay: 0.5 }}
                 />
-                <motion.p
-                  className="text-white/90 text-lg"
+                <circle cx="10" cy="80" r="2" fill="currentColor" />
+                <circle cx="20" cy="65" r="2" fill="currentColor" />
+                <circle cx="30" cy="70" r="2" fill="currentColor" />
+                <circle cx="40" cy="40" r="2" fill="currentColor" />
+                <circle cx="50" cy="50" r="2" fill="currentColor" />
+                <circle cx="60" cy="35" r="2" fill="currentColor" />
+                <circle cx="70" cy="50" r="2" fill="currentColor" />
+                <circle cx="80" cy="25" r="2" fill="currentColor" />
+                <circle cx="90" cy="30" r="2" fill="currentColor" />
+              </motion.svg>
+
+              {/* Gráfico de barras */}
+              <motion.svg
+                className="absolute bottom-10 left-20 w-32 h-32 text-accent/30"
+                viewBox="0 0 100 100"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: [0, 0.7, 0],
+                }}
+                transition={{
+                  duration: 7,
+                  delay: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  times: [0, 0.5, 1],
+                }}
+              >
+                <motion.rect
+                  x="10"
+                  y="70"
+                  width="10"
+                  height="20"
+                  fill="currentColor"
+                  initial={{ height: 0, y: 90 }}
+                  animate={{ height: 20, y: 70 }}
+                  transition={{ duration: 1 }}
+                />
+                <motion.rect
+                  x="25"
+                  y="50"
+                  width="10"
+                  height="40"
+                  fill="currentColor"
+                  initial={{ height: 0, y: 90 }}
+                  animate={{ height: 40, y: 50 }}
+                  transition={{ duration: 1, delay: 0.2 }}
+                />
+                <motion.rect
+                  x="40"
+                  y="30"
+                  width="10"
+                  height="60"
+                  fill="currentColor"
+                  initial={{ height: 0, y: 90 }}
+                  animate={{ height: 60, y: 30 }}
+                  transition={{ duration: 1, delay: 0.4 }}
+                />
+                <motion.rect
+                  x="55"
+                  y="40"
+                  width="10"
+                  height="50"
+                  fill="currentColor"
+                  initial={{ height: 0, y: 90 }}
+                  animate={{ height: 50, y: 40 }}
+                  transition={{ duration: 1, delay: 0.6 }}
+                />
+                <motion.rect
+                  x="70"
+                  y="20"
+                  width="10"
+                  height="70"
+                  fill="currentColor"
+                  initial={{ height: 0, y: 90 }}
+                  animate={{ height: 70, y: 20 }}
+                  transition={{ duration: 1, delay: 0.8 }}
+                />
+              </motion.svg>
+
+              {/* Gráfico de pizza */}
+              <motion.svg
+                className="absolute top-20 right-20 w-36 h-36 text-secondary/30"
+                viewBox="0 0 100 100"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: [0, 0.7, 0],
+                }}
+                transition={{
+                  duration: 9,
+                  delay: 4,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  times: [0, 0.5, 1],
+                }}
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="40"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="20"
+                  strokeDasharray="251.2"
+                  strokeDashoffset="251.2"
+                >
+                  <motion.animate
+                    attributeName="stroke-dashoffset"
+                    from="251.2"
+                    to="0"
+                    dur="3s"
+                    fill="freeze"
+                  />
+                </circle>
+                <motion.path
+                  d="M50,50 L50,10 A40,40 0 0,1 85,65 Z"
+                  fill="currentColor"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 1.2 }}
-                >
-                  Conte com o nosso time de profissionais qualificados para
-                  atender às demandas da sua empresa e obtenha o compromisso
-                  necessário que você deseja de uma equipe técnica e
-                  responsável.
-                </motion.p>
-              </div>
+                  transition={{ duration: 1, delay: 1 }}
+                />
+              </motion.svg>
+
+              {/* Linha gráfica animada 2 */}
+              <motion.svg
+                className="absolute bottom-20 right-10 w-40 h-40 text-primary/20"
+                viewBox="0 0 100 100"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: [0, 0.7, 0],
+                  rotate: [0, -3],
+                }}
+                transition={{
+                  duration: 10,
+                  delay: 1,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  times: [0, 0.5, 1],
+                }}
+              >
+                <motion.path
+                  d="M10,50 L20,45 L30,35 L40,40 L50,30 L60,40 L70,20 L80,25 L90,15"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeDasharray="200"
+                  initial={{ strokeDashoffset: 200 }}
+                  animate={{ strokeDashoffset: 0 }}
+                  transition={{ duration: 3 }}
+                />
+                <circle cx="10" cy="50" r="2" fill="currentColor" />
+                <circle cx="20" cy="45" r="2" fill="currentColor" />
+                <circle cx="30" cy="35" r="2" fill="currentColor" />
+                <circle cx="40" cy="40" r="2" fill="currentColor" />
+                <circle cx="50" cy="30" r="2" fill="currentColor" />
+                <circle cx="60" cy="40" r="2" fill="currentColor" />
+                <circle cx="70" cy="20" r="2" fill="currentColor" />
+                <circle cx="80" cy="25" r="2" fill="currentColor" />
+                <circle cx="90" cy="15" r="2" fill="currentColor" />
+              </motion.svg>
+
+              {/* Infográfico Circular */}
+              <motion.svg
+                className="absolute top-40 left-40 w-28 h-28 text-accent/20"
+                viewBox="0 0 100 100"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: [0, 0.7, 0],
+                }}
+                transition={{
+                  duration: 8,
+                  delay: 3,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  times: [0, 0.5, 1],
+                }}
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="35"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="25"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="15"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <line
+                  x1="5"
+                  y1="50"
+                  x2="95"
+                  y2="50"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                />
+                <line
+                  x1="50"
+                  y1="5"
+                  x2="50"
+                  y2="95"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                />
+              </motion.svg>
             </div>
 
-            {/* Aqui você pode adicionar a imagem quando escolhida */}
-            {/* <Image 
-              src="/path-to-your-image.jpg"
-              alt="Inovar Assessoria Empresarial"
-              fill
-              className="object-cover z-0"
-            /> */}
+            {/* Overlay para atenuar os gráficos */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/70 via-secondary/60 to-accent/50 z-10 mix-blend-soft-light" />
 
-            {/* Elementos decorativos */}
-            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-accent/20 rounded-full blur-xl z-0" />
-            <div className="absolute -top-10 -left-10 w-32 h-32 bg-primary/20 rounded-full blur-xl z-0" />
+            {/* Imagem placeholder com espaço para imagem futura */}
+            <div className="absolute inset-0 z-20 flex items-center justify-center">
+              <motion.div
+                className="w-4/5 h-4/5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/20 flex items-center justify-center"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 1 }}
+              >
+                {/* Aqui é onde a imagem será colocada */}
+                <Image
+                  src="/hero-inovar.png"
+                  alt="Inovar Assessoria Empresarial"
+                  fill
+                  className="object-cover rounded-xl overflow-visible"
+                />
+
+                {/* Texto de placeholder que será substituído pela imagem */}
+                <div className="text-white/70 text-center px-6">
+                  <p className="text-sm font-medium">Imagem a ser definida</p>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Elementos decorativos de luz */}
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/20 rounded-full blur-xl z-0" />
+            <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-xl z-0" />
+            <motion.div
+              className="absolute top-1/3 right-1/4 w-20 h-20 bg-secondary/30 rounded-full blur-lg z-0"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            />
           </motion.div>
         </div>
       </div>
