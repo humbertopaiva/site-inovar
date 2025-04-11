@@ -3,14 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  ResponsiveContainer,
-} from "recharts";
+import { LineChart, Line, CartesianGrid, ResponsiveContainer } from "recharts";
 
 interface AnimatedGrowthChartProps {
   className?: string;
@@ -94,21 +87,18 @@ const AnimatedGrowthChart: React.FC<AnimatedGrowthChartProps> = ({
             strokeDasharray="3 3"
             stroke="rgba(255, 255, 255, 0.1)"
           />
-          <XAxis
-            dataKey="month"
-            stroke="rgba(255, 255, 255, 0.3)"
-            tick={{ fill: "rgba(255, 255, 255, 0.3)" }}
-          />
-          <YAxis
-            stroke="rgba(255, 255, 255, 0.3)"
-            tick={{ fill: "rgba(255, 255, 255, 0.3)" }}
-          />
+
           <Line
             type="monotone"
             dataKey="value"
-            stroke="#FA9937"
+            stroke="#3a6360"
             strokeWidth={3}
-            dot={{ stroke: "#FA9937", strokeWidth: 2, r: 4, fill: "#FA9937" }}
+            dot={{
+              stroke: "#3a6360",
+              strokeWidth: 2,
+              r: 4,
+              fill: "#65a09a",
+            }}
             activeDot={{ r: 6, stroke: "#fff", strokeWidth: 2 }}
             isAnimationActive={true}
             animationDuration={1500}
