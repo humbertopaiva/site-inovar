@@ -1,3 +1,6 @@
+/* src/app/globals.css */
+/* Mantenha o conteúdo existente e adicione estas propriedades */
+
 @import "tailwindcss";
 
 :root {
@@ -95,4 +98,66 @@ p {
     padding-left: 2rem;
     padding-right: 2rem;
   }
+}
+
+/* Adicionando algumas classes de utilidade para o Hero */
+.text-primary {
+  color: var(--primary);
+}
+
+.text-primary-light {
+  color: var(--primary-light);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-primary-light {
+  background-color: var(--primary-light);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}
+
+/* Adicionando transições suaves */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Classe para fonte Montserrat */
+.font-montserrat {
+  font-family: var(--font-montserrat);
+}
+
+/* Adicionando animate-bounce se você não tiver o plugin do Tailwind */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
 }

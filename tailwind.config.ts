@@ -1,5 +1,7 @@
-/** @type {import('tailwindcss').Config} */
-const config = {
+// tailwind.config.ts
+import type { Config } from "tailwindcss";
+
+const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,20 +10,43 @@ const config = {
   theme: {
     extend: {
       colors: {
-        primary: "#294946",
-        "primary-light": "#3a6360",
-        secondary: "#4a837a",
-        "secondary-light": "#65a09a",
-        accent: "#fa9937",
-        "accent-light": "#ffad5c",
+        primary: {
+          DEFAULT: "#294946",
+          light: "#3a6360",
+        },
+        secondary: {
+          DEFAULT: "#4a837a",
+          light: "#65a09a",
+        },
+        accent: {
+          DEFAULT: "#fa9937",
+          light: "#ffad5c",
+        },
       },
       fontFamily: {
         sans: ["var(--font-raleway)"],
         serif: ["var(--font-montserrat)"],
+        montserrat: ["var(--font-montserrat)"],
+        raleway: ["var(--font-raleway)"],
+      },
+      animation: {
+        bounce: "bounce 1s infinite",
+      },
+      keyframes: {
+        bounce: {
+          "0%, 100%": {
+            transform: "translateY(-25%)",
+            animationTimingFunction: "cubic-bezier(0.8, 0, 1, 1)",
+          },
+          "50%": {
+            transform: "translateY(0)",
+            animationTimingFunction: "cubic-bezier(0, 0, 0.2, 1)",
+          },
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };
 
 export default config;
