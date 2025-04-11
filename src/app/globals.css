@@ -145,6 +145,68 @@ p {
   font-family: var(--font-montserrat);
 }
 
+/* Suporte para o tema escuro no hero */
+.dark-hero {
+  background-color: #121212;
+  color: white;
+}
+
+/* Melhorias para efeito de vidro fosco (glassmorphism) */
+.glass-effect {
+  background: rgba(41, 73, 70, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Melhorias para gradientes */
+.gradient-overlay-dark {
+  background: linear-gradient(
+    90deg,
+    rgba(41, 73, 70, 0.95) 0%,
+    rgba(41, 73, 70, 0.8) 50%,
+    rgba(41, 73, 70, 0) 100%
+  );
+}
+
+/* Animação suave para parallax manual */
+.parallax-bg {
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Efeito de brilho para botões */
+.glow-effect {
+  box-shadow: 0 0 15px rgba(250, 153, 55, 0.5);
+  transition: box-shadow 0.3s ease;
+}
+
+.glow-effect:hover {
+  box-shadow: 0 0 25px rgba(250, 153, 55, 0.7);
+}
+
+/* Melhorias para texto em fundo escuro */
+.text-shadow-light {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Overlay verde escuro forte para melhor destacar os textos */
+.dark-green-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(41, 73, 70, 0.95) 0%,
+    rgba(41, 73, 70, 0.85) 50%,
+    rgba(41, 73, 70, 0.5) 100%
+  );
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+
+/* Classe para melhorar a legibilidade de texto sobre backgrounds complexos */
+.text-enhanced-contrast {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 /* Adicionando animate-bounce se você não tiver o plugin do Tailwind */
 @keyframes bounce {
   0%,
