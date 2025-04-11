@@ -123,12 +123,7 @@ const About = () => {
           <h2 className="text-primary text-3xl md:text-4xl font-montserrat font-bold mb-4">
             Compromisso com os seus objetivos
           </h2>
-          <motion.div
-            className="w-20 h-1 bg-accent mx-auto mb-8"
-            initial={{ width: 0 }}
-            animate={isSectionInView ? { width: 80 } : { width: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          ></motion.div>
+
           <p className="text-gray-600 text-lg">
             Conheça nosso compromisso com a excelência e inovação na gestão
             empresarial
