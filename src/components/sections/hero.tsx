@@ -8,7 +8,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { formatWhatsAppLink } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { ArrowRight, ArrowDown } from "lucide-react";
-import AnimatedCharts from "../common/animated-charts";
+import AnimatedGrowthChart from "../common/animated-growth-chart";
 
 const Hero = () => {
   const { scrollY } = useScroll();
@@ -62,7 +62,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative py-20 overflow-hidden bg-[#121212] text-white min-h-[90vh] flex items-center">
+    <section className="relative py-0 overflow-hidden bg-[#121212] text-white min-h-[90vh] flex items-center">
       {/* Parallax Background with Image and Overlay */}
       {isMounted && (
         <>
@@ -90,39 +90,17 @@ const Hero = () => {
         </>
       )}
 
-      {/* Animated Business Graphics Background */}
-      <div className="absolute inset-0 z-20 overflow-hidden">
-        {/* Line Chart Animation */}
-        <AnimatedCharts.Line
-          className="absolute top-20 left-20 w-64 h-48"
-          delay={0}
-        />
-
-        {/* Bar Chart Animation */}
-        <AnimatedCharts.Bar
-          className="absolute bottom-20 left-40 w-48 h-48"
-          delay={2}
-        />
-
-        {/* Pie Chart Animation */}
-        <AnimatedCharts.Pie
-          className="absolute top-40 right-32 w-48 h-48"
-          delay={4}
-        />
-
-        {/* Area Chart Animation */}
-        <AnimatedCharts.Area
-          className="absolute bottom-32 right-20 w-64 h-48"
-          delay={3}
-        />
+      {/* Animated Growth Chart Background - positioned to cover the screen diagonally */}
+      <div className="absolute inset-0 z-20 pointer-events-none">
+        <AnimatedGrowthChart className="absolute w-full h-full" />
       </div>
 
       {/* Content */}
       <div className="container relative z-30">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 items-center min-h-[90vh]">
           {/* Left Column - Content */}
           <motion.div
-            className="flex flex-col gap-8"
+            className="flex flex-col gap-8 py-20"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -212,9 +190,9 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Image with glass effect */}
+          {/* Right Column - Image with glass effect, full height */}
           <motion.div
-            className="relative rounded-2xl overflow-hidden h-[28rem] glass-effect shadow-lg border border-white/10"
+            className="relative h-full min-h-[90vh] w-full rounded-tl-3xl overflow-hidden glass-effect shadow-lg border border-white/10"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
@@ -228,22 +206,21 @@ const Hero = () => {
               }}
             />
 
-            {/* Imagem principal */}
-            <div className="absolute inset-0 z-20 flex items-center justify-center p-6">
-              <motion.div
-                className="w-full h-full rounded-xl overflow-hidden flex items-center justify-center"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 1 }}
-              >
-                <Image
-                  src="/hero-inovar.png"
-                  alt="Inovar Assessoria Empresarial"
-                  fill
-                  className="object-contain"
-                />
-              </motion.div>
-            </div>
+            {/* Imagem principal que toca o fundo */}
+            <motion.div
+              className="absolute inset-0 z-20 flex items-center justify-center"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 1 }}
+            >
+              <Image
+                src="/hero-inovar.png"
+                alt="Inovar Assessoria Empresarial"
+                fill
+                className="object-contain"
+                priority
+              />
+            </motion.div>
 
             {/* Elementos decorativos de luz */}
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/20 rounded-full blur-xl z-0" />
