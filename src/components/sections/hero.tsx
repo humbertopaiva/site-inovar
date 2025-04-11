@@ -113,7 +113,7 @@ const Hero = () => {
                   initial="hidden"
                   animate="visible"
                 >
-                  ESTRATÉGIAS DE GESTÃO
+                  Inove sua Gestão de
                 </motion.span>
                 <motion.span
                   className="text-accent"
@@ -121,27 +121,21 @@ const Hero = () => {
                   initial="hidden"
                   animate="visible"
                 >
-                  DE ALTA PERFORMANCE
+                  Alta Performance
                 </motion.span>
               </h1>
-              <motion.div
-                className="w-20 h-1 bg-accent mt-6 mb-6"
-                initial={{ width: 0 }}
-                animate={{ width: 80 }}
-                transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
-              ></motion.div>
             </motion.div>
 
             <motion.p
               className="text-lg md:text-xl text-gray-200 max-w-xl text-enhanced-contrast"
               variants={itemVariants}
             >
-              Saiba como os{" "}
+              Saiba como os nossos
               <span className="font-medium text-white">
                 serviços estratégicos
               </span>{" "}
-              da Inovar - Assessoria Empresarial vão te ajudar a criar um
-              negócio de sucesso e com a saúde financeira em dia.
+              vão te ajudar a criar um negócio de sucesso e com a saúde
+              financeira em dia.
             </motion.p>
 
             <motion.div
