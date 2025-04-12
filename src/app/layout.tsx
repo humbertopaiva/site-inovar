@@ -31,7 +31,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${raleway.variable} ${montserrat.variable}`}>
+    <html
+      lang="pt-BR"
+      className={`${raleway.variable} ${montserrat.variable} scroll-smooth`}
+    >
       <body>{children}</body>
     </html>
   );
