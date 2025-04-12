@@ -400,24 +400,9 @@ const Services = () => {
           initial="hidden"
           animate={isTitleInView ? "visible" : "hidden"}
         >
-          <span className="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium inline-block mb-4">
-            Soluções Completas
-          </span>
-
           <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-primary mb-4">
-            NOSSOS SERVIÇOS
+            Nossos Serviços
           </h2>
-
-          <motion.div
-            className="h-1 mx-auto mb-8 rounded-full"
-            style={{
-              background:
-                "linear-gradient(to right, var(--accent), rgba(250, 153, 55, 0.7))",
-            }}
-            initial={{ width: 0 }}
-            animate={isTitleInView ? { width: 100 } : { width: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          ></motion.div>
 
           <p className="text-gray-700 text-lg">
             Nossa equipe oferece soluções personalizadas para impulsionar o
@@ -464,36 +449,6 @@ const Services = () => {
                 whatsappMessage={`Informação adicional: ${service.category}`}
               />
             ))}
-        </motion.div>
-
-        {/* CTA aprimorado */}
-        <motion.div
-          className="mt-20 text-center bg-gradient-to-r from-primary/5 to-accent/5 p-10 rounded-2xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={
-            isSectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-          }
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <h3 className="text-2xl font-montserrat font-semibold text-primary mb-4">
-            Pronto para transformar seu negócio?
-          </h3>
-          <p className="text-gray-700 mb-8 text-lg max-w-2xl mx-auto">
-            Descubra como podemos ajudar seu negócio a alcançar novos patamares
-            com nossas soluções personalizadas.
-          </p>
-          <motion.a
-            href="#contato"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block px-8 py-3.5 text-white rounded-full shadow-md hover:shadow-lg transition-all font-medium"
-            style={{
-              background:
-                "linear-gradient(to right, var(--accent), rgba(250, 153, 55, 0.9))",
-            }}
-          >
-            Fale com nossos especialistas
-          </motion.a>
         </motion.div>
       </div>
     </section>

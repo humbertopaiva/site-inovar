@@ -69,7 +69,7 @@ const MissionVisionValues = () => {
           <h2 className="text-primary text-3xl md:text-4xl font-montserrat font-bold mb-4">
             Nossos Princípios
           </h2>
-          <div className="h-1 w-24 bg-primary mx-auto mb-6"></div>
+
           <p className="text-gray-600 text-lg">
             Conheça os valores que norteiam nosso trabalho e compromisso com o
             seu sucesso
@@ -88,48 +88,45 @@ const MissionVisionValues = () => {
             animate={isMissionInView ? "visible" : "hidden"}
             variants={containerVariants}
           >
-            <div className="flex flex-col">
-              {/* Card Content - Fixed Height */}
-              <div
-                className="py-12 px-8 text-white h-60"
-                style={{
-                  background:
-                    "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
-                }}
+            <div
+              className="py-12 px-8 text-white h-[340px]"
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
+              }}
+            >
+              <motion.h3
+                variants={itemVariants}
+                className="text-2xl font-montserrat font-bold mb-4"
               >
-                <motion.h3
-                  variants={itemVariants}
-                  className="text-2xl font-montserrat font-bold mb-4"
-                >
-                  MISSÃO
-                </motion.h3>
-                <motion.div
-                  variants={itemVariants}
-                  className="h-1 w-16 bg-white/30 mb-6"
-                ></motion.div>
-                <motion.p
-                  variants={itemVariants}
-                  className="text-white/90 text-lg"
-                >
-                  Contribuir para que as empresas estabeleçam seus próprios
-                  objetivos, com o aprimoramento dos seus processos operacionais
-                  e de gestão estratégica.
-                </motion.p>
-              </div>
-
-              {/* Image directly below the content without gap */}
+                MISSÃO
+              </motion.h3>
               <motion.div
-                variants={imageVariants}
-                className="w-full h-64 relative"
+                variants={itemVariants}
+                className="h-1 w-16 bg-white/30 mb-6"
+              ></motion.div>
+              <motion.p
+                variants={itemVariants}
+                className="text-white/90 text-lg"
               >
-                <Image
-                  src="https://img.freepik.com/free-photo/business-people-discussing-charts-graphs-showing-results-their-successful-teamwork_158595-8037.jpg?w=1380&t=st=1744398861~exp=1744399461~hmac=b58b17a30e731e4e19c8dbb8a2499ae8be1b66c2d0ad7c6ce81f3fa36c06a95d"
-                  alt="Nossa missão"
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
+                Contribuir para que as empresas estabeleçam seus próprios
+                objetivos, com o aprimoramento dos seus processos operacionais e
+                de gestão estratégica.
+              </motion.p>
             </div>
+
+            {/* Image below the mission content - Fixed height */}
+            <motion.div
+              variants={imageVariants}
+              className="w-full h-64 relative"
+            >
+              <Image
+                src="https://img.freepik.com/free-photo/business-people-discussing-charts-graphs-showing-results-their-successful-teamwork_158595-8037.jpg?w=1380&t=st=1744398861~exp=1744399461~hmac=b58b17a30e731e4e19c8dbb8a2499ae8be1b66c2d0ad7c6ce81f3fa36c06a95d"
+                alt="Nossa missão"
+                fill
+                className="object-cover"
+              />
+            </motion.div>
           </motion.div>
 
           {/* Vision Column */}
@@ -140,48 +137,45 @@ const MissionVisionValues = () => {
             animate={isVisionInView ? "visible" : "hidden"}
             variants={containerVariants}
           >
-            <div className="flex flex-col">
-              {/* Card Content - Fixed Height */}
-              <div
-                className="py-12 px-8 text-white h-60"
-                style={{
-                  background:
-                    "linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%)",
-                }}
+            <div
+              className="py-12 px-8 text-white h-[340px]"
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%)",
+              }}
+            >
+              <motion.h3
+                variants={itemVariants}
+                className="text-2xl font-montserrat font-bold mb-4"
               >
-                <motion.h3
-                  variants={itemVariants}
-                  className="text-2xl font-montserrat font-bold mb-4"
-                >
-                  VISÃO
-                </motion.h3>
-                <motion.div
-                  variants={itemVariants}
-                  className="h-1 w-16 bg-white/30 mb-6"
-                ></motion.div>
-                <motion.p
-                  variants={itemVariants}
-                  className="text-white/90 text-lg"
-                >
-                  Ser uma empresa referência em gestão estratégica e
-                  desenvolvimento organizacional, reconhecida pela excelência e
-                  inovação em nossas soluções.
-                </motion.p>
-              </div>
-
-              {/* Image directly below the content without gap */}
+                VISÃO
+              </motion.h3>
               <motion.div
-                variants={imageVariants}
-                className="w-full h-64 relative"
+                variants={itemVariants}
+                className="h-1 w-16 bg-white/30 mb-6"
+              ></motion.div>
+              <motion.p
+                variants={itemVariants}
+                className="text-white/90 text-lg"
               >
-                <Image
-                  src="https://img.freepik.com/free-photo/business-planning-concept-side-view-businesswoman-using-laptop-office_176420-11509.jpg?w=1380&t=st=1744398861~exp=1744399461~hmac=6a6d50a6e34d49ad7f12cd3da9b24023f50c51ed34d9ab7a79dfcf9b11b1cf6f"
-                  alt="Nossa visão"
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
+                Ser uma empresa referência em gestão estratégica e
+                desenvolvimento organizacional, reconhecida pela excelência e
+                inovação em nossas soluções.
+              </motion.p>
             </div>
+
+            {/* Image below the vision content - Fixed height */}
+            <motion.div
+              variants={imageVariants}
+              className="w-full h-64 relative"
+            >
+              <Image
+                src="https://img.freepik.com/free-photo/business-planning-concept-side-view-businesswoman-using-laptop-office_176420-11509.jpg?w=1380&t=st=1744398861~exp=1744399461~hmac=6a6d50a6e34d49ad7f12cd3da9b24023f50c51ed34d9ab7a79dfcf9b11b1cf6f"
+                alt="Nossa visão"
+                fill
+                className="object-cover"
+              />
+            </motion.div>
           </motion.div>
 
           {/* Values Column */}
@@ -192,63 +186,58 @@ const MissionVisionValues = () => {
             animate={isValuesInView ? "visible" : "hidden"}
             variants={containerVariants}
           >
-            <div className="flex flex-col">
-              {/* Card Content - Fixed Height */}
-              <div
-                className="py-12 px-8 text-white h-60 overflow-auto"
-                style={{
-                  background:
-                    "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
-                }}
+            <div
+              className="py-12 px-8 text-white h-[340px]"
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
+              }}
+            >
+              <motion.h3
+                variants={itemVariants}
+                className="text-2xl font-montserrat font-bold mb-4"
               >
-                <motion.h3
-                  variants={itemVariants}
-                  className="text-2xl font-montserrat font-bold mb-4"
-                >
-                  VALORES
-                </motion.h3>
-                <motion.div
-                  variants={itemVariants}
-                  className="h-1 w-16 bg-white/30 mb-6"
-                ></motion.div>
-                <motion.ul
-                  variants={itemVariants}
-                  className="space-y-2 text-white/90 text-lg"
-                >
-                  <li className="flex items-start">
-                    <span className="mr-2 text-white">•</span>
-                    <span>
-                      Transparência na relação com clientes e parceiros
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-white">•</span>
-                    <span>Relacionamento Ético</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-white">•</span>
-                    <span>Envolvimento e comprometimento</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-white">•</span>
-                    <span>Responsabilidade social</span>
-                  </li>
-                </motion.ul>
-              </div>
-
-              {/* Image directly below the content without gap */}
+                VALORES
+              </motion.h3>
               <motion.div
-                variants={imageVariants}
-                className="w-full h-64 relative"
+                variants={itemVariants}
+                className="h-1 w-16 bg-white/30 mb-6"
+              ></motion.div>
+              <motion.ul
+                variants={itemVariants}
+                className="space-y-3 text-white/90 text-lg"
               >
-                <Image
-                  src="https://img.freepik.com/free-photo/group-people-working-out-business-plan-office_1303-15861.jpg?w=1380&t=st=1744398861~exp=1744399461~hmac=5fe60c59a1494bfcfe660cd5821cedec5c8e2fe029ac9a93d7cf84b8aebe04f8"
-                  alt="Nossos valores"
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
+                <li className="flex items-center">
+                  <span className="mr-2 text-white">•</span>
+                  <span>Transparência na relação com clientes e parceiros</span>
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2 text-white">•</span>
+                  <span>Relacionamento Ético</span>
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2 text-white">•</span>
+                  <span>Envolvimento e comprometimento</span>
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2 text-white">•</span>
+                  <span>Responsabilidade social</span>
+                </li>
+              </motion.ul>
             </div>
+
+            {/* Image below the values content - Fixed height */}
+            <motion.div
+              variants={imageVariants}
+              className="w-full h-64 relative"
+            >
+              <Image
+                src="https://img.freepik.com/free-photo/group-people-working-out-business-plan-office_1303-15861.jpg?w=1380&t=st=1744398861~exp=1744399461~hmac=5fe60c59a1494bfcfe660cd5821cedec5c8e2fe029ac9a93d7cf84b8aebe04f8"
+                alt="Nossos valores"
+                fill
+                className="object-cover"
+              />
+            </motion.div>
           </motion.div>
         </div>
       </div>
