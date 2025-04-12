@@ -3,7 +3,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn, formatWhatsAppLink } from "@/lib/utils";
 import Image from "next/image";
 
 // Interface para o componente de card de serviço
@@ -14,6 +14,7 @@ interface ServiceCardProps {
   icon: React.ReactNode;
   category: string;
   index: number;
+  whatsappMessage: string;
 }
 
 // Componente de card de serviço aprimorado com gradientes e efeitos
@@ -22,29 +23,26 @@ const ServiceCard = ({
   description,
   className,
   icon,
-  category,
   index,
+  whatsappMessage,
 }: ServiceCardProps) => {
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: true, amount: 0.3 });
 
-  // Cores para cada categoria (usando as variáveis de cores do CSS)
-  const categoryColors = {
-    planejamento: {
-      from: "var(--primary)",
-      to: "var(--primary-light)",
-      iconBg: "var(--primary)",
-    },
-    gestao: {
-      from: "var(--secondary)",
-      to: "var(--secondary-light)",
-      iconBg: "var(--secondary)",
-    },
-    analise: {
-      from: "var(--accent)",
-      to: "var(--accent-light)",
-      iconBg: "var(--accent)",
-    },
+  // Cores para o gradiente único
+  const gradientColors = {
+    from: "var(--primary)",
+    to: "var(--secondary)",
+  };
+
+  const handleCardClick = () => {
+    // Utilizando a função auxiliar para formatar o link do WhatsApp
+    const phoneNumber = "32999083793"; // Número da empresa
+    const message = `Olá! Gostaria de saber mais sobre o serviço de ${title}. ${whatsappMessage}`;
+    const whatsappUrl = formatWhatsAppLink(phoneNumber, message);
+
+    // Abrindo o link em uma nova aba
+    window.open(whatsappUrl, "_blank");
   };
 
   return (
@@ -57,10 +55,11 @@ const ServiceCard = ({
         delay: index * 0.1,
         ease: [0.22, 1, 0.36, 1], // Curva de easing personalizada para movimento mais natural
       }}
+      onClick={handleCardClick}
       className={cn(
         "bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-500 h-full flex flex-col group overflow-hidden relative",
         "border border-gray-100 hover:border-transparent",
-        "transform hover:-translate-y-2",
+        "transform hover:-translate-y-2 cursor-pointer",
         className
       )}
     >
@@ -72,34 +71,28 @@ const ServiceCard = ({
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
         style={{
-          background: `linear-gradient(to bottom right, ${
-            categoryColors[category as keyof typeof categoryColors]?.from ||
-            "var(--primary)"
-          }, ${
-            categoryColors[category as keyof typeof categoryColors]?.to ||
-            "var(--primary-light)"
-          })`,
+          background: `linear-gradient(to bottom right, ${gradientColors.from}, ${gradientColors.to})`,
         }}
       ></div>
 
       {/* Conteúdo do card */}
-      <div className="p-7 flex flex-col h-full relative z-10 group-hover:text-white transition-colors duration-500">
+      <div className="p-7 flex flex-col h-full relative z-10 transition-colors duration-500">
         <div className="mb-6 relative">
           {/* Círculo decorativo atrás do ícone */}
-          <div className="absolute inset-0 rounded-full bg-primary/10 group-hover:bg-white/20 transition-colors duration-500 transform group-hover:scale-110"></div>
+          <div className="absolute inset-0 rounded-full bg-primary/10  transition-colors duration-500 transform group-hover:scale-110"></div>
 
           {/* Ícone com animação */}
           <motion.div
-            className="w-16 h-16 rounded-full flex items-center justify-center relative z-10 bg-white group-hover:bg-transparent transition-colors duration-500"
+            className="w-16 h-16 rounded-full flex items-center justify-center relative z-10 bg-white  transition-colors duration-500"
             whileHover={{ rotate: 5 }}
           >
-            <div className="text-primary group-hover:text-white transition-colors duration-500">
+            <div className="text-primary group-hover:text-white transition-colors duration-500 ">
               {icon}
             </div>
           </motion.div>
         </div>
 
-        <h3 className="text-xl font-montserrat font-semibold text-primary mb-3 group-hover:text-white transition-colors duration-500">
+        <h3 className="text-xl font-montserrat font-semibold text-primary mb-3 group-hover:!text-white transition-colors duration-500">
           {title}
         </h3>
 
@@ -111,8 +104,8 @@ const ServiceCard = ({
         <div className="h-0.5 bg-transparent group-hover:bg-white/30 transition-all duration-500 mt-4 w-0 group-hover:w-full"></div>
 
         {/* Indicador de "Saiba mais" que aparece no hover */}
-        <div className="mt-4 flex items-center text-primary font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500 text-sm group-hover:text-white">
-          <span>Saiba mais</span>
+        <div className="mt-4 flex items-center font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500 text-sm group-hover:text-white">
+          <span>Solicitar pelo WhatsApp</span>
           <svg
             className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
             fill="none"
@@ -442,7 +435,7 @@ const Services = () => {
           }
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <FilterButton label="Todos Serviços" value="all" />
+          <FilterButton label="Todos os Serviços" value="all" />
           <FilterButton label="Planejamento" value="planejamento" />
           <FilterButton label="Gestão" value="gestao" />
           <FilterButton label="Análise" value="analise" />
@@ -468,6 +461,7 @@ const Services = () => {
                 description={service.description}
                 icon={service.icon}
                 category={service.category}
+                whatsappMessage={`Informação adicional: ${service.category}`}
               />
             ))}
         </motion.div>
