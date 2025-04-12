@@ -8,9 +8,6 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 const About = () => {
   // Refs para animação baseada em visibilidade
   const sectionRef = useRef(null);
-  const missionRef = useRef(null);
-  const visionRef = useRef(null);
-  const valuesRef = useRef(null);
   const textRef = useRef(null);
   const imageRef = useRef(null);
 
@@ -31,9 +28,6 @@ const About = () => {
 
   // Configurar detecção de visibilidade para cada elemento
   const isSectionInView = useInView(sectionRef, { once: true, amount: 0.1 });
-  const isMissionInView = useInView(missionRef, { once: true, amount: 0.5 });
-  const isVisionInView = useInView(visionRef, { once: true, amount: 0.5 });
-  const isValuesInView = useInView(valuesRef, { once: true, amount: 0.5 });
   const isTextInView = useInView(textRef, { once: true, amount: 0.5 });
   const isImageInView = useInView(imageRef, { once: true, amount: 0.3 });
 
@@ -43,16 +37,6 @@ const About = () => {
       y: 0,
       opacity: 1,
       transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.95, y: 10 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
@@ -190,111 +174,6 @@ const About = () => {
                 agregam competitividade e dinamismo ao seu negócio.
               </p>
             </div>
-          </motion.div>
-        </div>
-
-        {/* PARTE INFERIOR - Três colunas com Missão, Visão e Valores */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {/* Mission Card */}
-          <motion.div
-            ref={missionRef}
-            className="bg-primary p-6 rounded-2xl text-white shadow-lg hover:shadow-xl transition-all duration-300"
-            variants={cardVariants}
-            initial="hidden"
-            animate={isMissionInView ? "visible" : "hidden"}
-          >
-            <div className="mb-4">
-              <span className="inline-block p-3 bg-white/20 rounded-xl">
-                <svg
-                  className="w-8 h-8"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M11.617 1.076a1 1 0 0 1 .766 0l9 4A1 1 0 0 1 22 6v12a1 1 0 0 1-.617.924l-9 4a1 1 0 0 1-.766 0l-9-4A1 1 0 0 1 2 18V6a1 1 0 0 1 .617-.924l9-4zM12 3.07 5 6.273v11.454l7 3.202 7-3.202V6.273L12 3.07zm.5 4.93a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V8zm-3.5 9a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm7 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
-                </svg>
-              </span>
-            </div>
-            <h3 className="text-xl text-white font-montserrat font-bold mb-3">
-              MISSÃO
-            </h3>
-            <p className="text-white">
-              Contribuir para que as empresas estabeleçam seus próprios
-              objetivos, com o aprimoramento dos seus processos operacionais e
-              de gestão estratégica.
-            </p>
-          </motion.div>
-
-          {/* Vision Card */}
-          <motion.div
-            ref={visionRef}
-            className="bg-secondary p-6 rounded-2xl text-white shadow-lg hover:shadow-xl transition-all duration-300"
-            variants={cardVariants}
-            initial="hidden"
-            animate={isVisionInView ? "visible" : "hidden"}
-            transition={{ delay: 0.1 }}
-          >
-            <div className="mb-4">
-              <span className="inline-block p-3 bg-white/20 rounded-xl">
-                <svg
-                  className="w-8 h-8"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 2a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-15a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zm0 17a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM3 12a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H4a1 1 0 0 1-1-1zm17 0a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2h-2a1 1 0 0 1-1-1zM5.93 5.93a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 0 1-1.42 1.41L5.93 7.34a1 1 0 0 1 0-1.41zm9.9 9.9a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 0 1-1.42 1.41l-1.41-1.41a1 1 0 0 1 0-1.42zM5.93 18.07a1 1 0 0 1 0-1.41l1.42-1.42a1 1 0 0 1 1.41 1.42l-1.41 1.41a1 1 0 0 1-1.42 0zm9.9-9.9a1 1 0 0 1 0-1.41l1.42-1.42a1 1 0 0 1 1.41 1.42l-1.41 1.41a1 1 0 0 1-1.42 0z" />
-                </svg>
-              </span>
-            </div>
-            <h3 className="text-xl text-white font-montserrat font-bold mb-3">
-              VISÃO
-            </h3>
-            <p className="text-white">
-              Ser uma empresa referência em gestão estratégica e desenvolvimento
-              organizacional, reconhecida pela excelência e inovação em nossas
-              soluções.
-            </p>
-          </motion.div>
-
-          {/* Values Card */}
-          <motion.div
-            ref={valuesRef}
-            className="bg-accent p-6 rounded-2xl text-white shadow-lg hover:shadow-xl transition-all duration-300"
-            variants={cardVariants}
-            initial="hidden"
-            animate={isValuesInView ? "visible" : "hidden"}
-            transition={{ delay: 0.2 }}
-          >
-            <div className="mb-4">
-              <span className="inline-block p-3 bg-white/20 rounded-xl">
-                <svg
-                  className="w-8 h-8"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm-1 5a1 1 0 0 1 2 0v4a1 1 0 0 1-2 0V9zm1-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg>
-              </span>
-            </div>
-            <h3 className="text-xl text-white font-montserrat font-bold mb-3">
-              VALORES
-            </h3>
-            <ul className="space-y-2 text-white">
-              <li className="flex items-center">
-                <span className="mr-2">•</span>
-                <span>Transparência na relação com clientes e parceiros</span>
-              </li>
-              <li className="flex items-center">
-                <span className="mr-2">•</span>
-                <span>Relacionamento Ético</span>
-              </li>
-              <li className="flex items-center">
-                <span className="mr-2">•</span>
-                <span>Envolvimento e comprometimento</span>
-              </li>
-              <li className="flex items-center">
-                <span className="mr-2">•</span>
-                <span>Responsabilidade social</span>
-              </li>
-            </ul>
           </motion.div>
         </div>
 

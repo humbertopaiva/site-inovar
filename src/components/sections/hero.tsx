@@ -106,7 +106,7 @@ const Hero = () => {
             animate="visible"
           >
             <motion.div variants={itemVariants}>
-              <h1 className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl leading-tight text-enhanced-contrast">
+              <h1 className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl leading-tight">
                 <motion.span
                   className="block mb-2 text-white"
                   variants={titleVariants}
@@ -127,11 +127,12 @@ const Hero = () => {
             </motion.div>
 
             <motion.p
-              className="text-lg md:text-xl text-gray-200 max-w-xl text-enhanced-contrast"
+              className="text-lg md:text-xl text-gray-200 max-w-xl"
               variants={itemVariants}
             >
               Saiba como os nossos
               <span className="font-medium text-white">
+                {" "}
                 serviços estratégicos
               </span>{" "}
               vão te ajudar a criar um negócio de sucesso e com a saúde
