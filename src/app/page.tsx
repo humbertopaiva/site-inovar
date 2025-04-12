@@ -12,6 +12,7 @@ import Testimonials from "@/components/sections/testimonials";
 import ContactSection from "@/components/sections/contact"; // Renomeando para evitar conflito
 import React, { useEffect } from "react";
 import Lenis from "lenis";
+import { CursorifyProvider } from "@cursorify/react";
 
 export default function Home() {
   useEffect(() => {
@@ -27,18 +28,20 @@ export default function Home() {
     };
   }, []);
   return (
-    <main>
-      <Navbar />
-      <Hero />
-      <BrandCarousel />
-      <About />
-      <Services />
-      <Testimonials />
-      <CTA />
-      <ContactSection />
+    <CursorifyProvider>
+      <main>
+        <Navbar />
+        <Hero />
+        <BrandCarousel />
+        <About />
+        <Services />
+        <Testimonials />
+        <CTA />
+        <ContactSection />
 
-      <Footer />
-      <FloatingButtons />
-    </main>
+        <Footer />
+        <FloatingButtons />
+      </main>
+    </CursorifyProvider>
   );
 }
