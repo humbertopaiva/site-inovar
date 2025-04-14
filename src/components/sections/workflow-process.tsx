@@ -12,7 +12,7 @@ interface ProcessStepProps {
   description: string;
   index: number;
   isActive: boolean;
-  stepRef: React.RefObject<HTMLDivElement>;
+  stepRef: React.RefObject<HTMLDivElement | null>;
 }
 
 // Componente para um passo do processo
@@ -20,7 +20,6 @@ const ProcessStep: React.FC<ProcessStepProps> = ({
   step,
   title,
   description,
-  index,
   isActive,
   stepRef,
 }) => {
@@ -28,8 +27,8 @@ const ProcessStep: React.FC<ProcessStepProps> = ({
     <div
       ref={stepRef}
       className={cn(
-        "p-6 md:p-8 bg-white rounded-xl border transition-all duration-300 mb-24",
-        isActive ? "border-accent shadow-lg" : "border-gray-200"
+        "p-6 md:p-8 bg-white rounded-sm border transition-all duration-300 mb-24 border-[var(--secondary)] shadow-lg",
+        isActive ? "border-[var(--secondary)] shadow-lg" : "border-gray-200"
       )}
     >
       {/* Número do passo com design diferenciado */}
@@ -81,8 +80,7 @@ const StepDetail = ({
         transition: { duration: 0.4 },
       }}
       className={cn(
-        "bg-white p-6 md:p-8 rounded-xl border shadow-lg",
-        isVisible ? "border-accent" : "border-gray-200"
+        "bg-white p-6 md:p-8 rounded-sm border shadow-lg border-[var(--secondary)]"
       )}
     >
       <div className="space-y-6">
@@ -95,16 +93,15 @@ const StepDetail = ({
         </h3>
 
         {/* Imagem */}
-        <div className="relative h-48 md:h-56 rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center">
+        <div className="relative h-48 md:h-56 rounded-sm overflow-hidden bg-gray-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" />
 
           {/* Placeholder para imagem real */}
           <Image
-            src="/api/placeholder/600/400"
+            src={stepData.image}
             alt={stepData.title}
-            width={600}
-            height={400}
-            className="object-contain relative z-10 p-4"
+            fill
+            className="object-cover relative z-10 h-full w-full"
           />
 
           {/* Elementos decorativos */}
@@ -150,6 +147,8 @@ const StepDetail = ({
 // Componente principal para a seção de processo de trabalho
 const WorkflowProcess = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("down");
   const sectionRef = useRef<HTMLElement>(null);
 
   // Referências para cada step
@@ -191,7 +190,8 @@ const WorkflowProcess = () => {
     {
       step: 1,
       title: "Análise Criteriosa",
-      image: "/analysis.svg", // Substitua por uma imagem real
+      image:
+        "https://img.freepik.com/free-photo/close-up-businessman-with-digital-tablet_1098-549.jpg?t=st=1744647645~exp=1744651245~hmac=bcf08559eb8ee12d02a85b08e4199557bf7a21e7ab2b5c2e88ce690ecfbeb73d&w=996", // Substitua por uma imagem real
       content: [
         "Identificação dos pontos de melhoria através de diagnóstico empresarial",
         "Desenvolvimento de metas claras e alcançáveis",
@@ -202,7 +202,8 @@ const WorkflowProcess = () => {
     {
       step: 2,
       title: "Implementação de Soluções",
-      image: "/implementation.svg", // Substitua por uma imagem real
+      image:
+        "https://img.freepik.com/free-photo/glowing-filament-ignites-ideas-innovative-solutions-generated-by-ai_188544-9614.jpg?t=st=1744648518~exp=1744652118~hmac=6ce6d787e51dcb2fc9cd1eac67a325fd1a14f010468e0556f6faff8b5a443465&w=1060", // Substitua por uma imagem real
       content: [
         "Seleção de parceiros estratégicos para impulsionar resultados",
         "Implementação de sistemas modernos de gerenciamento",
@@ -213,7 +214,8 @@ const WorkflowProcess = () => {
     {
       step: 3,
       title: "Controle e Sustentabilidade",
-      image: "/sustainable.svg", // Substitua por uma imagem real
+      image:
+        "https://img.freepik.com/free-photo/businesswoman-analyzing-data_23-2151957117.jpg?t=st=1744648562~exp=1744652162~hmac=b205c61872b7615967a6a57c51c513997d9ab424ab381f9a1a5cd09a52abaa12&w=900", // Substitua por uma imagem real
       content: [
         "Estabelecimento de métricas para acompanhar resultados",
         "Documentação de processos para consistência",
@@ -233,6 +235,51 @@ const WorkflowProcess = () => {
     },
   };
 
+  // Detectar direção de scroll
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrollDirection(currentScrollY > lastScrollY ? "down" : "up");
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
+
+  // Função que determina qual step está ativo com base na visibilidade e direção de scroll
+  const determineActiveStep = React.useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const visibleSteps: number[] = [];
+
+      // Coletar todos os steps visíveis
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (entry.target === step1Ref.current) visibleSteps.push(0);
+          else if (entry.target === step2Ref.current) visibleSteps.push(1);
+          else if (entry.target === step3Ref.current) visibleSteps.push(2);
+        }
+      });
+
+      // Se temos steps visíveis, selecionar o apropriado com base na direção
+      if (visibleSteps.length > 0) {
+        if (scrollDirection === "down") {
+          // No scroll para baixo, pegar o step visível mais abaixo (maior índice)
+          setActiveStep(Math.max(...visibleSteps));
+        } else {
+          // No scroll para cima, pegar o step visível mais acima (menor índice)
+          setActiveStep(Math.min(...visibleSteps));
+        }
+      }
+    },
+    [scrollDirection, step1Ref, step2Ref, step3Ref]
+  );
+
   // Configurar IntersectionObserver para detectar qual step está visível
   useEffect(() => {
     if (
@@ -243,19 +290,28 @@ const WorkflowProcess = () => {
 
     const options = {
       root: null,
-      rootMargin: "-30% 0px -30% 0px", // Ajustado para considerar apenas quando o componente estiver mais para o topo da tela
-      threshold: 0.5, // Aumentado para 0.6 (60% do elemento deve estar visível)
+      rootMargin: "-30% 0px -30% 0px",
+      threshold: 0.5,
     };
 
+    // Armazenar as entradas do observer para análise posterior
+    let observedEntries: IntersectionObserverEntry[] = [];
+
     const callback = (entries: IntersectionObserverEntry[]) => {
+      // Atualizar a lista de entradas observadas
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Encontrar qual step está visível
-          if (entry.target === step1Ref.current) setActiveStep(0);
-          else if (entry.target === step2Ref.current) setActiveStep(1);
-          else if (entry.target === step3Ref.current) setActiveStep(2);
+        const index = observedEntries.findIndex(
+          (e) => e.target === entry.target
+        );
+        if (index >= 0) {
+          observedEntries[index] = entry;
+        } else {
+          observedEntries.push(entry);
         }
       });
+
+      // Determinar o step ativo com base em todas as entradas
+      determineActiveStep(observedEntries);
     };
 
     const observer = new IntersectionObserver(callback, options);
@@ -267,16 +323,16 @@ const WorkflowProcess = () => {
 
     return () => {
       observer.disconnect();
+      observedEntries = [];
     };
-  }, []);
+  }, [scrollDirection, determineActiveStep]); // Adicionar scrollDirection e determineActiveStep como dependências
 
   return (
     <section
       id="metodologia"
       ref={sectionRef}
       className="py-24 bg-gray-50 relative"
-      // Aumentando a altura da seção para permitir scroll
-      style={{ height: "300vh" }}
+      style={{ height: "180vh" }}
     >
       {/* Elementos decorativos de fundo */}
       <div className="absolute inset-0 z-0">

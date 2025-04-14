@@ -33,9 +33,9 @@ export default function Home() {
       <main>
         <Navbar />
         <Hero />
-        {/* <BrandCarousel /> */}
+
         <About />
-        <MissionVisionValues /> {/* Novo componente adicionado */}
+        <MissionVisionValues />
         <Services />
         <WorkflowProcess />
         {/* <Testimonials /> */}

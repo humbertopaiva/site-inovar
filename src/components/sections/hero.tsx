@@ -90,7 +90,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container relative z-30 ">
+      <div className="container relative z-30">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 items-center min-h-[90vh]">
           {/* Left Column - Content */}
           <motion.div
@@ -181,33 +181,23 @@ const Hero = () => {
 
           {/* Right Column - Image with light glass effect */}
           <motion.div
-            className="relative h-full min-h-[90vh] w-full rounded-tl-3xl overflow-hidden shadow-lg border border-primary/10"
+            className="relative h-full min-h-[90vh] w-full rounded-tl-3xl overflow-hidden"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           >
-            {/* Light glass effect overlay */}
-            <div
-              className="absolute inset-0 z-10 mix-blend-overlay"
-              style={{
-                background:
-                  "linear-gradient(to bottom right, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5), rgba(250, 153, 55, 0.1))",
-                backdropFilter: "blur(8px)",
-              }}
-            />
-
             {/* Imagem principal que toca o fundo */}
             <motion.div
-              className="absolute inset-0 z-20 flex items-center justify-center"
+              className="absolute inset-0 z-20 flex items-center justify-center mt-12 rounded-2xl overflow-hidden"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 1 }}
             >
               <Image
-                src="/hero-inovar.png"
+                src="/hero-inovar.jpg"
                 alt="Inovar Assessoria Empresarial"
                 fill
-                className="object-contain"
+                className="object-cover"
                 priority
               />
             </motion.div>
