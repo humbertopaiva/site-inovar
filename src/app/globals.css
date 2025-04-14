@@ -180,7 +180,7 @@ p {
 
 /* Efeito de brilho para botões */
 .glow-effect {
-  box-shadow: 0 0 15px rgba(250, 153, 55, 0.5);
+  box-shadow: 0 0 15px rgba(41, 73, 70, 0.5);
   transition: box-shadow 0.3s ease;
 }
 

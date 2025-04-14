@@ -1,4 +1,4 @@
-// src/components/sections/hero-light.tsx
+// src/components/sections/hero.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -9,6 +9,8 @@ import { formatWhatsAppLink } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { ArrowRight, ArrowDown } from "lucide-react";
 import AnimatedGrowthChart from "../common/animated-growth-chart";
+import AnimatedDonutChart from "../common/animated-donut-chart";
+import AnimatedBarChart from "../common/animated-bar-chart"; // Nova importação
 
 const Hero = () => {
   const { scrollY } = useScroll();
@@ -61,6 +63,28 @@ const Hero = () => {
     },
   };
 
+  // Variante para o gráfico de linha
+  const chartVariants = {
+    hidden: { opacity: 0, scale: 0.7, y: 20 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 1.2, delay: 0.8, ease: "easeOut" },
+    },
+  };
+
+  // Variante para o card de gráficos combinados
+  const combinedChartVariants = {
+    hidden: { opacity: 0, scale: 0.7, y: 30 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 1.2, delay: 1.1, ease: "easeOut" },
+    },
+  };
+
   return (
     <section className="relative py-0 overflow-hidden bg-white text-primary min-h-[90vh] flex items-center">
       {/* Parallax Background with Image and Overlay */}
@@ -69,7 +93,7 @@ const Hero = () => {
           {/* Background Image with Parallax */}
           <motion.div className="absolute inset-0 z-0" style={{ y, scale }}>
             <Image
-              src="/light-office-background.jpg" // Você precisará adicionar esta imagem ao seu projeto
+              src="/light-office-background.jpg"
               alt="Office background"
               fill
               className="object-cover opacity-20"
@@ -83,11 +107,6 @@ const Hero = () => {
           </motion.div>
         </>
       )}
-
-      {/* Animated Growth Chart Background - positioned to cover the screen diagonally */}
-      <div className="absolute inset-0 z-20 pointer-events-none opacity-10 ">
-        <AnimatedGrowthChart className="absolute w-full h-full" />
-      </div>
 
       {/* Content */}
       <div className="container relative z-30">
@@ -181,14 +200,14 @@ const Hero = () => {
 
           {/* Right Column - Image with light glass effect */}
           <motion.div
-            className="relative h-full min-h-[90vh] w-full rounded-tl-3xl overflow-hidden"
+            className="relative h-full min-h-[90vh] w-full rounded-tl-3xl"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           >
             {/* Imagem principal que toca o fundo */}
             <motion.div
-              className="absolute inset-0 z-20 flex items-center justify-center mt-12 rounded-sm overflow-hidden"
+              className="absolute inset-0 z-20 flex items-center justify-center mt-12 rounded-sm"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 1 }}
@@ -200,6 +219,50 @@ const Hero = () => {
                 className="object-cover"
                 priority
               />
+            </motion.div>
+
+            {/* Chart overlay em formato de card com fundo primário */}
+            <motion.div
+              className="absolute z-30 pointer-events-none rounded-lg shadow-xl border border-[var(--secondary)] top-[35%] left-[65%] w-[50%] h-[25%] flex items-center justify-center overflow-hidden glow-effect"
+              variants={chartVariants}
+              initial="hidden"
+              animate="visible"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(41, 73, 70, 0.95) 0%, rgba(74, 131, 122, 0.95) 100%)",
+                boxShadow: "0 10px 25px rgba(41, 73, 70, 0.3)",
+              }}
+            >
+              <div className="p-4 h-full w-full relative">
+                <AnimatedGrowthChart className="w-full h-full" />
+              </div>
+            </motion.div>
+
+            {/* Card horizontal com os gráficos de rosquinha e barras */}
+            <motion.div
+              className="absolute z-30 pointer-events-none rounded-lg shadow-xl border border-[var(--secondary)] bottom-[10%] left-[-10%] w-[50%] h-[20%] flex items-stretch overflow-hidden"
+              variants={combinedChartVariants}
+              initial="hidden"
+              animate="visible"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(41, 73, 70, 0.95) 0%, rgba(74, 131, 122, 0.95) 100%)",
+                boxShadow: "0 10px 25px rgba(41, 73, 70, 0.3)",
+              }}
+            >
+              {/* Primeiro bloco: Gráfico de Rosquinha */}
+              <div className="flex-shrink-0 w-[40%] h-full p-3 relative border-r border-white/10">
+                <div className="h-full w-full pt-3">
+                  <AnimatedDonutChart className="w-full h-full" />
+                </div>
+              </div>
+
+              {/* Segundo bloco: Gráfico de Barras */}
+              <div className="flex-grow p-3 relative">
+                <div className="h-full w-full pt-3">
+                  <AnimatedBarChart className="w-full h-full" />
+                </div>
+              </div>
             </motion.div>
 
             {/* Elementos decorativos de luz */}
