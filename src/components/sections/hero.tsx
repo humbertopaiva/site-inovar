@@ -10,7 +10,7 @@ import { Button } from "../ui/button";
 import { ArrowRight, ArrowDown } from "lucide-react";
 import AnimatedGrowthChart from "../common/animated-growth-chart";
 import AnimatedDonutChart from "../common/animated-donut-chart";
-import AnimatedBarChart from "../common/animated-bar-chart"; // Nova importação
+import AnimatedBarChart from "../common/animated-bar-chart";
 
 const Hero = () => {
   const { scrollY } = useScroll();
@@ -107,6 +107,9 @@ const Hero = () => {
               <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#edfffd,transparent)]"></div>
             </div>
           </motion.div>
+
+          {/* Novo overlay que vai do branco para transparente (esquerda para direita) */}
+          <div className="absolute inset-0 z-20 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none"></div>
         </>
       )}
 
@@ -121,7 +124,7 @@ const Hero = () => {
             animate="visible"
           >
             <motion.div variants={itemVariants}>
-              <h1 className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl leading-tight">
+              <h1 className="font-montserrat-bold text-4xl md:text-5xl lg:text-6xl leading-tight">
                 <motion.span
                   className="block mb-2 text-primary"
                   variants={titleVariants}
@@ -131,7 +134,7 @@ const Hero = () => {
                   Inove sua Gestão de
                 </motion.span>
                 <motion.span
-                  className="text-accent"
+                  className="text-primary-light"
                   variants={secondTitleVariants}
                   initial="hidden"
                   animate="visible"
@@ -159,9 +162,13 @@ const Hero = () => {
               variants={itemVariants}
             >
               <Button
-                variant="accent"
                 size="lg"
-                className="font-medium group relative overflow-hidden glow-effect"
+                className="font-medium group relative overflow-hidden text-white border-none shadow-md transition-all"
+                style={{
+                  background:
+                    "linear-gradient(to right, var(--primary), var(--secondary))",
+                  boxShadow: "0 4px 15px rgba(41, 73, 70, 0.25)",
+                }}
                 asChild
               >
                 <Link href="#servicos">
@@ -225,7 +232,7 @@ const Hero = () => {
 
             {/* Chart overlay em formato de card com fundo primário */}
             <motion.div
-              className="absolute z-30 pointer-events-none rounded-lg shadow-xl border border-[var(--secondary)] top-[35%] left-[65%] w-[50%] h-[25%] flex items-center justify-center overflow-hidden glow-effect"
+              className="absolute z-30 pointer-events-none rounded-lg shadow-xl border border-[var(--secondary)] top-[35%] left-[65%] w-[50%] h-[25%] flex items-center justify-center overflow-hidden"
               variants={chartVariants}
               initial="hidden"
               animate="visible"
@@ -268,7 +275,7 @@ const Hero = () => {
             </motion.div>
 
             {/* Elementos decorativos de luz */}
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/20 rounded-full blur-xl z-0" />
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/20 rounded-full blur-xl z-0" />
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-xl z-0" />
             <motion.div
               className="absolute top-1/3 right-1/4 w-20 h-20 bg-secondary/30 rounded-full blur-lg z-0"
