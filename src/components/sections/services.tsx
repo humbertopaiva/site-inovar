@@ -59,14 +59,10 @@ const ServiceCard = ({
       className={cn(
         "bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-500 h-full flex flex-col group overflow-hidden relative",
         "border border-gray-100 hover:border-transparent",
-        "transform hover:-translate-y-2 cursor-pointer",
+        "transform hover:-translate-y-2 cursor-pointer border-[var(--secondary)]",
         className
       )}
     >
-      {/* Elemento decorativo no canto - visível apenas no hover */}
-      <div className="absolute -top-12 -right-12 w-24 h-24 rounded-full bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      <div className="absolute -bottom-12 -left-12 w-24 h-24 rounded-full bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
       {/* Gradiente que fica visível no hover do card */}
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"

@@ -227,3 +227,41 @@ p {
 .animate-bounce {
   animation: bounce 1s infinite;
 }
+
+/* Animação personalizada para borda brilhante */
+@keyframes borderGlow {
+  0% {
+    box-shadow: 0 0 0 1px rgba(58, 99, 96, 0.2), 0 0 5px 0 rgba(58, 99, 96, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(58, 99, 96, 0.4),
+      0 0 15px 3px rgba(58, 99, 96, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 1px rgba(58, 99, 96, 0.2), 0 0 5px 0 rgba(58, 99, 96, 0.1);
+  }
+}
+
+.glow-border {
+  animation: borderGlow 3s infinite ease-in-out;
+  border-color: rgba(58, 99, 96, 0.3);
+}
+
+/* Adicionar transição suave para quando o efeito é ativado/desativado */
+.service-card {
+  transition: box-shadow 0.8s ease-in-out, transform 0.5s ease-out,
+    border-color 0.8s ease, opacity 0.6s ease;
+}
+
+/* Cores customizadas para hover */
+.service-card:hover .icon-container {
+  color: var(--primary-light);
+  transform: translateY(-5px);
+}
+
+/* Melhorar efeito de hover no card com uma transição mais suave */
+.service-card:hover {
+  border-color: transparent;
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(41, 73, 70, 0.1), 0 0 0 1px rgba(41, 73, 70, 0.1);
+}
