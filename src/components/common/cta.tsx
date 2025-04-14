@@ -11,7 +11,8 @@ import { Button } from "../ui/button";
 
 const CTA = () => {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+  // Removendo a opção "once: true" para que a animação ocorra toda vez que a seção entrar na viewport
+  const isInView = useInView(sectionRef, { amount: 0.3 });
 
   // Animações
   const containerVariants = {
@@ -40,6 +41,23 @@ const CTA = () => {
       opacity: 1,
       scale: 1,
       transition: { duration: 0.8, delay: 0.3, ease: "easeOut" },
+    },
+  };
+
+  // Variante específica para o SVG - deslizando da esquerda para a direita
+  // Ajustada para ser mais responsiva e iniciar um pouco mais rápido quando a seção aparece
+  const svgVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 60, // Aumentado para movimento mais rápido
+        damping: 15, // Reduzido para um pouco mais de "bounce"
+        delay: 0.5, // Reduzido o atraso para iniciar mais rápido
+        duration: 0.7, // Ligeiramente mais rápido
+      },
     },
   };
 
@@ -104,8 +122,7 @@ const CTA = () => {
             {/* Overlay decorativo com gradiente */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent z-10 mix-blend-overlay" />
 
-            {/* Imagem */}
-
+            {/* Imagem principal */}
             <Image
               src="/cta.png"
               alt="Crescimento empresarial"
@@ -113,13 +130,22 @@ const CTA = () => {
               className="object-contain overflow-visible h-full w-full z-20"
             />
 
-            <Image
-              src="/chevron.svg"
-              alt="Inovar Assessoria"
-              width={200}
-              height={200}
-              className="h-full filter drop-shadow-lg absolute bottom-0 right-0 top-2 z-10"
-            />
+            {/* SVG com animação de deslizamento da esquerda para a direita */}
+            <motion.div
+              className="absolute bottom-0 right-0 top-2 z-10"
+              variants={svgVariants}
+              // Definindo estados de animação separadamente para permitir animação independente
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+            >
+              <Image
+                src="/chevron.svg"
+                alt="Inovar Assessoria"
+                width={200}
+                height={200}
+                className="h-full filter drop-shadow-lg"
+              />
+            </motion.div>
 
             {/* Elementos decorativos */}
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/20 rounded-full blur-xl z-0" />
