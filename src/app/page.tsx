@@ -14,6 +14,7 @@ import React, { useEffect } from "react";
 import Lenis from "lenis";
 import { CursorifyProvider } from "@cursorify/react";
 import WorkflowProcess from "@/components/sections/workflow-process";
+import BusinessPartnersGrid from "@/components/sections/partners";
 
 export default function Home() {
   useEffect(() => {
@@ -39,6 +40,7 @@ export default function Home() {
         <Services />
         <WorkflowProcess />
         {/* <Testimonials /> */}
+        <BusinessPartnersGrid />
         <CTA />
         <ContactSection />
         <Footer />
