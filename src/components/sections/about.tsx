@@ -146,7 +146,7 @@ const About = () => {
           {/* Text Content Cell - Spans 7 columns (DIREITA) */}
           <motion.div
             ref={textRef}
-            className="lg:col-span-7 bg-gray-50 rounded-2xl p-8 shadow-md border-l-4 border-primary"
+            className="lg:col-span-7 bg-gray-50 rounded-2xl p-8 shadow-md border-l-4 border-[var(--secondary)]"
             variants={itemVariants}
             initial="hidden"
             animate={isTextInView ? "visible" : "hidden"}

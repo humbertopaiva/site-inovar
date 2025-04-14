@@ -6,11 +6,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { formatWhatsAppLink } from "@/lib/utils";
-import { Button } from "../ui/button";
 import { ArrowRight, ArrowDown } from "lucide-react";
 import AnimatedGrowthChart from "../common/animated-growth-chart";
 import AnimatedDonutChart from "../common/animated-donut-chart";
 import AnimatedBarChart from "../common/animated-bar-chart";
+import { DiagonalButton } from "../ui/diagonal-button";
 
 const Hero = () => {
   const { scrollY } = useScroll();
@@ -22,6 +22,15 @@ const Hero = () => {
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // Função para scroll suave para a seção #about
+  const scrollToAbout = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const aboutSection = document.getElementById("about");
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   // Variantes para animações de entrada
   const containerVariants = {
@@ -161,38 +170,28 @@ const Hero = () => {
               className="flex flex-col sm:flex-row gap-4 pt-4"
               variants={itemVariants}
             >
-              <Button
-                size="lg"
-                className="font-medium group relative overflow-hidden text-white border-none shadow-md transition-all"
-                style={{
-                  background:
-                    "linear-gradient(to right, var(--primary), var(--secondary))",
-                  boxShadow: "0 4px 15px rgba(41, 73, 70, 0.25)",
-                }}
-                asChild
-              >
-                <Link href="#servicos">
+              {/* Botão Saiba Mais com link para a seção #about */}
+              <Link href="#about" onClick={scrollToAbout}>
+                <DiagonalButton variant="primary">
                   <span className="relative z-10">Saiba mais</span>
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
+                </DiagonalButton>
+              </Link>
 
-              <Button
-                variant="outline"
-                size="lg"
-                className="font-medium group border-primary text-primary hover:bg-primary hover:text-white"
-                asChild
+              {/* Botão Fale Conosco com link para WhatsApp */}
+              <Link
+                href={formatWhatsAppLink(
+                  "32999083793",
+                  "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria."
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Link
-                  href={formatWhatsAppLink(
-                    "32999083793",
-                    "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria."
-                  )}
-                >
-                  Fale Conosco
+                <DiagonalButton variant="outline-primary">
+                  <span className="relative z-10">Fale Conosco</span>
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
+                </DiagonalButton>
+              </Link>
             </motion.div>
 
             <motion.div
