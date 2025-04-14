@@ -188,7 +188,7 @@ const Hero = () => {
           >
             {/* Imagem principal que toca o fundo */}
             <motion.div
-              className="absolute inset-0 z-20 flex items-center justify-center mt-12 rounded-2xl overflow-hidden"
+              className="absolute inset-0 z-20 flex items-center justify-center mt-12 rounded-sm overflow-hidden"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 1 }}
