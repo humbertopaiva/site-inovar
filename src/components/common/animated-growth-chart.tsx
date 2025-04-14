@@ -95,13 +95,13 @@ const AnimatedGrowthChart: React.FC<AnimatedGrowthChartProps> = ({
           <Line
             type="monotone"
             dataKey="value"
-            stroke="#ffffff"
-            strokeWidth={3}
+            stroke=" #4a837a"
+            strokeWidth={2}
             dot={{
-              stroke: "#ffffff",
+              stroke: "#65a09a",
               strokeWidth: 1,
-              r: 3,
-              fill: "#3db9bb",
+              r: 2,
+              fill: "#ffad5c",
             }}
             activeDot={{ r: 5, stroke: "#28bbc0", strokeWidth: 2 }}
             isAnimationActive={true}

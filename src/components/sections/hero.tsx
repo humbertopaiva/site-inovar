@@ -103,7 +103,9 @@ const Hero = () => {
 
           {/* Light Gradient Overlay */}
           <motion.div className="absolute inset-0 z-10" style={{ y, opacity }}>
-            <div className="absolute h-screen w-screen rotate-180 transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(205, 248, 252, 0.5)_100%)]" />
+            <div className="absolute top-0 -z-10 h-full w-full bg-white">
+              <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(109,224,244,0.5)] opacity-50 blur-[80px]"></div>
+            </div>
           </motion.div>
         </>
       )}
@@ -216,7 +218,7 @@ const Hero = () => {
                 src="/hero-inovar.jpg"
                 alt="Inovar Assessoria Empresarial"
                 fill
-                className="object-cover"
+                className="object-cover max-h-[70vh] rounded-sm"
                 priority
               />
             </motion.div>
@@ -240,7 +242,7 @@ const Hero = () => {
 
             {/* Card horizontal com os gráficos de rosquinha e barras */}
             <motion.div
-              className="absolute z-30 pointer-events-none rounded-lg shadow-xl border border-[var(--secondary)] bottom-[10%] left-[-10%] w-[50%] h-[20%] flex items-stretch overflow-hidden"
+              className="absolute z-30 pointer-events-none rounded-lg shadow-xl border border-[var(--secondary)] bottom-[10%] left-[-12%] w-[50%] h-[18%] flex items-stretch overflow-hidden"
               variants={combinedChartVariants}
               initial="hidden"
               animate="visible"
