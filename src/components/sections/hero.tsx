@@ -133,22 +133,22 @@ const Hero = () => {
             animate="visible"
           >
             <motion.div variants={itemVariants}>
-              <h1 className="font-montserrat-bold text-4xl md:text-5xl lg:text-6xl leading-tight">
+              <h1 className="font-montserrat text-4xl md:text-5xl lg:text-6xl">
                 <motion.span
-                  className="block mb-2 text-primary"
+                  className="block mb-2 text-primary text-4xl font-bold"
                   variants={titleVariants}
                   initial="hidden"
                   animate="visible"
                 >
-                  Inove sua Gestão de
+                  Transforme Desafios em
                 </motion.span>
                 <motion.span
-                  className="text-primary-light"
+                  className="text-accent text-4xl font-bold"
                   variants={secondTitleVariants}
                   initial="hidden"
                   animate="visible"
                 >
-                  Alta Performance
+                  Resultados Concretos
                 </motion.span>
               </h1>
             </motion.div>
@@ -157,13 +157,12 @@ const Hero = () => {
               className="text-lg md:text-xl text-gray-600 max-w-xl"
               variants={itemVariants}
             >
-              Saiba como os nossos
-              <span className="font-medium text-primary">
-                {" "}
-                serviços estratégicos
+              Descubra como{" "}
+              <span className="font-bold text-primary">
+                empresas que crescem
               </span>{" "}
-              vão te ajudar a criar um negócio de sucesso e com a saúde
-              financeira em dia.
+              estão utilizando nossa assessoria para aumentar lucros e otimizar
+              seus processos.
             </motion.p>
 
             <motion.div
