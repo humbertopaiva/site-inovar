@@ -243,8 +243,8 @@ const WorkflowProcess = () => {
 
     const options = {
       root: null,
-      rootMargin: "0px",
-      threshold: 0.5, // Pelo menos 50% do elemento deve estar visível
+      rootMargin: "-30% 0px -30% 0px", // Ajustado para considerar apenas quando o componente estiver mais para o topo da tela
+      threshold: 0.5, // Aumentado para 0.6 (60% do elemento deve estar visível)
     };
 
     const callback = (entries: IntersectionObserverEntry[]) => {

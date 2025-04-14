@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { formatWhatsAppLink } from "@/lib/utils";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,12 +17,14 @@ const Navbar = () => {
     <nav className="bg-white py-4 border-b border-gray-100 sticky top-0 z-50">
       <div className="container flex justify-between items-center">
         <Link href="/" className="flex items-center">
-          <span className="text-primary font-serif text-2xl font-bold">
-            Inovar
-          </span>
-          <span className="text-secondary text-lg ml-1 font-light">
-            Assessoria
-          </span>
+          <Image
+            alt="Logo Inovar"
+            src={"/inovarlogo.png"}
+            width={124}
+            height={124}
+            className="w-full h-full"
+            objectFit="contain"
+          />
         </Link>
 
         {/* Desktop Navigation */}
