@@ -29,6 +29,12 @@ const config: Config = {
         montserrat: ["var(--font-montserrat)"],
         raleway: ["var(--font-raleway)"],
       },
+      fontWeight: {
+        medium: "500",
+        semibold: "600",
+        bold: "700",
+        extrabold: "800",
+      },
       animation: {
         bounce: "bounce 1s infinite",
       },
