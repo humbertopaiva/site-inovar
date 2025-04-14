@@ -50,7 +50,7 @@ const FloatingButtons = () => {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-20 z-50 bg-primary hover:bg-primary/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+          className="fixed bottom-8 right-20 z-50 bg-[var(--secondary)] hover:bg-primary/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
           aria-label="Voltar ao topo"
         >
           <svg
