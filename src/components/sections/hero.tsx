@@ -1,4 +1,4 @@
-// src/components/sections/hero.tsx
+// src/components/sections/hero-light.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -62,41 +62,35 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative py-0 overflow-hidden bg-[#121212] text-white min-h-[90vh] flex items-center">
+    <section className="relative py-0 overflow-hidden bg-white text-primary min-h-[90vh] flex items-center">
       {/* Parallax Background with Image and Overlay */}
       {isMounted && (
         <>
           {/* Background Image with Parallax */}
           <motion.div className="absolute inset-0 z-0" style={{ y, scale }}>
             <Image
-              src="/low-angle-view-skyscrapers2.jpg"
-              alt="Skyscrapers background"
+              src="/light-office-background.jpg" // Você precisará adicionar esta imagem ao seu projeto
+              alt="Office background"
               fill
-              className="object-cover blur-sm"
+              className="object-cover opacity-20"
               priority
             />
           </motion.div>
 
-          {/* Separate Overlay with Parallax - This ensures the overlay is always on top of the image */}
+          {/* Light Gradient Overlay */}
           <motion.div className="absolute inset-0 z-10" style={{ y, opacity }}>
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(to right, rgba(41, 73, 70, 0.95), rgba(41, 73, 70, 0.85) 50%, rgba(41, 73, 70, 0.5))",
-              }}
-            />
+            <div className="absolute h-screen w-screen rotate-180 transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(205, 248, 252, 0.5)_100%)]" />
           </motion.div>
         </>
       )}
 
       {/* Animated Growth Chart Background - positioned to cover the screen diagonally */}
-      <div className="absolute inset-0 z-20 pointer-events-none">
+      <div className="absolute inset-0 z-20 pointer-events-none opacity-10 ">
         <AnimatedGrowthChart className="absolute w-full h-full" />
       </div>
 
       {/* Content */}
-      <div className="container relative z-30">
+      <div className="container relative z-30 ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 items-center min-h-[90vh]">
           {/* Left Column - Content */}
           <motion.div
@@ -108,7 +102,7 @@ const Hero = () => {
             <motion.div variants={itemVariants}>
               <h1 className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl leading-tight">
                 <motion.span
-                  className="block mb-2 text-white"
+                  className="block mb-2 text-primary"
                   variants={titleVariants}
                   initial="hidden"
                   animate="visible"
@@ -127,11 +121,11 @@ const Hero = () => {
             </motion.div>
 
             <motion.p
-              className="text-lg md:text-xl text-gray-200 max-w-xl"
+              className="text-lg md:text-xl text-gray-600 max-w-xl"
               variants={itemVariants}
             >
               Saiba como os nossos
-              <span className="font-medium text-white">
+              <span className="font-medium text-primary">
                 {" "}
                 serviços estratégicos
               </span>{" "}
@@ -158,7 +152,7 @@ const Hero = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="font-medium group border-white text-white hover:bg-white hover:text-primary"
+                className="font-medium group border-primary text-primary hover:bg-primary hover:text-white"
                 asChild
               >
                 <Link
@@ -174,7 +168,7 @@ const Hero = () => {
             </motion.div>
 
             <motion.div
-              className="hidden md:flex items-center gap-3 text-white/70 mt-4"
+              className="hidden md:flex items-center gap-3 text-primary/70 mt-4"
               variants={itemVariants}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -185,19 +179,20 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Image with glass effect, full height */}
+          {/* Right Column - Image with light glass effect */}
           <motion.div
-            className="relative h-full min-h-[90vh] w-full rounded-tl-3xl overflow-hidden glass-effect shadow-lg border border-white/10"
+            className="relative h-full min-h-[90vh] w-full rounded-tl-3xl overflow-hidden shadow-lg border border-primary/10"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           >
-            {/* Overlay para vidro fosco */}
+            {/* Light glass effect overlay */}
             <div
               className="absolute inset-0 z-10 mix-blend-overlay"
               style={{
                 background:
-                  "linear-gradient(to bottom right, rgba(41, 73, 70, 0.1), rgba(74, 131, 122, 0.1), rgba(250, 153, 55, 0.1))",
+                  "linear-gradient(to bottom right, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5), rgba(250, 153, 55, 0.1))",
+                backdropFilter: "blur(8px)",
               }}
             />
 
