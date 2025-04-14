@@ -57,38 +57,12 @@ const About = () => {
     >
       {/* Background Elements with Parallax */}
       <motion.div
-        className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-bl-full"
+        className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-bl-sm"
         style={{ y: backgroundY, scale: imageScale }}
       />
       <motion.div
-        className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent/5 rounded-tr-full"
+        className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent/5 rounded-tr-sm"
         style={{ y: backgroundY, scale: imageScale }}
-      />
-
-      {/* Elementos decorativos adicionais */}
-      <motion.div
-        className="absolute top-1/4 left-[10%] w-16 h-16 rounded-full bg-accent/10"
-        style={{
-          y: useTransform(scrollYProgress, [0, 1], [0, -30]),
-          scale: useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.2, 1]),
-          opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1, 0.6]),
-        }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 right-[15%] w-24 h-24 rounded-full bg-primary/10"
-        style={{
-          y: useTransform(scrollYProgress, [0, 1], [0, 40]),
-          scale: useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.3, 1]),
-          opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0.7, 1, 0.7]),
-        }}
-      />
-      <motion.div
-        className="absolute top-1/2 right-[5%] w-12 h-12 rounded-full bg-secondary/10"
-        style={{
-          y: useTransform(scrollYProgress, [0, 1], [0, -50]),
-          scale: useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.1, 1]),
-          opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 0.9, 0.5]),
-        }}
       />
 
       <motion.div
@@ -119,7 +93,7 @@ const About = () => {
           {/* Large Image Cell - Spans 5 columns (ESQUERDA) */}
           <motion.div
             ref={imageRef}
-            className="lg:col-span-5 rounded-2xl overflow-hidden shadow-lg relative h-full min-h-[300px] lg:min-h-[400px] group"
+            className="lg:col-span-5 rounded-md overflow-hidden shadow-lg relative h-full min-h-[300px] lg:min-h-[400px] group"
             variants={imageVariants}
             initial="hidden"
             animate={isImageInView ? "visible" : "hidden"}
@@ -146,7 +120,7 @@ const About = () => {
           {/* Text Content Cell - Spans 7 columns (DIREITA) */}
           <motion.div
             ref={textRef}
-            className="lg:col-span-7 bg-gray-50 rounded-2xl p-8 shadow-md border-l-4 border-[var(--secondary)]"
+            className="lg:col-span-7 bg-gray-50 rounded-md p-8 shadow-md border-l-4 border-[var(--secondary)]"
             variants={itemVariants}
             initial="hidden"
             animate={isTextInView ? "visible" : "hidden"}
@@ -186,25 +160,25 @@ const About = () => {
           }
           transition={{ delay: 0.6, duration: 0.7 }}
         >
-          <div className="p-6 rounded-xl bg-white shadow-md border border-gray-100">
+          <div className="p-6 rounded-sm bg-white shadow-sm border border-gray-100">
             <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
               +150
             </div>
             <div className="text-gray-600">Clientes Atendidos</div>
           </div>
-          <div className="p-6 rounded-xl bg-white shadow-md border border-gray-100">
+          <div className="p-6 rounded-sm bg-white shadow-sm border border-gray-100">
             <div className="text-3xl md:text-4xl font-bold text-secondary mb-2">
               10+
             </div>
             <div className="text-gray-600">Anos de Experiência</div>
           </div>
-          <div className="p-6 rounded-xl bg-white shadow-md border border-gray-100">
+          <div className="p-6 rounded-sm bg-white shadow-sm border border-gray-100">
             <div className="text-3xl md:text-4xl font-bold text-accent mb-2">
               98%
             </div>
             <div className="text-gray-600">Satisfação de Clientes</div>
           </div>
-          <div className="p-6 rounded-xl bg-white shadow-md border border-gray-100">
+          <div className="p-6 rounded-sm bg-white shadow-sm border border-gray-100">
             <div className="text-3xl md:text-4xl font-bold text-primary-light mb-2">
               30%
             </div>
