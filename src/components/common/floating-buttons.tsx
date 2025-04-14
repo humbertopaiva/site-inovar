@@ -33,7 +33,7 @@ const FloatingButtons = () => {
         )}
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-8 right-6 z-50 bg-accent hover:bg-accent/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+        className="fixed bottom-8 right-6 z-50 bg-green-500 hover:bg-accent/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
         aria-label="Contato por WhatsApp"
       >
         <svg

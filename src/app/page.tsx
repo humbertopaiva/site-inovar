@@ -13,6 +13,7 @@ import ContactSection from "@/components/sections/contact";
 import React, { useEffect } from "react";
 import Lenis from "lenis";
 import { CursorifyProvider } from "@cursorify/react";
+import WorkflowProcess from "@/components/sections/workflow-process";
 
 export default function Home() {
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function Home() {
         <About />
         <MissionVisionValues /> {/* Novo componente adicionado */}
         <Services />
+        <WorkflowProcess />
         {/* <Testimonials /> */}
         <CTA />
         <ContactSection />
