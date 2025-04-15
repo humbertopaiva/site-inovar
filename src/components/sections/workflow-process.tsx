@@ -93,25 +93,21 @@ const MobileProcessStep: React.FC<
           {step}
         </div>
 
-        {/* Título com altura fixa */}
+        {/* Título sem limitação de altura */}
         <h3
           className="text-md font-montserrat font-semibold text-primary"
           style={{
             fontSize: "1.2rem",
             lineHeight: "1.5rem",
-            height: "1.5rem", // Altura fixa para o título
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
           }}
         >
           {title}
         </h3>
       </div>
 
-      {/* Descrição com altura fixa */}
-      <div className="h-16 mb-4">
-        <p className="text-gray-600 text-sm line-clamp-3">{description}</p>
+      {/* Descrição sem limitação de altura */}
+      <div className="mb-4">
+        <p className="text-gray-600 text-sm">{description}</p>
       </div>
 
       {/* Imagem com altura fixa */}
@@ -127,8 +123,8 @@ const MobileProcessStep: React.FC<
         <div className="absolute top-0 left-0 w-16 h-16 bg-primary/10 rounded-full blur-xl" />
       </div>
 
-      {/* Lista de bullets com altura fixa e rolagem se necessário */}
-      <div className="flex-1 overflow-y-auto">
+      {/* Lista de bullets com altura padrão, sem rolagem */}
+      <div className="flex-1">
         <ul className="space-y-3">
           {stepDetail.content.map((item, i) => (
             <li key={i} className="flex items-start">

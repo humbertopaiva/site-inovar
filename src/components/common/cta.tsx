@@ -90,21 +90,20 @@ const CTA = () => {
             variants={containerVariants}
           >
             <motion.h2
-              className="text-3xl md:text-4xl font-serif mb-4 tracking-tight"
+              className="text-3xl md:text-4xl font-montserrat font-bold mb-4 tracking-tight"
               variants={itemVariants}
             >
-              Pronto para impulsionar o seu negócio?
+              Transforme desafios em oportunidades de crescimento
             </motion.h2>
-
             <motion.p
               className="text-lg text-gray-300 mb-8"
               variants={itemVariants}
             >
-              Entre em contato conosco para uma consultoria personalizada e
-              descubra como podemos ajudar a melhorar os resultados da sua
-              empresa.
+              Nossa equipe especializada está pronta para desenvolver
+              estratégias personalizadas que impulsionarão a performance da sua
+              empresa. Vamos construir juntos o caminho para resultados
+              extraordinários.
             </motion.p>
-
             <motion.div
               className="flex flex-col sm:flex-row gap-4"
               variants={itemVariants}
@@ -113,10 +112,10 @@ const CTA = () => {
                 <Link
                   href={formatWhatsAppLink(
                     "32999083793",
-                    "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria."
+                    "Olá! Gostaria de agendar uma consultoria estratégica com a Inovar Assessoria."
                   )}
                 >
-                  Agendar Consultoria
+                  Iniciar Transformação
                 </Link>
               </DiagonalButton>
             </motion.div>
