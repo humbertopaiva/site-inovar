@@ -85,7 +85,7 @@ const MobileProcessStep: React.FC<
         {/* Número do passo com design diferenciado */}
         <div
           className={cn(
-            "w-10 h-10 aspect-square rounded-full flex items-center justify-center text-white font-bold text-md mb-3 transition-colors duration-300",
+            "w-8 h-8 aspect-square rounded-full flex items-center justify-center text-white font-bold text-md mb-3 transition-colors duration-300",
             "bg-[var(--secondary-light)]"
           )}
         >
