@@ -4,15 +4,13 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   output: "export",
+  assetPrefix:
+    process.env.NODE_ENV === "production"
+      ? "https://site-inovar-teste.pages.dev"
+      : "",
+  basePath: "",
   images: {
-    domains: ["img.freepik.com", "static.wixstatic.com"],
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "img.freepik.com",
-        pathname: "**",
-      },
-    ],
+    unoptimized: true,
   },
 };
 
