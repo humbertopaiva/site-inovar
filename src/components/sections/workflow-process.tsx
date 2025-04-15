@@ -139,6 +139,7 @@ const MobileProcessStep: React.FC<
 };
 
 // Componente para a visualização detalhada do passo
+
 const StepDetail = ({
   stepData,
   isVisible,
@@ -160,66 +161,62 @@ const StepDetail = ({
         transition: { duration: 0.4 },
       }}
       className={cn(
-        "bg-white p-6 md:p-8 rounded-sm border shadow-lg border-[var(--secondary)]",
+        "bg-white rounded-sm border shadow-lg border-[var(--secondary)]",
         isVisible ? "block" : "hidden"
       )}
     >
-      <div className="space-y-6">
-        {/* Título com ícone numerado */}
-        <h3 className="text-xl md:text-2xl font-montserrat font-semibold text-primary mb-6 flex items-center">
-          <span className="w-8 h-8 rounded-full bg-accent text-white font-bold text-sm flex items-center justify-center mr-3">
-            {stepData.step}
-          </span>
-          {stepData.title}
-        </h3>
-
-        {/* Imagem */}
-        <div className="relative h-48 md:h-56 rounded-sm overflow-hidden bg-gray-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" />
-
-          {/* Placeholder para imagem real */}
+      {/* Layout flexível para desktop (lado a lado) */}
+      <div className="flex flex-col md:flex-row h-full">
+        {/* Imagem na esquerda (visível em desktop e mobile, mas posicionada diferentemente) */}
+        <div className="md:w-1/2 relative h-48 md:h-auto">
           <Image
             src={stepData.image}
             alt={stepData.title}
             fill
-            className="object-cover relative z-10 h-full w-full"
+            className="object-cover"
           />
 
           {/* Elementos decorativos */}
           <div className="absolute bottom-0 right-0 w-24 h-24 bg-accent/10 rounded-full blur-xl" />
           <div className="absolute top-0 left-0 w-16 h-16 bg-primary/10 rounded-full blur-xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" />
         </div>
 
-        {/* Lista de bullets */}
-        <ul className="space-y-4 mt-6">
-          {stepData.content.map((item, i) => (
-            <motion.li
-              key={i}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: isVisible ? 1 : 0, x: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="flex items-start"
-            >
-              <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-primary mt-0.5 mr-3 flex-shrink-0">
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+        {/* Conteúdo na direita */}
+        <div className="p-6 md:p-8 md:w-1/2">
+          <div className="space-y-6">
+            {/* Lista de bullets */}
+            <ul className="space-y-4">
+              {stepData.content.map((item, i) => (
+                <motion.li
+                  key={i}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: isVisible ? 1 : 0, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex items-start"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-              <p className="text-gray-700">{item}</p>
-            </motion.li>
-          ))}
-        </ul>
+                  <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-primary mt-0.5 mr-3 flex-shrink-0">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <p className="text-gray-700">{item}</p>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
@@ -272,8 +269,7 @@ const WorkflowProcess = () => {
     {
       step: 1,
       title: "Análise Criteriosa",
-      image:
-        "https://img.freepik.com/free-photo/close-up-businessman-with-digital-tablet_1098-549.jpg?t=st=1744647645~exp=1744651245~hmac=bcf08559eb8ee12d02a85b08e4199557bf7a21e7ab2b5c2e88ce690ecfbeb73d&w=996", // Substitua por uma imagem real
+      image: "/step-1.jpg",
       content: [
         "Identificação dos pontos de melhoria através de diagnóstico empresarial",
         "Desenvolvimento de metas claras e alcançáveis",
@@ -284,8 +280,7 @@ const WorkflowProcess = () => {
     {
       step: 2,
       title: "Implementação de Soluções",
-      image:
-        "https://img.freepik.com/free-photo/glowing-filament-ignites-ideas-innovative-solutions-generated-by-ai_188544-9614.jpg?t=st=1744648518~exp=1744652118~hmac=6ce6d787e51dcb2fc9cd1eac67a325fd1a14f010468e0556f6faff8b5a443465&w=1060", // Substitua por uma imagem real
+      image: "/step-2.jpg",
       content: [
         "Seleção de parceiros estratégicos para impulsionar resultados",
         "Implementação de sistemas modernos de gerenciamento",
@@ -296,8 +291,7 @@ const WorkflowProcess = () => {
     {
       step: 3,
       title: "Controle e Sustentabilidade",
-      image:
-        "https://img.freepik.com/free-photo/businesswoman-analyzing-data_23-2151957117.jpg?t=st=1744648562~exp=1744652162~hmac=b205c61872b7615967a6a57c51c513997d9ab424ab381f9a1a5cd09a52abaa12&w=900", // Substitua por uma imagem real
+      image: "/step-3.jpg",
       content: [
         "Estabelecimento de métricas para acompanhar resultados",
         "Documentação de processos para consistência",
