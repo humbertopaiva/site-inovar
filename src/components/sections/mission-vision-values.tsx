@@ -1,27 +1,10 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 
 const MissionVisionValues = () => {
-  // Refs para animação baseada em visibilidade
-  const sectionRef = useRef(null);
-  const missionRef = useRef(null);
-  const visionRef = useRef(null);
-  const valuesRef = useRef(null);
-
-  // Configurar detecção de visibilidade para cada elemento
-  const isSectionInView = useInView(sectionRef, { once: true, amount: 0.1 });
-  const isMissionInView = useInView(missionRef, { once: true, amount: 0.5 });
-  const isVisionInView = useInView(visionRef, { once: true, amount: 0.5 });
-  const isValuesInView = useInView(valuesRef, { once: true, amount: 0.5 });
-
-  // Estados para dispositivos móveis - mostrar conteúdo quando estiver em foco
-  const isMissionFocused = useInView(missionRef, { amount: 0.7 });
-  const isVisionFocused = useInView(visionRef, { amount: 0.7 });
-  const isValuesFocused = useInView(valuesRef, { amount: 0.7 });
-
   // Estado para detectar se é dispositivo móvel
   const [isMobile, setIsMobile] = useState(false);
 
@@ -46,43 +29,17 @@ const MissionVisionValues = () => {
     return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
-  // Determinar quando mostrar conteúdo para cada card
-  const showMissionContent = isMobile ? isMissionFocused : isHoveringMission;
-  const showVisionContent = isMobile ? isVisionFocused : isHoveringVision;
-  const showValuesContent = isMobile ? isValuesFocused : isHoveringValues;
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
   return (
     <section
       id="missao-visao-valores"
-      ref={sectionRef}
       className="py-16 md:py-20 relative bg-white overflow-hidden"
     >
       {/* Section Header */}
       <motion.div
         className="container relative z-10 mb-12"
         initial={{ opacity: 0, y: 20 }}
-        animate={isSectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.7 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
       >
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-primary text-3xl md:text-4xl font-montserrat font-bold mb-4">
@@ -101,38 +58,55 @@ const MissionVisionValues = () => {
         <div className="flex flex-col md:flex-row gap-6">
           {/* Mission Column */}
           <motion.div
-            ref={missionRef}
             className="flex flex-col flex-1 mb-6 md:mb-0"
-            initial="hidden"
-            animate={isMissionInView ? "visible" : "hidden"}
-            variants={containerVariants}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
             onMouseEnter={() => setIsHoveringMission(true)}
             onMouseLeave={() => setIsHoveringMission(false)}
           >
-            <div className="h-[604px] overflow-hidden rounded-sm relative">
+            <div className="h-[604px] overflow-hidden rounded-lg relative shadow-lg">
               {/* Content container with gradient background */}
-              <div
-                className="transition-all duration-500 ease-in-out"
+              <motion.div
+                className="absolute top-0 left-0 right-0 w-full"
                 style={{
-                  height: showMissionContent ? "340px" : "0px",
                   background:
                     "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   overflow: "hidden",
                 }}
+                initial={{ height: "0%" }}
+                animate={{
+                  height: isHoveringMission || isMobile ? "56%" : "0%",
+                }}
+                transition={{
+                  duration: 1.2,
+                  ease: [0.16, 1, 0.3, 1], // Curva de Bézier suavizada para desaceleração
+                }}
               >
                 <div className="py-12 px-8 text-white">
                   <motion.h3
-                    variants={itemVariants}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{
+                      opacity: isHoveringMission || isMobile ? 1 : 0,
+                      y: isHoveringMission || isMobile ? 0 : -10,
+                    }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
                     className="text-2xl font-montserrat font-bold mb-4"
                   >
                     MISSÃO
                   </motion.h3>
                   <motion.div
-                    variants={itemVariants}
-                    className="h-1 w-16 bg-white/30 mb-6"
+                    initial={{ width: 0 }}
+                    animate={{
+                      width: isHoveringMission || isMobile ? "4rem" : 0,
+                    }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="h-1 bg-white/30 mb-6"
                   ></motion.div>
                   <motion.p
-                    variants={itemVariants}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: isHoveringMission || isMobile ? 1 : 0 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
                     className="text-white/90 text-lg"
                   >
                     Contribuir para que as empresas estabeleçam seus próprios
@@ -140,16 +114,23 @@ const MissionVisionValues = () => {
                     operacionais e de gestão estratégica.
                   </motion.p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Image container */}
-              <div
-                className="transition-all duration-500 ease-in-out w-full relative"
+              <motion.div
+                className="w-full relative"
+                initial={{ height: "100%", top: "0%" }}
+                animate={{
+                  height: isHoveringMission || isMobile ? "44%" : "100%",
+                  top: isHoveringMission || isMobile ? "56%" : "0%",
+                }}
+                transition={{
+                  duration: 1.2,
+                  ease: [0.16, 1, 0.3, 1], // Curva de Bézier suavizada
+                }}
                 style={{
-                  height: showMissionContent ? "264px" : "604px",
                   position: "absolute",
                   bottom: 0,
-                  top: showMissionContent ? "340px" : "0px",
                 }}
               >
                 <Image
@@ -159,10 +140,11 @@ const MissionVisionValues = () => {
                   className="object-cover"
                 />
                 {/* Title overlay visible only when not hovering */}
-                <div
-                  className={`absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6 transition-opacity duration-500 ${
-                    showMissionContent ? "opacity-0" : "opacity-100"
-                  }`}
+                <motion.div
+                  className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6"
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: isHoveringMission || isMobile ? 0 : 1 }}
+                  transition={{ duration: 0.5 }}
                 >
                   <div className="flex justify-between items-center">
                     <h3 className="text-white text-2xl font-montserrat font-bold">
@@ -192,45 +174,62 @@ const MissionVisionValues = () => {
                       </svg>
                     </div>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </div>
           </motion.div>
 
           {/* Vision Column */}
           <motion.div
-            ref={visionRef}
             className="flex flex-col flex-1 mb-6 md:mb-0"
-            initial="hidden"
-            animate={isVisionInView ? "visible" : "hidden"}
-            variants={containerVariants}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             onMouseEnter={() => setIsHoveringVision(true)}
             onMouseLeave={() => setIsHoveringVision(false)}
           >
-            <div className="h-[604px] overflow-hidden rounded-sm relative">
+            <div className="h-[604px] overflow-hidden rounded-lg relative shadow-lg">
               {/* Content container with gradient background */}
-              <div
-                className="transition-all duration-500 ease-in-out"
+              <motion.div
+                className="absolute top-0 left-0 right-0 w-full"
                 style={{
-                  height: showVisionContent ? "340px" : "0px",
                   background:
                     "linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%)",
                   overflow: "hidden",
                 }}
+                initial={{ height: "0%" }}
+                animate={{
+                  height: isHoveringVision || isMobile ? "56%" : "0%",
+                }}
+                transition={{
+                  duration: 1.2,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
               >
                 <div className="py-12 px-8 text-white">
                   <motion.h3
-                    variants={itemVariants}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{
+                      opacity: isHoveringVision || isMobile ? 1 : 0,
+                      y: isHoveringVision || isMobile ? 0 : -10,
+                    }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
                     className="text-2xl font-montserrat font-bold mb-4"
                   >
                     VISÃO
                   </motion.h3>
                   <motion.div
-                    variants={itemVariants}
-                    className="h-1 w-16 bg-white/30 mb-6"
+                    initial={{ width: 0 }}
+                    animate={{
+                      width: isHoveringVision || isMobile ? "4rem" : 0,
+                    }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="h-1 bg-white/30 mb-6"
                   ></motion.div>
                   <motion.p
-                    variants={itemVariants}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: isHoveringVision || isMobile ? 1 : 0 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
                     className="text-white/90 text-lg"
                   >
                     Ser uma empresa referência em gestão estratégica e
@@ -238,16 +237,23 @@ const MissionVisionValues = () => {
                     e inovação em nossas soluções.
                   </motion.p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Image container */}
-              <div
-                className="transition-all duration-500 ease-in-out w-full relative"
+              <motion.div
+                className="w-full relative"
+                initial={{ height: "100%", top: "0%" }}
+                animate={{
+                  height: isHoveringVision || isMobile ? "44%" : "100%",
+                  top: isHoveringVision || isMobile ? "56%" : "0%",
+                }}
+                transition={{
+                  duration: 1.2,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
                 style={{
-                  height: showVisionContent ? "264px" : "604px",
                   position: "absolute",
                   bottom: 0,
-                  top: showVisionContent ? "340px" : "0px",
                 }}
               >
                 <Image
@@ -257,10 +263,11 @@ const MissionVisionValues = () => {
                   className="object-cover"
                 />
                 {/* Title overlay visible only when not hovering */}
-                <div
-                  className={`absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6 transition-opacity duration-500 ${
-                    showVisionContent ? "opacity-0" : "opacity-100"
-                  }`}
+                <motion.div
+                  className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6"
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: isHoveringVision || isMobile ? 0 : 1 }}
+                  transition={{ duration: 0.5 }}
                 >
                   <div className="flex justify-between items-center">
                     <h3 className="text-white text-2xl font-montserrat font-bold">
@@ -290,45 +297,62 @@ const MissionVisionValues = () => {
                       </svg>
                     </div>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </div>
           </motion.div>
 
           {/* Values Column */}
           <motion.div
-            ref={valuesRef}
             className="flex flex-col flex-1"
-            initial="hidden"
-            animate={isValuesInView ? "visible" : "hidden"}
-            variants={containerVariants}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
             onMouseEnter={() => setIsHoveringValues(true)}
             onMouseLeave={() => setIsHoveringValues(false)}
           >
-            <div className="h-[604px] overflow-hidden rounded-sm relative">
+            <div className="h-[604px] overflow-hidden rounded-lg relative shadow-lg">
               {/* Content container with gradient background */}
-              <div
-                className="transition-all duration-500 ease-in-out"
+              <motion.div
+                className="absolute top-0 left-0 right-0 w-full"
                 style={{
-                  height: showValuesContent ? "340px" : "0px",
                   background:
                     "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   overflow: "hidden",
                 }}
+                initial={{ height: "0%" }}
+                animate={{
+                  height: isHoveringValues || isMobile ? "56%" : "0%",
+                }}
+                transition={{
+                  duration: 1.2,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
               >
                 <div className="py-12 px-8 text-white">
                   <motion.h3
-                    variants={itemVariants}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{
+                      opacity: isHoveringValues || isMobile ? 1 : 0,
+                      y: isHoveringValues || isMobile ? 0 : -10,
+                    }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
                     className="text-2xl font-montserrat font-bold mb-4"
                   >
                     VALORES
                   </motion.h3>
                   <motion.div
-                    variants={itemVariants}
-                    className="h-1 w-16 bg-white/30 mb-6"
+                    initial={{ width: 0 }}
+                    animate={{
+                      width: isHoveringValues || isMobile ? "4rem" : 0,
+                    }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="h-1 bg-white/30 mb-6"
                   ></motion.div>
                   <motion.ul
-                    variants={itemVariants}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: isHoveringValues || isMobile ? 1 : 0 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
                     className="space-y-3 text-white/90 text-lg"
                   >
                     <li className="flex items-center">
@@ -351,16 +375,23 @@ const MissionVisionValues = () => {
                     </li>
                   </motion.ul>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Image container */}
-              <div
-                className="transition-all duration-500 ease-in-out w-full relative"
+              <motion.div
+                className="w-full relative"
+                initial={{ height: "100%", top: "0%" }}
+                animate={{
+                  height: isHoveringValues || isMobile ? "44%" : "100%",
+                  top: isHoveringValues || isMobile ? "56%" : "0%",
+                }}
+                transition={{
+                  duration: 1.2,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
                 style={{
-                  height: showValuesContent ? "264px" : "604px",
                   position: "absolute",
                   bottom: 0,
-                  top: showValuesContent ? "340px" : "0px",
                 }}
               >
                 <Image
@@ -370,10 +401,11 @@ const MissionVisionValues = () => {
                   className="object-cover"
                 />
                 {/* Title overlay visible only when not hovering */}
-                <div
-                  className={`absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6 transition-opacity duration-500 ${
-                    showValuesContent ? "opacity-0" : "opacity-100"
-                  }`}
+                <motion.div
+                  className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6"
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: isHoveringValues || isMobile ? 0 : 1 }}
+                  transition={{ duration: 0.5 }}
                 >
                   <div className="flex justify-between items-center">
                     <h3 className="text-white text-2xl font-montserrat font-bold">
@@ -403,8 +435,8 @@ const MissionVisionValues = () => {
                       </svg>
                     </div>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
