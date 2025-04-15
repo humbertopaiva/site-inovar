@@ -162,7 +162,7 @@ const DiagonalButton = React.forwardRef<HTMLButtonElement, DiagonalButtonProps>(
 
     return (
       <div
-        className="relative group min-w-3xs h-12 overflow-visible"
+        className="relative group min-w-3xs h-12 overflow-visible cursor-pointer"
         id="diagonal-button-container"
       >
         {/* Background shadow for 3D effect */}

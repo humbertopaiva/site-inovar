@@ -62,7 +62,21 @@ const CTA = () => {
   };
 
   return (
-    <section className="bg-primary py-16 overflow-hidden">
+    <section
+      id="contato"
+      className="py-16 overflow-hidden relative"
+      style={{
+        background:
+          "linear-gradient(135deg, var(--primary) 0%, #1c3535 50%, #0f1f1e 100%)",
+        backgroundImage: `
+          radial-gradient(circle at 30% 20%, rgba(74, 131, 122, 0.4) 0%, transparent 50%),
+          radial-gradient(circle at 70% 80%, rgba(250, 153, 55, 0.3) 0%, transparent 40%),
+          linear-gradient(135deg, var(--primary) 0%, #1c3535 50%, #0f1f1e 100%)
+        `,
+        backgroundSize: "100% 100%, 100% 100%, 100% 100%",
+        backgroundBlendMode: "screen, overlay, normal",
+      }}
+    >
       <div className="container" ref={sectionRef}>
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
@@ -95,7 +109,7 @@ const CTA = () => {
               className="flex flex-col sm:flex-row gap-4"
               variants={itemVariants}
             >
-              <DiagonalButton variant="accent">
+              <DiagonalButton variant="accent" className="cursor-pointer">
                 <Link
                   href={formatWhatsAppLink(
                     "32999083793",

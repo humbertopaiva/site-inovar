@@ -9,7 +9,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-primary text-white">
+    <footer className="bg-gray-100 text-gray-800">
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -17,7 +17,7 @@ const Footer = () => {
               <Link href="/" className="flex items-center z-20">
                 <Image
                   alt="Logo Inovar"
-                  src={"/logo-inovar-branca.svg"}
+                  src={"/logo-inovar.svg"}
                   width={144}
                   height={144}
                   className=""
@@ -25,14 +25,14 @@ const Footer = () => {
                 />
               </Link>
             </div>
-            <p className="text-gray-300 mb-4">
+            <p className="text-gray-600 mb-4">
               Serviços estratégicos para ajudar a criar um negócio de sucesso e
               com a saúde financeira em dia.
             </p>
             <div className="flex space-x-4">
               <a
                 href="https://www.instagram.com/inovarassessoriajf/"
-                className="text-white hover:text-accent transition-colors"
+                className="text-primary hover:text-accent transition-colors"
               >
                 <svg
                   className="w-6 h-6"
@@ -47,7 +47,7 @@ const Footer = () => {
                 href={formatWhatsAppLink("32999083793")}
                 target="_blank"
                 rel="noreferrer"
-                className="text-white hover:text-accent transition-colors"
+                className="text-primary hover:text-accent transition-colors"
               >
                 <svg
                   className="w-6 h-6"
@@ -62,14 +62,14 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="text-xl font-serif text-white mb-4">
+            <h4 className="text-xl font-serif text-primary mb-4">
               Links Rápidos
             </h4>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="#sobre"
-                  className="text-gray-300 hover:text-accent transition-colors"
+                  className="text-gray-600 hover:text-accent transition-colors"
                 >
                   Sobre Nós
                 </Link>
@@ -77,7 +77,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="#servicos"
-                  className="text-gray-300 hover:text-accent transition-colors"
+                  className="text-gray-600 hover:text-accent transition-colors"
                 >
                   Nossos Serviços
                 </Link>
@@ -85,7 +85,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="#contato"
-                  className="text-gray-300 hover:text-accent transition-colors"
+                  className="text-gray-600 hover:text-accent transition-colors"
                 >
                   Contato
                 </Link>
@@ -94,8 +94,8 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="text-xl font-serif text-white mb-4">Contato</h4>
-            <address className="not-italic text-gray-300">
+            <h4 className="text-xl font-serif text-primary mb-4">Contato</h4>
+            <address className="not-italic text-gray-600">
               <p className="mb-2">Rua Oscar Vidal, Número 431/602</p>
               <p className="mb-2">Centro, Juiz de Fora - MG</p>
               <p className="mb-2">CEP: 36.016.290</p>
@@ -120,9 +120,9 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="border-t border-gray-700 pb-12 md:pb-0">
+      <div className="border-t border-gray-300">
         <div className="container py-6">
-          <p className="text-center text-gray-400">
+          <p className="text-center text-gray-500">
             &copy; {currentYear} Inovar Assessoria Empresarial. Todos os
             direitos reservados.
           </p>

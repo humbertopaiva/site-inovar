@@ -17,9 +17,45 @@ import {
   Facebook,
 } from "lucide-react";
 
+// Hook para detectar a interseção com o footer
+const useFooterIntersection = () => {
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+
+  useEffect(() => {
+    // Encontrar o elemento footer
+    const footer = document.querySelector("footer");
+
+    if (!footer) return;
+
+    // Criar instância do Intersection Observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Atualizar o estado quando a interseção mudar
+        setIsFooterVisible(entries[0].isIntersecting);
+      },
+      {
+        // Configurar para detectar quando pelo menos 10% do footer está visível
+        threshold: 0.1,
+        rootMargin: "100px 0px 0px 0px", // Margem extra acima do footer
+      }
+    );
+
+    // Observar o footer
+    observer.observe(footer);
+
+    // Limpar o observer quando o componente for desmontado
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return isFooterVisible;
+};
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isFooterVisible = useFooterIntersection();
 
   // Detectar scroll para ajustar a transparência
   useEffect(() => {
@@ -66,21 +102,27 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // URLs das redes sociais - substitua com seus próprios links
+  // URLs das redes sociais
   const socialLinks = {
-    instagram: "https://www.instagram.com/inovarassessoria",
+    instagram: "https://www.instagram.com/inovarassessoriajf",
     facebook: "https://www.facebook.com/inovarassessoria",
   };
 
   return (
-    <nav
+    <motion.nav
       className={`py-3 sticky top-0 z-50 transition-all duration-300 ${
         isScrolled && !isMenuOpen
           ? "bg-white/70 backdrop-blur-md border-b border-gray-100/50 shadow-sm"
           : isMenuOpen
-          ? "bg-white" // Remover o efeito de vidro embacado quando o menu está aberto
+          ? "bg-white"
           : "bg-white/50 backdrop-blur-sm"
       }`}
+      initial={{ y: 0 }}
+      animate={{
+        y: isFooterVisible ? -100 : 0,
+        opacity: isFooterVisible ? 0 : 1,
+      }}
+      transition={{ duration: 0.4 }}
     >
       <div className="container flex justify-between items-center">
         <Link href="/" className="flex items-center z-20">
@@ -90,7 +132,6 @@ const Navbar = () => {
             width={144}
             height={144}
             className=""
-            objectFit="contain"
           />
         </Link>
 
@@ -154,7 +195,7 @@ const Navbar = () => {
               asChild
               className="border-primary text-primary bg-transparent hover:bg-primary hover:text-accent hover:border-accent rounded-md py-2 px-4 shadow-sm hover:shadow-md transition-all duration-300 border-2 group overflow-hidden"
             >
-              <Link href="/cliente" className="flex items-center relative ">
+              <Link href="/cliente" className="flex items-center relative">
                 <span className="absolute inset-0 w-full h-full bg-accent/10 -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
                 <User className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:scale-110" />
                 <span className="relative z-10">Área do Cliente</span>
@@ -213,7 +254,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu com AnimatePresence para transições suaves */}
+      {/* Mobile Menu com AnimatePresence */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -256,7 +297,7 @@ const Navbar = () => {
                   >
                     <Link
                       href={item.href}
-                      className="text-primary hover:text-secondary transition-colors  px-4 block flex items-center text-lg font-medium"
+                      className="text-primary hover:text-secondary transition-colors px-4 block flex items-center text-lg font-medium"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <span className="mr-3 text-accent">{item.icon}</span>
@@ -333,22 +374,13 @@ const Navbar = () => {
                   >
                     <Instagram size={24} />
                   </a>
-                  <a
-                    href={socialLinks.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:text-accent transition-colors p-2 bg-gray-50 rounded-full"
-                    aria-label="Facebook"
-                  >
-                    <Facebook size={24} />
-                  </a>
                 </div>
               </motion.div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 };
 
