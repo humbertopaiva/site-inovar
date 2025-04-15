@@ -4,7 +4,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { formatWhatsAppLink } from "@/lib/utils";
 import { ArrowDown } from "lucide-react";
 import AnimatedGrowthChart from "../common/animated-growth-chart";
 import AnimatedDonutChart from "../common/animated-donut-chart";
@@ -187,7 +186,7 @@ const Hero = () => {
               </DiagonalButton>
 
               {/* Botão Fale Conosco com link para WhatsApp */}
-              <DiagonalButton
+              {/* <DiagonalButton
                 variant="outline-primary"
                 href={formatWhatsAppLink(
                   "32999083793",
@@ -198,7 +197,7 @@ const Hero = () => {
                 iconPosition="right"
               >
                 <span className="relative z-10">Fale Conosco</span>
-              </DiagonalButton>
+              </DiagonalButton> */}
             </motion.div>
 
             <motion.div
