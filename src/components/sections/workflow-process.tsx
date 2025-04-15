@@ -27,8 +27,10 @@ const ProcessStep: React.FC<ProcessStepProps> = ({
     <div
       ref={stepRef}
       className={cn(
-        "p-6 md:p-8 bg-white rounded-sm border transition-all duration-300 mb-24 border-[var(--secondary)] shadow-lg",
-        isActive ? "border-[var(--secondary)] shadow-lg" : "border-gray-200"
+        "p-6 md:p-8 bg-white rounded-sm border transition-all duration-300 mb-24",
+        isActive
+          ? "border-[var(--secondary)] shadow-lg"
+          : "border-gray-200 opacity-60 blur-[1px] filter hover:opacity-80 hover:blur-0 transition-all"
       )}
     >
       {/* Número do passo com design diferenciado */}

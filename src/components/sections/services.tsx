@@ -443,7 +443,7 @@ const Services = () => {
         activeFilter === value
           ? {
               background:
-                "linear-gradient(to right, var(--primary-light), var(--secondary-light))",
+                "linear-gradient(to right, var(--primary), var(--secondary))",
             }
           : {}
       }
@@ -471,11 +471,11 @@ const Services = () => {
           initial="hidden"
           animate={isTitleInView ? "visible" : "hidden"}
         >
-          <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-[var(--secondary-light)] mb-4">
+          <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-primary mb-4">
             Nossos Serviços
           </h2>
 
-          <p className="text-gray-300 text-lg">
+          <p className="text-gray-700 text-lg">
             Nossa equipe oferece soluções personalizadas para impulsionar o
             crescimento do seu negócio.
           </p>
