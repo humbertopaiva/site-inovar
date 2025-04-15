@@ -77,35 +77,44 @@ const MobileProcessStep: React.FC<
     <div
       onClick={onClick}
       className={cn(
-        "p-5 bg-white rounded-lg transition-all duration-300  min-w-[90vw] max-w-[90vw] mx-2 flex flex-col cursor-pointer snap-center h-full",
+        "p-5 bg-white rounded-lg transition-all duration-300 min-w-[90vw] max-w-[90vw] mx-2 flex flex-col cursor-pointer snap-center",
+        "h-[600px]", // Altura fixa para todos os cards
         isActive ? "border-[var(--secondary)] shadow-lg" : "border-gray-200"
       )}
     >
-      <div className="flex items-center gap-4 flex-1 w-full">
+      <div className="flex items-center gap-4 w-full mb-3">
         {/* Número do passo com design diferenciado */}
         <div
           className={cn(
-            "w-8 h-8 aspect-square rounded-full flex items-center justify-center text-white font-bold text-md mb-3 transition-colors duration-300",
+            "w-8 h-8 aspect-square rounded-full flex items-center justify-center text-white font-bold text-md transition-colors duration-300",
             "bg-[var(--secondary-light)]"
           )}
         >
           {step}
         </div>
 
-        {/* Título e descrição */}
+        {/* Título com altura fixa */}
         <h3
-          className="text-md font-montserrat font-semibold text-primary mb-2"
+          className="text-md font-montserrat font-semibold text-primary"
           style={{
             fontSize: "1.2rem",
             lineHeight: "1.5rem",
+            height: "1.5rem", // Altura fixa para o título
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
           }}
         >
           {title}
         </h3>
       </div>
-      <p className="text-gray-600 text-sm mb-4">{description}</p>
 
-      {/* Imagem */}
+      {/* Descrição com altura fixa */}
+      <div className="h-16 mb-4">
+        <p className="text-gray-600 text-sm line-clamp-3">{description}</p>
+      </div>
+
+      {/* Imagem com altura fixa */}
       <div className="relative h-40 rounded-sm overflow-hidden bg-gray-50 flex items-center justify-center mb-4">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" />
         <Image
@@ -118,30 +127,32 @@ const MobileProcessStep: React.FC<
         <div className="absolute top-0 left-0 w-16 h-16 bg-primary/10 rounded-full blur-xl" />
       </div>
 
-      {/* Lista de bullets */}
-      <ul className="space-y-3 mt-2 flex-1 min-h-[240px]">
-        {stepDetail.content.map((item, i) => (
-          <li key={i} className="flex items-start">
-            <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center text-primary mt-0.5 mr-2 flex-shrink-0">
-              <svg
-                className="w-3 h-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-            </div>
-            <p className="text-gray-700 text-sm">{item}</p>
-          </li>
-        ))}
-      </ul>
+      {/* Lista de bullets com altura fixa e rolagem se necessário */}
+      <div className="flex-1 overflow-y-auto">
+        <ul className="space-y-3">
+          {stepDetail.content.map((item, i) => (
+            <li key={i} className="flex items-start">
+              <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center text-primary mt-0.5 mr-2 flex-shrink-0">
+                <svg
+                  className="w-3 h-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+              <p className="text-gray-700 text-sm">{item}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
