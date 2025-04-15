@@ -53,10 +53,6 @@ const defaultPartners: Partner[] = [
   },
 ];
 
-interface PartnersGridProps {
-  partners?: Partner[];
-}
-
 // Componente para o card de parceiro
 const PartnerCard = ({ partner }: { partner: Partner }) => {
   return (
@@ -109,9 +105,6 @@ const BusinessPartnersGrid: React.FC<PartnersGridProps> = ({
   const titleRef = useRef(null);
   const isInView = useInView(titleRef, { once: true, amount: 0.2 });
 
-  // Duplica os parceiros para criar efeito de grid infinito
-  const allGridPartners = [...partners, ...partners, ...partners];
-
   return (
     <section
       ref={sectionRef}
@@ -144,29 +137,59 @@ const BusinessPartnersGrid: React.FC<PartnersGridProps> = ({
             </p>
           </motion.div>
 
-          {/* Grid de parceiros à direita com efeito de máscara */}
+          {/* Grid de parceiros à direita com efeito de desfoque nas bordas */}
           <motion.div
             className="lg:col-span-7 relative"
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           >
-            {/* Máscara de gradiente para criar efeito "infinito" */}
-            <div className="absolute inset-0 z-10 pointer-events-none">
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-50 to-transparent"></div>
-              <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-gray-50 to-transparent"></div>
-              <div className="absolute top-0 bottom-0 left-0 w-8 bg-gradient-to-r from-gray-50 to-transparent"></div>
-              <div className="absolute top-0 bottom-0 right-0 w-20 bg-gradient-to-l from-gray-50 to-transparent"></div>
-            </div>
+            {/* Container do grid com máscara de desfoque nas bordas */}
+            <div className="relative">
+              {/* Máscaras de gradiente para criar efeito de "volume" */}
+              <div className="absolute inset-0 z-10 pointer-events-none">
+                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-gray-50 to-transparent"></div>
+                <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-gray-50 to-transparent"></div>
+                <div className="absolute top-0 bottom-0 left-0 w-12 bg-gradient-to-r from-gray-50 to-transparent"></div>
+                <div className="absolute top-0 bottom-0 right-0 w-12 bg-gradient-to-l from-gray-50 to-transparent"></div>
+              </div>
 
-            {/* Container do grid com scroll */}
-            <div className="relative max-h-[500px] overflow-auto scrollbar-thin scrollbar-thumb-primary scrollbar-track-gray-100 pr-4">
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pb-16">
-                {allGridPartners.map((partner, index) => (
-                  <div key={`${partner.id}-${index}`} className="h-32 relative">
-                    <PartnerCard partner={partner} />
-                  </div>
-                ))}
+              {/* Grades com efeito de perspectiva para criar ilusão de volume */}
+              <div className="relative py-8 px-6">
+                <div
+                  className="grid grid-cols-2 md:grid-cols-3 gap-6"
+                  style={{
+                    transform: "perspective(1000px) rotateX(2deg)",
+                    transformOrigin: "center center",
+                  }}
+                >
+                  {partners.map((partner) => (
+                    <motion.div
+                      key={partner.id}
+                      className="h-32 relative"
+                      initial={{ y: 10, opacity: 0 }}
+                      animate={
+                        isInView
+                          ? {
+                              y: 0,
+                              opacity: 1,
+                            }
+                          : {}
+                      }
+                      transition={{
+                        duration: 0.5,
+                        delay: 0.1 * partner.id,
+                        ease: "easeOut",
+                      }}
+                      whileHover={{
+                        y: -5,
+                        transition: { duration: 0.2 },
+                      }}
+                    >
+                      <PartnerCard partner={partner} />
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>

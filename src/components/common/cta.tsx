@@ -7,7 +7,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 
 import { formatWhatsAppLink } from "@/lib/utils";
-import { Button } from "../ui/button";
+import { DiagonalButton } from "../ui/diagonal-button";
 
 const CTA = () => {
   const sectionRef = useRef(null);
@@ -92,7 +92,7 @@ const CTA = () => {
               className="flex flex-col sm:flex-row gap-4"
               variants={itemVariants}
             >
-              <Button variant="accent" size="lg" asChild>
+              <DiagonalButton variant="accent">
                 <Link
                   href={formatWhatsAppLink(
                     "32999083793",
@@ -101,22 +101,13 @@ const CTA = () => {
                 >
                   Agendar Consultoria
                 </Link>
-              </Button>
-
-              <Button
-                variant="outline"
-                size="lg"
-                className="bg-transparent text-white border-white hover:bg-white hover:text-primary"
-                asChild
-              >
-                <Link href="#contato">Saiba Mais</Link>
-              </Button>
+              </DiagonalButton>
             </motion.div>
           </motion.div>
 
           {/* Coluna de Imagem (Direita) */}
           <motion.div
-            className="relative h-[500px] w-full rounded-lg flex"
+            className="relative md:h-[500px] h-[380px] w-full rounded-lg flex"
             variants={imageVariants}
           >
             {/* Overlay decorativo com gradiente */}
@@ -127,12 +118,12 @@ const CTA = () => {
               src="/cta.png"
               alt="Crescimento empresarial"
               fill
-              className="object-contain overflow-visible h-full w-full z-20"
+              className="object-contain overflow-visible md:h-full h-[70%] md:w-full w-[70%] z-20 pr-4 md:pr-0"
             />
 
             {/* SVG com animação de deslizamento da esquerda para a direita */}
             <motion.div
-              className="absolute bottom-0 right-0 top-2 z-10"
+              className="absolute md:bottom-0 bottom-0 md:right-0 -right-10 md:top-2 top-18 z-10"
               variants={svgVariants}
               // Definindo estados de animação separadamente para permitir animação independente
               initial="hidden"
@@ -143,7 +134,7 @@ const CTA = () => {
                 alt="Inovar Assessoria"
                 width={200}
                 height={200}
-                className="h-full filter drop-shadow-lg"
+                className="md:h-full h-[80%] filter drop-shadow-lg"
               />
             </motion.div>
 

@@ -56,7 +56,10 @@ const DiagonalButton = React.forwardRef<HTMLButtonElement, DiagonalButtonProps>(
       <div className="relative group min-w-3xs h-12">
         {!isOutline && (
           <div
-            className="absolute w-full h-full -bottom-1 -left-1 bg-accent rounded-md"
+            className={cn(
+              "absolute w-full h-full -bottom-1 -left-1  rounded-sm",
+              variant === "accent" ? "bg-secondary" : "bg-accent"
+            )}
             style={{ transform: `skew(calc(${skewAmount} * 1 ))` }}
           />
         )}
@@ -64,10 +67,11 @@ const DiagonalButton = React.forwardRef<HTMLButtonElement, DiagonalButtonProps>(
         <Button
           ref={ref}
           className={cn(
-            "relative font-medium overflow-hidden  transition-all duration-300 w-full h-full flex",
+            "relative overflow-hidden  transition-all duration-300 w-full h-full flex font-bold",
             isOutline
               ? `bg-transparent text-${colorBase} border-2 border-${colorBase} hover:bg-${colorBase}/10`
               : `text-white border-transparent shadow-md`,
+            variant === "accent" ? "text-primary" : "text-white",
             hoverScale && "group-hover:scale-[1.03]",
             pulseEffect && "animate-pulse",
             className
@@ -75,7 +79,7 @@ const DiagonalButton = React.forwardRef<HTMLButtonElement, DiagonalButtonProps>(
           style={{
             background: isOutline ? "transparent" : bgColor,
             borderColor: isOutline ? bgColor : "transparent",
-            color: isOutline ? bgColor : "white",
+            // color: isOutline ? bgColor : "white",
             transform: `skew(${skewAmount})`,
             boxShadow: isOutline ? "none" : "0 4px 10px rgba(38, 66, 67, 0.25)",
           }}
@@ -110,7 +114,7 @@ const DiagonalButton = React.forwardRef<HTMLButtonElement, DiagonalButtonProps>(
         {/* Decorative elements for non-outline variants */}
         {!isOutline && (
           <div
-            className="absolute -inset-0.5 opacity-0 group-hover:opacity-100 rounded-md blur-md transition-all duration-500"
+            className="absolute -inset-0.5 opacity-0 group-hover:opacity-100 rounded-sm blur-md transition-all duration-500"
             style={{
               background: `linear-gradient(to right, ${bgColor}60, ${bgColor}60)`,
             }}

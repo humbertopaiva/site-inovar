@@ -2,9 +2,8 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { cn, formatWhatsAppLink } from "@/lib/utils";
-import Image from "next/image";
 
 // Interface para o componente de card de serviço
 interface ServiceCardProps {
@@ -137,15 +136,6 @@ const Services = () => {
 
   // Estado para controlar o filtro ativo
   const [activeFilter, setActiveFilter] = React.useState("all");
-
-  // Animação de paralaxe
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 0.8]);
 
   // Variantes de animação
   const titleVariants = {
@@ -365,28 +355,11 @@ const Services = () => {
     <section
       id="servicos"
       ref={sectionRef}
-      className="py-24 relative overflow-hidden"
+      className="py-24 relative overflow-hidden bg-gray-50"
     >
-      {/* Elementos decorativos animados */}
-      <motion.div
-        className="absolute top-0 left-0 w-full h-full z-0 bg-opacity-30"
-        style={{ y, opacity }}
-      >
-        <div className="absolute -top-24 -left-24 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/4 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-secondary/5 rounded-full blur-3xl" />
-      </motion.div>
+      <div className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
 
       {/* Padrão decorativo */}
-      <div className="absolute right-0 top-1/4 w-64 h-64 opacity-10">
-        <Image
-          src="/api/placeholder/400/400"
-          alt=""
-          width={400}
-          height={400}
-          className="opacity-10"
-        />
-      </div>
 
       <div className="container relative z-10">
         {/* Cabeçalho da seção */}

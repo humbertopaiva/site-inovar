@@ -463,12 +463,6 @@ const WorkflowProcess = () => {
       className="py-16 md:py-24 bg-gray-50 relative md:overflow-visible overflow-hidden"
       style={{ minHeight: "100vh" }}
     >
-      {/* Elementos decorativos de fundo */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute -top-24 -right-24 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-      </div>
-
       <div className="container relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Cabeçalho da seção */}
         <motion.div
