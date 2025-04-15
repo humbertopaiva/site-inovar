@@ -106,18 +106,18 @@ const About = () => {
           {/* Text Content Cell - Spans 7 columns (DIREITA) */}
           <motion.div
             ref={textRef}
-            className="lg:col-span-7 bg-primary rounded-md p-8 shadow-md border-l-4 border-[var(--accent)] relative"
+            className="lg:col-span-7 bg-gray-50 rounded-md p-8 shadow-md border-l-4 border-[var(--primary-light)] relative"
             variants={itemVariants}
             initial="hidden"
             animate={isTextInView ? "visible" : "hidden"}
           >
-            <h3 className="text-2xl text-[#65a09a] font-montserrat font-semibold mb-4">
+            <h3 className="text-2xl text-[var(--primary-light)] font-montserrat font-semibold mb-4">
               Nossa Abordagem
             </h3>
             <div className="space-y-4">
-              <p className="text-white">
+              <p className="text-gray-600">
                 A{" "}
-                <span className="text-white font-medium">
+                <span className="text-secondary font-medium">
                   Inovar Assessoria Empresarial
                 </span>{" "}
                 desenvolve um serviço diferenciado para as empresas nas áreas
@@ -126,7 +126,7 @@ const About = () => {
                 avaliar as necessidades específicas de cada cliente e, assim,
                 traçar um planejamento estratégico das ações a serem executadas.
               </p>
-              <p className="text-white">
+              <p className="text-gray-600">
                 Visando um novo conceito de gestão, buscamos continuamente
                 assessorar e desenvolver o empreendimento dos nossos clientes.
                 Identificamos com precisão os pontos a serem revisados e
