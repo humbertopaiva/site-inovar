@@ -27,12 +27,41 @@ const ServiceCard = ({
 }: ServiceCardProps) => {
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: true, amount: 0.3 });
+  const [isMobile, setIsMobile] = React.useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
 
   // Cores para o gradiente único
   const gradientColors = {
     from: "var(--primary)",
     to: "var(--secondary)",
   };
+
+  // Verificar se é um dispositivo móvel quando o componente montar
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768); // 768px é um breakpoint comum para mobile
+    };
+
+    // Verificar imediatamente
+    checkMobile();
+
+    // Adicionar event listener para mudanças de tamanho
+    window.addEventListener("resize", checkMobile);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Atualizar o estado de hover com base na visualização e se é mobile
+  React.useEffect(() => {
+    if (isMobile && isInView) {
+      // Em dispositivos móveis, ativar o efeito hover quando o card entrar na viewport
+      setIsHovered(true);
+    } else if (!isMobile) {
+      // Em desktop, resetar para o comportamento normal de hover
+      setIsHovered(false);
+    }
+  }, [isMobile, isInView]);
 
   const handleCardClick = () => {
     // Utilizando a função auxiliar para formatar o link do WhatsApp
@@ -55,20 +84,36 @@ const ServiceCard = ({
         ease: [0.22, 1, 0.36, 1], // Curva de easing personalizada para movimento mais natural
       }}
       onClick={handleCardClick}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
+      onMouseLeave={() => !isMobile && setIsHovered(false)}
       className={cn(
-        "bg-white rounded-sm shadow-md hover:shadow-xl transition-all duration-500 h-full flex flex-col group overflow-hidden relative",
-        "border border-gray-100 hover:border-transparent",
-        "transform hover:-translate-y-2 cursor-pointer border-[var(--secondary)]",
+        "bg-white rounded-sm shadow-md transition-all duration-500 h-full flex flex-col group overflow-hidden relative",
+        "border border-gray-100",
+        "transform cursor-pointer border-[var(--secondary)]",
+        isHovered ? "shadow-xl border-transparent -translate-y-2" : "",
         className
       )}
     >
-      {/* Elemento decorativo no canto - visível apenas no hover */}
-      <div className="absolute -top-12 -right-12 w-24 h-24 rounded-full bg-[var(--primary)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      <div className="absolute -bottom-12 -left-12 w-24 h-24 rounded-full bg-[var(--accent)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-      {/* Gradiente que fica visível no hover do card */}
+      {/* Elemento decorativo no canto - visível sempre em mobile ou no hover em desktop */}
       <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+        className={cn(
+          "absolute -top-12 -right-12 w-24 h-24 rounded-full bg-[var(--primary)]/10 transition-opacity duration-500",
+          isHovered ? "opacity-100" : "opacity-0"
+        )}
+      ></div>
+      <div
+        className={cn(
+          "absolute -bottom-12 -left-12 w-24 h-24 rounded-full bg-[var(--accent)]/10 transition-opacity duration-500",
+          isHovered ? "opacity-100" : "opacity-0"
+        )}
+      ></div>
+
+      {/* Gradiente que fica visível sempre em mobile ou no hover em desktop */}
+      <div
+        className={cn(
+          "absolute inset-0 transition-opacity duration-500 z-0",
+          isHovered ? "opacity-100" : "opacity-0"
+        )}
         style={{
           background: `linear-gradient(to bottom right, ${gradientColors.from}, ${gradientColors.to})`,
         }}
@@ -78,35 +123,70 @@ const ServiceCard = ({
       <div className="p-7 flex flex-col h-full relative z-10 transition-colors duration-500">
         <div className="mb-6 relative">
           {/* Círculo decorativo atrás do ícone */}
-          <div className="absolute inset-0 rounded-full bg-primary/10  transition-colors duration-500 transform group-hover:scale-110"></div>
+          <div
+            className={cn(
+              "absolute inset-0 rounded-full bg-primary/10 transition-colors duration-500 transform",
+              isHovered ? "scale-110" : ""
+            )}
+          ></div>
 
           {/* Ícone com animação */}
           <motion.div
-            className="w-16 h-16 rounded-full flex items-center justify-center relative z-10 bg-white  transition-colors duration-500"
+            className="w-16 h-16 rounded-full flex items-center justify-center relative z-10 bg-white transition-colors duration-500"
             whileHover={{ rotate: 5 }}
           >
-            <div className="text-primary group-hover:text-white transition-colors duration-500 ">
+            <div
+              className={cn(
+                "text-primary transition-colors duration-500",
+                isHovered ? "text-white" : ""
+              )}
+            >
               {icon}
             </div>
           </motion.div>
         </div>
 
-        <h3 className="text-xl font-montserrat font-semibold text-primary mb-3 group-hover:!text-white transition-colors duration-500">
+        <h3
+          className={cn(
+            "text-xl font-montserrat font-semibold text-primary mb-3 transition-colors duration-500",
+            isHovered ? "!text-white" : ""
+          )}
+        >
           {title}
         </h3>
 
-        <p className="text-gray-600 flex-grow group-hover:text-white/90 transition-colors duration-500">
+        <p
+          className={cn(
+            "text-gray-600 flex-grow transition-colors duration-500",
+            isHovered ? "text-white/90" : ""
+          )}
+        >
           {description}
         </p>
 
         {/* Linha decorativa que expande no hover */}
-        <div className="h-0.5 bg-transparent group-hover:bg-white/30 transition-all duration-500 mt-4 w-0 group-hover:w-full"></div>
+        <div
+          className={cn(
+            "h-0.5 transition-all duration-500 mt-4",
+            isHovered ? "bg-white/30 w-full" : "bg-transparent w-0"
+          )}
+        ></div>
 
         {/* Indicador de "Saiba mais" que aparece no hover */}
-        <div className="mt-4 flex items-center font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500 text-sm group-hover:text-white">
+        <div
+          className={cn(
+            "mt-4 flex items-center font-medium transform transition-all duration-500 text-sm",
+            isHovered
+              ? "opacity-100 translate-y-0 text-white"
+              : "opacity-0 translate-y-2"
+          )}
+        >
           <span>Solicitar pelo WhatsApp</span>
           <svg
-            className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
+            className={cn(
+              "w-4 h-4 ml-1 transform transition-transform duration-300",
+              isHovered ? "translate-x-1" : ""
+            )}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -357,7 +437,7 @@ const Services = () => {
       ref={sectionRef}
       className="py-24 relative overflow-hidden"
     >
-      <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#294946_40%,#3a6360_100%)]"></div>
+      {/* <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#294946_40%,#3a6360_100%)]"></div> */}
 
       {/* Padrão decorativo */}
 
