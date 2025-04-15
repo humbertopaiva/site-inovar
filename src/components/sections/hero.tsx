@@ -124,13 +124,13 @@ const Hero = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 items-center min-h-[90vh]">
           {/* Left Column - Content */}
           <motion.div
-            className="flex flex-col md:gap-8 gap-4 md:py-20 py-0 pt-6"
+            className="flex flex-col md:gap-8 gap-4 md:py-20 py-0 md:pt-6 pt-0"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
           >
             <motion.div variants={itemVariants}>
-              <h1 className="font-montserrat text-4xl md:text-5xl lg:text-6xl relative  flex flex-col mt-12">
+              <h1 className="font-montserrat text-4xl md:text-5xl lg:text-6xl relative  flex flex-col md:mt-12 mt-6">
                 <motion.span
                   className="text-primary text-lg md:text-3xl font-light uppercase sm:text-center md:text-left block text-center md:mb-1 mb-2 "
                   variants={titleVariants}
