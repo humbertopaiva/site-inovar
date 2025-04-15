@@ -120,18 +120,21 @@ const About = () => {
                 <span className="text-secondary font-medium">
                   Inovar Assessoria Empresarial
                 </span>{" "}
-                desenvolve um serviço diferenciado para as empresas nas áreas
-                administrativa, financeira e de produção. Oferecemos assessoria
-                especializada, começando com um diagnóstico detalhado para
-                avaliar as necessidades específicas de cada cliente e, assim,
-                traçar um planejamento estratégico das ações a serem executadas.
+                revoluciona a gestão do seu negócio através de metodologias
+                exclusivas que integram áreas administrativa, financeira e
+                produtiva. Nosso processo inicia com um diagnóstico aprofundado,
+                mapeando com precisão os desafios específicos da sua empresa e
+                construindo um plano estratégico personalizado com metas
+                tangíveis e prazos realistas.
               </p>
               <p className="text-gray-600">
-                Visando um novo conceito de gestão, buscamos continuamente
-                assessorar e desenvolver o empreendimento dos nossos clientes.
-                Identificamos com precisão os pontos a serem revisados e
-                priorizamos ações de intervenção, implantando processos que
-                agregam competitividade e dinamismo ao seu negócio.
+                Mais que consultores, somos parceiros comprometidos com a
+                transformação do seu empreendimento. Identificamos oportunidades
+                invisíveis aos olhos convencionais e implementamos soluções que
+                geram resultados mensuráveis. Cada intervenção é
+                estrategicamente projetada para potencializar a competitividade,
+                otimizar recursos e acelerar o crescimento sustentável do seu
+                negócio no cenário atual.
               </p>
             </div>
           </motion.div>

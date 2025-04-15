@@ -86,10 +86,10 @@ const Navbar = () => {
         <Link href="/" className="flex items-center z-20">
           <Image
             alt="Logo Inovar"
-            src={"/inovarlogo.png"}
-            width={124}
-            height={124}
-            className="w-full h-full"
+            src={"/logo-inovar.svg"}
+            width={144}
+            height={144}
+            className=""
             objectFit="contain"
           />
         </Link>
