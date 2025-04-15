@@ -62,7 +62,7 @@ const CTA = () => {
   };
 
   return (
-    <section className="bg-primary py-16">
+    <section className="bg-primary py-16 overflow-hidden">
       <div className="container" ref={sectionRef}>
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"

@@ -1,20 +1,42 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { formatWhatsAppLink } from "@/lib/utils";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Detectar scroll para ajustar a transparência
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <nav className="bg-white py-4 border-b border-gray-100 sticky top-0 z-50">
+    <nav
+      className={`py-4 sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/70 backdrop-blur-md border-b border-gray-100/50 shadow-sm"
+          : "bg-white/50 backdrop-blur-sm"
+      }`}
+    >
       <div className="container flex justify-between items-center">
         <Link href="/" className="flex items-center">
           <Image
@@ -47,6 +69,13 @@ const Navbar = () => {
           >
             Contato
           </Link>
+          <Button
+            variant="outline"
+            asChild
+            className="border-primary text-primary hover:bg-primary/10"
+          >
+            <Link href="/cliente">Área do Cliente</Link>
+          </Button>
           <Button variant="accent" asChild>
             <Link
               href={formatWhatsAppLink(
@@ -93,46 +122,81 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white shadow-lg absolute w-full left-0 py-4 z-50 border-t border-gray-100">
-          <div className="container flex flex-col space-y-4">
-            <Link
-              href="#sobre"
-              className="text-primary hover:text-secondary transition-colors py-2 px-4"
-              onClick={() => setIsMenuOpen(false)}
+      {/* Mobile Menu com AnimatePresence para transições suaves */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden bg-white absolute w-full left-0 z-50 border-t border-gray-100 shadow-lg overflow-hidden"
+          >
+            <motion.div
+              initial={{ y: -20 }}
+              animate={{ y: 0 }}
+              transition={{ staggerChildren: 0.1, delayChildren: 0.1 }}
+              className="container flex flex-col space-y-4 py-4"
             >
-              Sobre
-            </Link>
-            <Link
-              href="#servicos"
-              className="text-primary hover:text-secondary transition-colors py-2 px-4"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Serviços
-            </Link>
-            <Link
-              href="#contato"
-              className="text-primary hover:text-secondary transition-colors py-2 px-4"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Contato
-            </Link>
-            <div className="px-4">
-              <Button variant="accent" className="w-full" asChild>
-                <Link
-                  href={formatWhatsAppLink(
-                    "32999083793",
-                    "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria."
-                  )}
+              {[
+                { href: "#sobre", text: "Sobre" },
+                { href: "#servicos", text: "Serviços" },
+                { href: "#contato", text: "Contato" },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  Fale Conosco
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+                  <Link
+                    href={item.href}
+                    className="text-primary hover:text-secondary transition-colors py-2 px-4 block"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.text}
+                  </Link>
+                </motion.div>
+              ))}
+
+              <motion.div
+                className="px-4"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <Button
+                  variant="outline"
+                  className="w-full mb-3 border-primary text-primary hover:bg-primary/10"
+                  asChild
+                >
+                  <Link href="/cliente" onClick={() => setIsMenuOpen(false)}>
+                    Área do Cliente
+                  </Link>
+                </Button>
+              </motion.div>
+
+              <motion.div
+                className="px-4"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <Button variant="accent" className="w-full" asChild>
+                  <Link
+                    href={formatWhatsAppLink(
+                      "32999083793",
+                      "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria."
+                    )}
+                  >
+                    Fale Conosco
+                  </Link>
+                </Button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
