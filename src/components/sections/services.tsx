@@ -333,7 +333,7 @@ const Services = () => {
       onClick={() => setActiveFilter(value)}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      className={`px-6 py-2.5 rounded-full transition-all duration-300 font-medium text-sm ${
+      className={`px-6 py-2.5 rounded-full cursor-pointer transition-all duration-300 font-medium text-sm ${
         activeFilter === value
           ? "text-white shadow-md"
           : "bg-white text-primary hover:bg-primary/5 border border-gray-200"
@@ -342,7 +342,7 @@ const Services = () => {
         activeFilter === value
           ? {
               background:
-                "linear-gradient(to right, var(--primary), var(--primary-light))",
+                "linear-gradient(to right, var(--primary-light), var(--secondary-light))",
             }
           : {}
       }
@@ -355,9 +355,9 @@ const Services = () => {
     <section
       id="servicos"
       ref={sectionRef}
-      className="py-24 relative overflow-hidden bg-gray-50"
+      className="py-24 relative overflow-hidden"
     >
-      <div className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+      <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#294946_40%,#3a6360_100%)]"></div>
 
       {/* Padrão decorativo */}
 
@@ -370,11 +370,11 @@ const Services = () => {
           initial="hidden"
           animate={isTitleInView ? "visible" : "hidden"}
         >
-          <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-primary mb-4">
+          <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-[var(--secondary-light)] mb-4">
             Nossos Serviços
           </h2>
 
-          <p className="text-gray-700 text-lg">
+          <p className="text-gray-300 text-lg">
             Nossa equipe oferece soluções personalizadas para impulsionar o
             crescimento do seu negócio.
           </p>

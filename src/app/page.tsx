@@ -9,10 +9,8 @@ import About from "@/components/sections/about";
 import Hero from "@/components/sections/hero";
 import Services from "@/components/sections/services";
 import MissionVisionValues from "@/components/sections/mission-vision-values"; // Nova importação
-import ContactSection from "@/components/sections/contact";
 import React, { useEffect } from "react";
 import Lenis from "lenis";
-import { CursorifyProvider } from "@cursorify/react";
 import WorkflowProcess from "@/components/sections/workflow-process";
 import BusinessPartnersGrid from "@/components/sections/partners";
 
@@ -30,20 +28,17 @@ export default function Home() {
     };
   }, []);
   return (
-    <CursorifyProvider>
-      <main>
-        <Navbar />
-        <Hero />
-        <About />
-        <MissionVisionValues />
-        <Services />
-        <WorkflowProcess />
-        <BusinessPartnersGrid />
-        <CTA />
-        <ContactSection />
-        <Footer />
-        <FloatingButtons />
-      </main>
-    </CursorifyProvider>
+    <main>
+      <Navbar />
+      <Hero />
+      <About />
+      <MissionVisionValues />
+      <Services />
+      <WorkflowProcess />
+      <BusinessPartnersGrid />
+      <CTA />
+      <Footer />
+      <FloatingButtons />
+    </main>
   );
 }
