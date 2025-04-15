@@ -29,11 +29,6 @@ const AnimatedGrowthChart: React.FC<AnimatedGrowthChartProps> = ({
       { month: "May", value: 10 },
       { month: "Jun", value: 10 },
       { month: "Jul", value: 10 },
-      { month: "Aug", value: 10 },
-      { month: "Sep", value: 10 },
-      { month: "Oct", value: 10 },
-      { month: "Nov", value: 10 },
-      { month: "Dec", value: 10 },
     ],
     []
   );
@@ -48,11 +43,6 @@ const AnimatedGrowthChart: React.FC<AnimatedGrowthChartProps> = ({
       { month: "May", value: 30 },
       { month: "Jun", value: 35 },
       { month: "Jul", value: 45 },
-      { month: "Aug", value: 60 },
-      { month: "Sep", value: 70 },
-      { month: "Oct", value: 85 },
-      { month: "Nov", value: 95 },
-      { month: "Dec", value: 120 },
     ],
     []
   );

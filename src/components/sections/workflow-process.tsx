@@ -36,7 +36,7 @@ const ProcessStep: React.FC<ProcessStepProps> = ({
       {/* Número do passo com design diferenciado */}
       <div
         className={cn(
-          "w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg mb-4 transition-colors duration-300",
+          "w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg mb-4 transition-colors duration-300",
           isActive ? "bg-accent" : "bg-primary"
         )}
       >
@@ -77,28 +77,36 @@ const MobileProcessStep: React.FC<
     <div
       onClick={onClick}
       className={cn(
-        "p-5 bg-white rounded-sm border transition-all duration-300 min-w-[90vw] max-w-[90vw] mx-2 flex flex-col cursor-pointer snap-center h-full",
+        "p-5 bg-white rounded-lg transition-all duration-300 min-w-[90vw] max-w-[90vw] mx-2 flex flex-col cursor-pointer snap-center h-full",
         isActive ? "border-[var(--secondary)] shadow-lg" : "border-gray-200"
       )}
     >
-      {/* Número do passo com design diferenciado */}
-      <div
-        className={cn(
-          "w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg mb-3 transition-colors duration-300",
-          isActive ? "bg-accent" : "bg-primary"
-        )}
-      >
-        {step}
-      </div>
+      <div className="flex items-center gap-4 flex-1 w-full">
+        {/* Número do passo com design diferenciado */}
+        <div
+          className={cn(
+            "w-10 h-10 aspect-square rounded-full flex items-center justify-center text-white font-bold text-md mb-3 transition-colors duration-300",
+            "bg-[var(--secondary-light)]"
+          )}
+        >
+          {step}
+        </div>
 
-      {/* Título e descrição */}
-      <h3 className="text-lg font-montserrat font-semibold text-primary mb-2">
-        {title}
-      </h3>
+        {/* Título e descrição */}
+        <h3
+          className="text-md font-montserrat font-semibold text-primary mb-2"
+          style={{
+            fontSize: "1.2rem",
+            lineHeight: "1.5rem",
+          }}
+        >
+          {title}
+        </h3>
+      </div>
       <p className="text-gray-600 text-sm mb-4">{description}</p>
 
       {/* Imagem */}
-      <div className="relative h-48 rounded-sm overflow-hidden bg-gray-50 flex items-center justify-center mb-4">
+      <div className="relative h-40 rounded-sm overflow-hidden bg-gray-50 flex items-center justify-center mb-4">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" />
         <Image
           src={stepDetail.image}
@@ -111,7 +119,7 @@ const MobileProcessStep: React.FC<
       </div>
 
       {/* Lista de bullets */}
-      <ul className="space-y-3 mt-2">
+      <ul className="space-y-3 mt-2 flex-1 min-h-[240px]">
         {stepDetail.content.map((item, i) => (
           <li key={i} className="flex items-start">
             <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center text-primary mt-0.5 mr-2 flex-shrink-0">
@@ -463,7 +471,7 @@ const WorkflowProcess = () => {
         {/* Cabeçalho da seção */}
         <motion.div
           ref={titleRef}
-          className="max-w-3xl mx-auto text-center mb-16"
+          className="max-w-3xl mx-auto text-center md:mb-16 mb-0"
           variants={titleVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -478,7 +486,7 @@ const WorkflowProcess = () => {
         </motion.div>
 
         {/* Layout responsivo para desktop e mobile */}
-        <div className="mt-12">
+        <div className="md:mt-12 mt-6">
           {/* Mobile - Layout horizontal com cards que fazem scroll e mostram conteúdo completo */}
           <div className="md:hidden">
             <div className="relative">
@@ -578,25 +586,6 @@ const WorkflowProcess = () => {
                 }}
                 transition={{ duration: 0.3 }}
               />
-            </div>
-
-            {/* Indicadores de navegação como botões para mobile */}
-            <div className="flex justify-center mt-4">
-              <div className="flex space-x-4">
-                {processSteps.map((_, index) => (
-                  <button
-                    key={index}
-                    className={cn(
-                      "w-3 h-3 rounded-full transition-all duration-300",
-                      activeStep === index
-                        ? "bg-accent w-10"
-                        : "bg-gray-300 hover:bg-gray-400"
-                    )}
-                    onClick={() => scrollToCard(index)}
-                    aria-label={`Ver passo ${index + 1}`}
-                  />
-                ))}
-              </div>
             </div>
           </div>
 

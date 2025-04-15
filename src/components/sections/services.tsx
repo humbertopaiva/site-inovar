@@ -111,7 +111,7 @@ const ServiceCard = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        "bg-white rounded-sm shadow-md transition-all duration-500 h-full flex flex-col overflow-hidden relative",
+        "bg-gray-50 rounded-lg shadow-md transition-all duration-500 h-full flex flex-col overflow-hidden relative",
         "border border-gray-100",
         "transform cursor-pointer border-[var(--secondary)]",
         shouldShowHoverEffect
@@ -456,7 +456,7 @@ const Services = () => {
     <section
       id="servicos"
       ref={sectionRef}
-      className="py-24 relative overflow-hidden"
+      className="md:py-24 py-12 relative overflow-hidden"
     >
       {/* <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#294946_40%,#3a6360_100%)]"></div> */}
 

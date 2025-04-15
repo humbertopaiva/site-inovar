@@ -71,7 +71,10 @@ const CTA = () => {
           animate={isInView ? "visible" : "hidden"}
         >
           {/* Coluna de Texto (Esquerda) */}
-          <motion.div className="text-white" variants={containerVariants}>
+          <motion.div
+            className="text-white text-center md:text-left"
+            variants={containerVariants}
+          >
             <motion.h2
               className="text-3xl md:text-4xl font-serif mb-4"
               variants={itemVariants}

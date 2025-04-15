@@ -122,7 +122,7 @@ const BusinessPartnersGrid: React.FC<PartnersGridProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Texto à esquerda */}
           <motion.div
-            className="lg:col-span-5"
+            className="lg:col-span-5 text-center md:text-left"
             ref={titleRef}
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}

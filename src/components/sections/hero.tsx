@@ -2,11 +2,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { formatWhatsAppLink } from "@/lib/utils";
-import { ArrowRight, ArrowDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import AnimatedGrowthChart from "../common/animated-growth-chart";
 import AnimatedDonutChart from "../common/animated-donut-chart";
 import AnimatedBarChart from "../common/animated-bar-chart";
@@ -23,12 +22,11 @@ const Hero = () => {
     setIsMounted(true);
   }, []);
 
-  // Função para scroll suave para a seção #about
-  const scrollToAbout = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const aboutSection = document.getElementById("about");
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth" });
+  // Função para scroll suave para a seção #sobre
+  const scrollToSobre = () => {
+    const sobreSection = document.getElementById("sobre");
+    if (sobreSection) {
+      sobreSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -133,9 +131,9 @@ const Hero = () => {
             animate="visible"
           >
             <motion.div variants={itemVariants}>
-              <h1 className="font-montserrat text-4xl md:text-5xl lg:text-6xl">
+              <h1 className="font-montserrat text-4xl md:text-5xl lg:text-6xl relative md:mb-24 sm:flex">
                 <motion.span
-                  className="block text-primary text-3xl  md:text-4xl font-bold"
+                  className="text-primary text-lg md:text-3xl font-light uppercase md:absolute md:-top-24 sm:text-center md:text-left block text-center mb-1 "
                   variants={titleVariants}
                   initial="hidden"
                   animate="visible"
@@ -143,18 +141,27 @@ const Hero = () => {
                   Transforme Desafios em
                 </motion.span>
                 <motion.span
-                  className="text-accent text-3xl md:text-4xl font-bold"
+                  className="text-accent  text-[10vw] block md:text-[74px] font-bold uppercase md:block md:absolute md:-top-14 left-0 z-50 text-center md:text-left"
                   variants={secondTitleVariants}
                   initial="hidden"
                   animate="visible"
                 >
-                  Resultados Concretos
+                  RESULTADOS
+                </motion.span>
+
+                <motion.span
+                  className="md:mt-2 md:block block text-accent text-[10vw] min-w-full md:text-[74px] font-bold uppercase z-40 pt-2 md:absolute  md:ml-0 text-center md:text-left"
+                  variants={secondTitleVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  Concretos
                 </motion.span>
               </h1>
             </motion.div>
 
             <motion.p
-              className="text-lg md:text-xl text-gray-600 max-w-xl"
+              className="text-lg md:text-xl text-gray-600 max-w-xl text-center md:text-left"
               variants={itemVariants}
             >
               Descubra como{" "}
@@ -169,28 +176,29 @@ const Hero = () => {
               className="flex flex-col sm:flex-row gap-4 pt-4"
               variants={itemVariants}
             >
-              {/* Botão Saiba Mais com link para a seção #about */}
-              <Link href="#about" onClick={scrollToAbout}>
-                <DiagonalButton variant="primary">
-                  <span className="relative z-10">Saiba mais</span>
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </DiagonalButton>
-              </Link>
+              {/* Botão Saiba Mais com ação para a seção #sobre */}
+              <DiagonalButton
+                variant="primary"
+                action={scrollToSobre}
+                iconPosition="right"
+                className="cursor-pointer"
+              >
+                <span className="relative z-10">Saiba mais</span>
+              </DiagonalButton>
 
               {/* Botão Fale Conosco com link para WhatsApp */}
-              <Link
+              <DiagonalButton
+                variant="outline-primary"
                 href={formatWhatsAppLink(
                   "32999083793",
                   "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria."
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
+                iconPosition="right"
               >
-                <DiagonalButton variant="outline-primary">
-                  <span className="relative z-10">Fale Conosco</span>
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </DiagonalButton>
-              </Link>
+                <span className="relative z-10">Fale Conosco</span>
+              </DiagonalButton>
             </motion.div>
 
             <motion.div
@@ -207,7 +215,7 @@ const Hero = () => {
 
           {/* Right Column - Image with light glass effect */}
           <motion.div
-            className="relative md:h-full h-[380px] md:min-h-[90vh] w-full rounded-tl-3xl "
+            className="relative md:h-full h-[380px] md:min-h-[90vh] w-full rounded-tl-3xl z-20"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
@@ -247,7 +255,7 @@ const Hero = () => {
 
             {/* Card horizontal com os gráficos de rosquinha e barras */}
             <motion.div
-              className="absolute z-30 pointer-events-none rounded-lg shadow-xl border border-[var(--secondary)] bottom-[10%] md:left-[-12%] left-[-2%] md:w-[50%] w-[35%] md:h-[18%] h-[20%] flex items-stretch overflow-hidden"
+              className="absolute z-30 pointer-events-none rounded-lg shadow-xl border border-[var(--secondary)] bottom-[10%] md:left-[-12%] left-[-0%] md:w-[50%] w-[35%] md:h-[18%] h-[20%] flex items-stretch overflow-hidden"
               variants={combinedChartVariants}
               initial="hidden"
               animate="visible"

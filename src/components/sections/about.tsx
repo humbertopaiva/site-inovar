@@ -50,7 +50,7 @@ const About = () => {
     <section
       id="sobre"
       ref={sectionRef}
-      className="py-24 relative overflow-hidden bg-white"
+      className="md:py-24 py-12 relative overflow-hidden bg-white"
     >
       <motion.div
         className="container relative z-10"
@@ -58,7 +58,7 @@ const About = () => {
       >
         {/* Section Header */}
         <motion.div
-          className="max-w-3xl mx-auto text-center mb-16"
+          className="max-w-3xl mx-auto text-center md:mb-16 mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={
             isSectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
