@@ -42,7 +42,7 @@ const MissionVisionValues = () => {
         transition={{ duration: 0.8 }}
       >
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-primary text-3xl md:text-4xl font-montserrat font-bold mb-4">
+          <h2 className="text-primary text-3xl md:text-4xl font-montserrat font-bold mb-4 tracking-tight">
             Nossos Princípios
           </h2>
 

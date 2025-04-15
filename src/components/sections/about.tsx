@@ -65,7 +65,7 @@ const About = () => {
           }
           transition={{ duration: 0.7 }}
         >
-          <h2 className="text-primary text-3xl md:text-4xl font-montserrat font-bold mb-4">
+          <h2 className="text-primary text-3xl md:text-4xl font-montserrat font-bold mb-4 tracking-tight">
             Compromisso com os seus objetivos
           </h2>
 

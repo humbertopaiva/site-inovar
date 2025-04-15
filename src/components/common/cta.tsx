@@ -76,7 +76,7 @@ const CTA = () => {
             variants={containerVariants}
           >
             <motion.h2
-              className="text-3xl md:text-4xl font-serif mb-4"
+              className="text-3xl md:text-4xl font-serif mb-4 tracking-tight"
               variants={itemVariants}
             >
               Pronto para impulsionar o seu negócio?
