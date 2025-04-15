@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 
@@ -17,10 +17,39 @@ const MissionVisionValues = () => {
   const isVisionInView = useInView(visionRef, { once: true, amount: 0.5 });
   const isValuesInView = useInView(valuesRef, { once: true, amount: 0.5 });
 
+  // Estados para dispositivos móveis - mostrar conteúdo quando estiver em foco
+  const isMissionFocused = useInView(missionRef, { amount: 0.7 });
+  const isVisionFocused = useInView(visionRef, { amount: 0.7 });
+  const isValuesFocused = useInView(valuesRef, { amount: 0.7 });
+
+  // Estado para detectar se é dispositivo móvel
+  const [isMobile, setIsMobile] = useState(false);
+
   // Estados para controlar o hover de cada card
   const [isHoveringMission, setIsHoveringMission] = useState(false);
   const [isHoveringVision, setIsHoveringVision] = useState(false);
   const [isHoveringValues, setIsHoveringValues] = useState(false);
+
+  // Detectar se é dispositivo móvel ao carregar e em redimensionamento
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Verificar inicialmente
+    checkIfMobile();
+
+    // Verificar em redimensionamento
+    window.addEventListener("resize", checkIfMobile);
+
+    // Limpar listener
+    return () => window.removeEventListener("resize", checkIfMobile);
+  }, []);
+
+  // Determinar quando mostrar conteúdo para cada card
+  const showMissionContent = isMobile ? isMissionFocused : isHoveringMission;
+  const showVisionContent = isMobile ? isVisionFocused : isHoveringVision;
+  const showValuesContent = isMobile ? isValuesFocused : isHoveringValues;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -85,7 +114,7 @@ const MissionVisionValues = () => {
               <div
                 className="transition-all duration-500 ease-in-out"
                 style={{
-                  height: isHoveringMission ? "340px" : "0px",
+                  height: showMissionContent ? "340px" : "0px",
                   background:
                     "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   overflow: "hidden",
@@ -117,10 +146,10 @@ const MissionVisionValues = () => {
               <div
                 className="transition-all duration-500 ease-in-out w-full relative"
                 style={{
-                  height: isHoveringMission ? "264px" : "604px",
+                  height: showMissionContent ? "264px" : "604px",
                   position: "absolute",
                   bottom: 0,
-                  top: isHoveringMission ? "340px" : "0px",
+                  top: showMissionContent ? "340px" : "0px",
                 }}
               >
                 <Image
@@ -132,12 +161,37 @@ const MissionVisionValues = () => {
                 {/* Title overlay visible only when not hovering */}
                 <div
                   className={`absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6 transition-opacity duration-500 ${
-                    isHoveringMission ? "opacity-0" : "opacity-100"
+                    showMissionContent ? "opacity-0" : "opacity-100"
                   }`}
                 >
-                  <h3 className="text-white text-2xl font-montserrat font-bold">
-                    MISSÃO
-                  </h3>
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-white text-2xl font-montserrat font-bold">
+                      MISSÃO
+                    </h3>
+                    <div className="hidden md:flex text-white items-center text-sm">
+                      <span className="mr-2">Ver mais</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -158,7 +212,7 @@ const MissionVisionValues = () => {
               <div
                 className="transition-all duration-500 ease-in-out"
                 style={{
-                  height: isHoveringVision ? "340px" : "0px",
+                  height: showVisionContent ? "340px" : "0px",
                   background:
                     "linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%)",
                   overflow: "hidden",
@@ -190,10 +244,10 @@ const MissionVisionValues = () => {
               <div
                 className="transition-all duration-500 ease-in-out w-full relative"
                 style={{
-                  height: isHoveringVision ? "264px" : "604px",
+                  height: showVisionContent ? "264px" : "604px",
                   position: "absolute",
                   bottom: 0,
-                  top: isHoveringVision ? "340px" : "0px",
+                  top: showVisionContent ? "340px" : "0px",
                 }}
               >
                 <Image
@@ -205,12 +259,37 @@ const MissionVisionValues = () => {
                 {/* Title overlay visible only when not hovering */}
                 <div
                   className={`absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6 transition-opacity duration-500 ${
-                    isHoveringVision ? "opacity-0" : "opacity-100"
+                    showVisionContent ? "opacity-0" : "opacity-100"
                   }`}
                 >
-                  <h3 className="text-white text-2xl font-montserrat font-bold">
-                    VISÃO
-                  </h3>
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-white text-2xl font-montserrat font-bold">
+                      VISÃO
+                    </h3>
+                    <div className="hidden md:flex text-white items-center text-sm">
+                      <span className="mr-2">Ver mais</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -231,7 +310,7 @@ const MissionVisionValues = () => {
               <div
                 className="transition-all duration-500 ease-in-out"
                 style={{
-                  height: isHoveringValues ? "340px" : "0px",
+                  height: showValuesContent ? "340px" : "0px",
                   background:
                     "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   overflow: "hidden",
@@ -278,10 +357,10 @@ const MissionVisionValues = () => {
               <div
                 className="transition-all duration-500 ease-in-out w-full relative"
                 style={{
-                  height: isHoveringValues ? "264px" : "604px",
+                  height: showValuesContent ? "264px" : "604px",
                   position: "absolute",
                   bottom: 0,
-                  top: isHoveringValues ? "340px" : "0px",
+                  top: showValuesContent ? "340px" : "0px",
                 }}
               >
                 <Image
@@ -293,12 +372,37 @@ const MissionVisionValues = () => {
                 {/* Title overlay visible only when not hovering */}
                 <div
                   className={`absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6 transition-opacity duration-500 ${
-                    isHoveringValues ? "opacity-0" : "opacity-100"
+                    showValuesContent ? "opacity-0" : "opacity-100"
                   }`}
                 >
-                  <h3 className="text-white text-2xl font-montserrat font-bold">
-                    VALORES
-                  </h3>
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-white text-2xl font-montserrat font-bold">
+                      VALORES
+                    </h3>
+                    <div className="hidden md:flex text-white items-center text-sm">
+                      <span className="mr-2">Ver mais</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
