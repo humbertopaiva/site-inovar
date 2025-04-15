@@ -26,8 +26,8 @@ const ServiceCard = ({
   whatsappMessage,
 }: ServiceCardProps) => {
   const cardRef = useRef(null);
-  const isInView = useInView(cardRef, { once: true, amount: 0.3 });
   const [isMobile, setIsMobile] = React.useState(false);
+  const [isFullyVisible, setIsFullyVisible] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
 
   // Cores para o gradiente único
@@ -52,16 +52,40 @@ const ServiceCard = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Atualizar o estado de hover com base na visualização e se é mobile
+  // Configurar IntersectionObserver para detectar quando o card está completamente visível
   React.useEffect(() => {
-    if (isMobile && isInView) {
-      // Em dispositivos móveis, ativar o efeito hover quando o card entrar na viewport
-      setIsHovered(true);
-    } else if (!isMobile) {
-      // Em desktop, resetar para o comportamento normal de hover
-      setIsHovered(false);
-    }
-  }, [isMobile, isInView]);
+    if (!cardRef.current) return;
+
+    const currentCardRef = cardRef.current;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.9) {
+          // Card está pelo menos 90% visível na tela
+          setIsFullyVisible(true);
+        } else {
+          // Card não está completamente visível
+          setIsFullyVisible(false);
+        }
+      },
+      {
+        threshold: [0.9], // Observar quando 90% do elemento está visível
+        rootMargin: "0px",
+      }
+    );
+
+    observer.observe(currentCardRef);
+
+    return () => {
+      observer.unobserve(currentCardRef);
+    };
+  }, []);
+
+  // Determinar se o efeito hover deve ser mostrado
+  const shouldShowHoverEffect = React.useMemo(() => {
+    return (isMobile && isFullyVisible) || (!isMobile && isHovered);
+  }, [isMobile, isFullyVisible, isHovered]);
 
   const handleCardClick = () => {
     // Utilizando a função auxiliar para formatar o link do WhatsApp
@@ -77,42 +101,44 @@ const ServiceCard = ({
     <motion.div
       ref={cardRef}
       initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: 0.6,
         delay: index * 0.1,
         ease: [0.22, 1, 0.36, 1], // Curva de easing personalizada para movimento mais natural
       }}
       onClick={handleCardClick}
-      onMouseEnter={() => !isMobile && setIsHovered(true)}
-      onMouseLeave={() => !isMobile && setIsHovered(false)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        "bg-white rounded-sm shadow-md transition-all duration-500 h-full flex flex-col group overflow-hidden relative",
+        "bg-white rounded-sm shadow-md transition-all duration-500 h-full flex flex-col overflow-hidden relative",
         "border border-gray-100",
         "transform cursor-pointer border-[var(--secondary)]",
-        isHovered ? "shadow-xl border-transparent -translate-y-2" : "",
+        shouldShowHoverEffect
+          ? "shadow-xl border-transparent -translate-y-2"
+          : "",
         className
       )}
     >
-      {/* Elemento decorativo no canto - visível sempre em mobile ou no hover em desktop */}
+      {/* Elemento decorativo no canto - visível apenas quando card está em hover ou totalmente visível em mobile */}
       <div
         className={cn(
           "absolute -top-12 -right-12 w-24 h-24 rounded-full bg-[var(--primary)]/10 transition-opacity duration-500",
-          isHovered ? "opacity-100" : "opacity-0"
+          shouldShowHoverEffect ? "opacity-100" : "opacity-0"
         )}
       ></div>
       <div
         className={cn(
           "absolute -bottom-12 -left-12 w-24 h-24 rounded-full bg-[var(--accent)]/10 transition-opacity duration-500",
-          isHovered ? "opacity-100" : "opacity-0"
+          shouldShowHoverEffect ? "opacity-100" : "opacity-0"
         )}
       ></div>
 
-      {/* Gradiente que fica visível sempre em mobile ou no hover em desktop */}
+      {/* Gradiente que fica visível apenas quando card está em hover ou totalmente visível em mobile */}
       <div
         className={cn(
           "absolute inset-0 transition-opacity duration-500 z-0",
-          isHovered ? "opacity-100" : "opacity-0"
+          shouldShowHoverEffect ? "opacity-100" : "opacity-0"
         )}
         style={{
           background: `linear-gradient(to bottom right, ${gradientColors.from}, ${gradientColors.to})`,
@@ -126,7 +152,7 @@ const ServiceCard = ({
           <div
             className={cn(
               "absolute inset-0 rounded-full bg-primary/10 transition-colors duration-500 transform",
-              isHovered ? "scale-110" : ""
+              shouldShowHoverEffect ? "scale-110" : ""
             )}
           ></div>
 
@@ -135,12 +161,7 @@ const ServiceCard = ({
             className="w-16 h-16 rounded-full flex items-center justify-center relative z-10 bg-white transition-colors duration-500"
             whileHover={{ rotate: 5 }}
           >
-            <div
-              className={cn(
-                "text-primary transition-colors duration-500",
-                isHovered ? "text-white" : ""
-              )}
-            >
+            <div className={cn("text-primary transition-colors duration-500")}>
               {icon}
             </div>
           </motion.div>
@@ -149,7 +170,7 @@ const ServiceCard = ({
         <h3
           className={cn(
             "text-xl font-montserrat font-semibold text-primary mb-3 transition-colors duration-500",
-            isHovered ? "!text-white" : ""
+            shouldShowHoverEffect ? "!text-white" : ""
           )}
         >
           {title}
@@ -158,7 +179,7 @@ const ServiceCard = ({
         <p
           className={cn(
             "text-gray-600 flex-grow transition-colors duration-500",
-            isHovered ? "text-white/90" : ""
+            shouldShowHoverEffect ? "text-white/90" : ""
           )}
         >
           {description}
@@ -168,7 +189,7 @@ const ServiceCard = ({
         <div
           className={cn(
             "h-0.5 transition-all duration-500 mt-4",
-            isHovered ? "bg-white/30 w-full" : "bg-transparent w-0"
+            shouldShowHoverEffect ? "bg-white/30 w-full" : "bg-transparent w-0"
           )}
         ></div>
 
@@ -176,7 +197,7 @@ const ServiceCard = ({
         <div
           className={cn(
             "mt-4 flex items-center font-medium transform transition-all duration-500 text-sm",
-            isHovered
+            shouldShowHoverEffect
               ? "opacity-100 translate-y-0 text-white"
               : "opacity-0 translate-y-2"
           )}
@@ -185,7 +206,7 @@ const ServiceCard = ({
           <svg
             className={cn(
               "w-4 h-4 ml-1 transform transition-transform duration-300",
-              isHovered ? "translate-x-1" : ""
+              shouldShowHoverEffect ? "translate-x-1" : ""
             )}
             fill="none"
             stroke="currentColor"
