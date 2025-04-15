@@ -15,7 +15,7 @@ interface ProcessStepProps {
   stepRef: React.RefObject<HTMLDivElement | null>;
 }
 
-// Componente para um passo do processo
+// Componente para um passo do processo (versão original)
 const ProcessStep: React.FC<ProcessStepProps> = ({
   step,
   title,
@@ -47,13 +47,91 @@ const ProcessStep: React.FC<ProcessStepProps> = ({
       </h3>
       <p className="text-gray-600 text-lg">{description}</p>
 
-      {/* Indicador visual de seleção */}
+      {/* Indicador visual de seleção com animação melhorada */}
+      <motion.div
+        className="mt-6 h-1 bg-accent"
+        initial={{ width: "0%" }}
+        animate={{ width: isActive ? "33%" : "0%" }}
+        transition={{
+          duration: 0.6,
+          ease: [0.25, 0.1, 0.25, 1.0],
+        }}
+      />
+    </div>
+  );
+};
+
+// Componente para um passo do processo na versão mobile com detalhes expandidos
+const MobileProcessStep: React.FC<
+  Omit<ProcessStepProps, "stepRef"> & {
+    onClick: () => void;
+    stepDetail: {
+      image: string;
+      content: string[];
+    };
+  }
+> = ({ step, title, description, isActive, onClick, stepDetail }) => {
+  return (
+    <div
+      onClick={onClick}
+      className={cn(
+        "p-5 bg-white rounded-sm border transition-all duration-300 min-w-[90vw] max-w-[90vw] mx-2 flex flex-col cursor-pointer snap-center h-full",
+        isActive ? "border-[var(--secondary)] shadow-lg" : "border-gray-200"
+      )}
+    >
+      {/* Número do passo com design diferenciado */}
       <div
         className={cn(
-          "mt-6 h-1 w-0 bg-accent transition-all duration-500",
-          isActive ? "w-1/3" : ""
+          "w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg mb-3 transition-colors duration-300",
+          isActive ? "bg-accent" : "bg-primary"
         )}
-      />
+      >
+        {step}
+      </div>
+
+      {/* Título e descrição */}
+      <h3 className="text-lg font-montserrat font-semibold text-primary mb-2">
+        {title}
+      </h3>
+      <p className="text-gray-600 text-sm mb-4">{description}</p>
+
+      {/* Imagem */}
+      <div className="relative h-48 rounded-sm overflow-hidden bg-gray-50 flex items-center justify-center mb-4">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" />
+        <Image
+          src={stepDetail.image}
+          alt={title}
+          fill
+          className="object-cover relative z-10"
+        />
+        <div className="absolute bottom-0 right-0 w-24 h-24 bg-accent/10 rounded-full blur-xl" />
+        <div className="absolute top-0 left-0 w-16 h-16 bg-primary/10 rounded-full blur-xl" />
+      </div>
+
+      {/* Lista de bullets */}
+      <ul className="space-y-3 mt-2">
+        {stepDetail.content.map((item, i) => (
+          <li key={i} className="flex items-start">
+            <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center text-primary mt-0.5 mr-2 flex-shrink-0">
+              <svg
+                className="w-3 h-3"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </div>
+            <p className="text-gray-700 text-sm">{item}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
@@ -80,7 +158,8 @@ const StepDetail = ({
         transition: { duration: 0.4 },
       }}
       className={cn(
-        "bg-white p-6 md:p-8 rounded-sm border shadow-lg border-[var(--secondary)]"
+        "bg-white p-6 md:p-8 rounded-sm border shadow-lg border-[var(--secondary)]",
+        isVisible ? "block" : "hidden"
       )}
     >
       <div className="space-y-6">
@@ -150,6 +229,7 @@ const WorkflowProcess = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrollDirection, setScrollDirection] = useState<"up" | "down">("down");
   const sectionRef = useRef<HTMLElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Referências para cada step
   const step1Ref = useRef<HTMLDivElement>(null);
@@ -280,7 +360,7 @@ const WorkflowProcess = () => {
     [scrollDirection, step1Ref, step2Ref, step3Ref]
   );
 
-  // Configurar IntersectionObserver para detectar qual step está visível
+  // Configurar IntersectionObserver para detectar qual step está visível (desktop)
   useEffect(() => {
     if (
       typeof window === "undefined" ||
@@ -325,14 +405,63 @@ const WorkflowProcess = () => {
       observer.disconnect();
       observedEntries = [];
     };
-  }, [scrollDirection, determineActiveStep]); // Adicionar scrollDirection e determineActiveStep como dependências
+  }, [scrollDirection, determineActiveStep]);
+
+  // Função para o scroll horizontal na versão mobile
+  const handleMobileScroll = React.useCallback(() => {
+    if (!scrollContainerRef.current) return;
+
+    const container = scrollContainerRef.current;
+    const containerWidth = container.offsetWidth;
+    const scrollLeft = container.scrollLeft;
+
+    // Calcular em qual card estamos com base na posição do scroll
+    const cardWidth = containerWidth * 0.9 + 16; // 90vw + margem
+    const stepIndex = Math.round(scrollLeft / cardWidth);
+
+    if (
+      stepIndex !== activeStep &&
+      stepIndex >= 0 &&
+      stepIndex < processSteps.length
+    ) {
+      setActiveStep(stepIndex);
+    }
+  }, [activeStep, processSteps.length]);
+
+  // Montar o listener de scroll para mobile
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    container.addEventListener("scroll", handleMobileScroll, { passive: true });
+
+    return () => {
+      container.removeEventListener("scroll", handleMobileScroll);
+    };
+  }, [handleMobileScroll]);
+
+  // Função para scroll até um card específico
+  const scrollToCard = (index: number) => {
+    if (!scrollContainerRef.current) return;
+
+    const container = scrollContainerRef.current;
+    const cardWidth = container.offsetWidth * 0.9 + 16; // 90vw + margem
+    const scrollPosition = index * cardWidth;
+
+    container.scrollTo({
+      left: scrollPosition,
+      behavior: "smooth",
+    });
+
+    setActiveStep(index);
+  };
 
   return (
     <section
       id="metodologia"
       ref={sectionRef}
-      className="py-24 bg-gray-50 relative"
-      style={{ height: "180vh" }}
+      className="py-16 md:py-24 bg-gray-50 relative md:overflow-visible overflow-hidden"
+      style={{ minHeight: "100vh" }}
     >
       {/* Elementos decorativos de fundo */}
       <div className="absolute inset-0 z-0">
@@ -340,7 +469,7 @@ const WorkflowProcess = () => {
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container relative z-10">
+      <div className="container relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Cabeçalho da seção */}
         <motion.div
           ref={titleRef}
@@ -360,30 +489,129 @@ const WorkflowProcess = () => {
 
         {/* Layout responsivo para desktop e mobile */}
         <div className="mt-12">
-          {/* Mobile - Layout vertical com steps e detalhes intercalados */}
-          <div className="md:hidden space-y-12">
-            {processSteps.map((step, index) => (
-              <div key={index} className="mb-12">
-                <ProcessStep
-                  step={step.step}
-                  title={step.title}
-                  description={step.description}
-                  index={index}
-                  isActive={activeStep === index}
-                  stepRef={step.ref}
-                />
-                <div className="mt-6">
-                  <StepDetail
-                    stepData={stepDetails[index]}
-                    isVisible={activeStep === index}
-                  />
+          {/* Mobile - Layout horizontal com cards que fazem scroll e mostram conteúdo completo */}
+          <div className="md:hidden">
+            <div className="relative">
+              {/* Indicadores de navegação sutis */}
+              {activeStep < processSteps.length - 1 && (
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
+                  <motion.div
+                    initial={{ x: 0, opacity: 0.6 }}
+                    animate={{ x: [0, 5, 0], opacity: [0.6, 0.9, 0.6] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                  >
+                    <svg
+                      className="w-6 h-6 text-accent"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </motion.div>
                 </div>
+              )}
+
+              {/* Indicador sutil para a esquerda */}
+              {activeStep > 0 && (
+                <div className="absolute left-2 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
+                  <motion.div
+                    initial={{ x: 0, opacity: 0.6 }}
+                    animate={{ x: [0, -5, 0], opacity: [0.6, 0.9, 0.6] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                  >
+                    <svg
+                      className="w-6 h-6 text-accent"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </motion.div>
+                </div>
+              )}
+
+              {/* Container com scroll horizontal */}
+              <div
+                ref={scrollContainerRef}
+                className="flex overflow-x-auto pb-6 pt-2 snap-x scrollbar-hide"
+                style={{
+                  scrollbarWidth: "none",
+                  msOverflowStyle: "none",
+                }}
+              >
+                {/* Espaçador inicial para centralizar primeiro cartão */}
+                <div className="min-w-[5vw] flex-shrink-0"></div>
+
+                {/* Container para garantir altura igual em todos os cards */}
+                <div className="flex h-full">
+                  {processSteps.map((step, index) => (
+                    <div key={index} className="flex-shrink-0 w-auto h-full">
+                      <MobileProcessStep
+                        step={step.step}
+                        title={step.title}
+                        description={step.description}
+                        index={index}
+                        isActive={activeStep === index}
+                        onClick={() => scrollToCard(index)}
+                        stepDetail={stepDetails[index]}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Espaçador final para permitir scroll completo */}
+                <div className="min-w-[5vw] flex-shrink-0"></div>
               </div>
-            ))}
+            </div>
+
+            {/* Barra de progresso para mobile */}
+            <div className="relative mx-auto mt-4 h-1 bg-gray-200 rounded-full max-w-xs">
+              <motion.div
+                className="absolute left-0 h-1 bg-accent rounded-full"
+                initial={{ width: "0%" }}
+                animate={{
+                  width: `${((activeStep + 1) / processSteps.length) * 100}%`,
+                }}
+                transition={{ duration: 0.3 }}
+              />
+            </div>
+
+            {/* Indicadores de navegação como botões para mobile */}
+            <div className="flex justify-center mt-4">
+              <div className="flex space-x-4">
+                {processSteps.map((_, index) => (
+                  <button
+                    key={index}
+                    className={cn(
+                      "w-3 h-3 rounded-full transition-all duration-300",
+                      activeStep === index
+                        ? "bg-accent w-10"
+                        : "bg-gray-300 hover:bg-gray-400"
+                    )}
+                    onClick={() => scrollToCard(index)}
+                    aria-label={`Ver passo ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Desktop - Layout com steps à esquerda e detalhes fixos à direita */}
-          <div className="hidden md:grid md:grid-cols-2 md:gap-12">
+          {/* Desktop - Layout com steps à esquerda e detalhes fixos à direita (versão original) */}
+          <div className="hidden md:grid md:grid-cols-2 md:gap-12 relative">
             {/* Coluna da esquerda - Steps com scroll normal */}
             <div className="space-y-8">
               {processSteps.map((step, index) => (
@@ -400,7 +628,7 @@ const WorkflowProcess = () => {
             </div>
 
             {/* Coluna da direita - Detalhe em posição sticky */}
-            <div className="relative">
+            <div className="relative h-full">
               <div className="sticky top-32">
                 {stepDetails.map((detail, index) => (
                   <div
@@ -417,26 +645,31 @@ const WorkflowProcess = () => {
             </div>
           </div>
         </div>
-
-        {/* Indicador de progresso visível apenas em mobile */}
-        <div className="flex justify-center mt-8 md:hidden">
-          <div className="flex space-x-2">
-            {processSteps.map((_, index) => (
-              <button
-                key={index}
-                className={cn(
-                  "w-3 h-3 rounded-full transition-all duration-300",
-                  activeStep === index
-                    ? "bg-accent w-10"
-                    : "bg-gray-300 hover:bg-gray-400"
-                )}
-                onClick={() => setActiveStep(index)}
-                aria-label={`Ver passo ${index + 1}`}
-              />
-            ))}
-          </div>
-        </div>
       </div>
+
+      {/* CSS para esconder a scrollbar e definir snapping behavior */}
+      <style jsx global>{`
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .scrollbar-hide {
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
+        }
+
+        @media (max-width: 768px) {
+          .snap-x {
+            scroll-snap-type: x mandatory;
+          }
+
+          .snap-center {
+            scroll-snap-align: center;
+          }
+        }
+      `}</style>
     </section>
   );
 };

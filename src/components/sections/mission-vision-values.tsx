@@ -52,12 +52,6 @@ const MissionVisionValues = () => {
       ref={sectionRef}
       className="py-16 md:py-20 relative bg-white overflow-hidden"
     >
-      {/* Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full z-0 opacity-50">
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-bl-full" />
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-primary/5 rounded-tr-full" />
-      </div>
-
       {/* Section Header */}
       <motion.div
         className="container relative z-10 mb-12"
@@ -83,13 +77,13 @@ const MissionVisionValues = () => {
           {/* Mission Column */}
           <motion.div
             ref={missionRef}
-            className="flex flex-col flex-1 mb-6 md:mb-0"
+            className="flex flex-col flex-1 mb-6 md:mb-0 "
             initial="hidden"
             animate={isMissionInView ? "visible" : "hidden"}
             variants={containerVariants}
           >
             <div
-              className="py-12 px-8 text-white h-[340px]"
+              className="py-12 px-8 text-white h-[340px] rounded-t-sm"
               style={{
                 background:
                   "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
@@ -118,10 +112,10 @@ const MissionVisionValues = () => {
             {/* Image below the mission content - Fixed height */}
             <motion.div
               variants={imageVariants}
-              className="w-full h-64 relative"
+              className="w-full h-64 relative rounded-b-sm overflow-hidden"
             >
               <Image
-                src="https://img.freepik.com/free-photo/business-people-discussing-charts-graphs-showing-results-their-successful-teamwork_158595-8037.jpg?w=1380&t=st=1744398861~exp=1744399461~hmac=b58b17a30e731e4e19c8dbb8a2499ae8be1b66c2d0ad7c6ce81f3fa36c06a95d"
+                src="/missao.jpg"
                 alt="Nossa missão"
                 fill
                 className="object-cover"
@@ -138,7 +132,7 @@ const MissionVisionValues = () => {
             variants={containerVariants}
           >
             <div
-              className="py-12 px-8 text-white h-[340px]"
+              className="py-12 px-8 text-white h-[340px] rounded-t-sm"
               style={{
                 background:
                   "linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%)",
@@ -167,10 +161,10 @@ const MissionVisionValues = () => {
             {/* Image below the vision content - Fixed height */}
             <motion.div
               variants={imageVariants}
-              className="w-full h-64 relative"
+              className="w-full h-64 relative rounded-b-sm overflow-hidden"
             >
               <Image
-                src="https://img.freepik.com/free-photo/business-planning-concept-side-view-businesswoman-using-laptop-office_176420-11509.jpg?w=1380&t=st=1744398861~exp=1744399461~hmac=6a6d50a6e34d49ad7f12cd3da9b24023f50c51ed34d9ab7a79dfcf9b11b1cf6f"
+                src="/visao.jpg"
                 alt="Nossa visão"
                 fill
                 className="object-cover"
@@ -187,7 +181,7 @@ const MissionVisionValues = () => {
             variants={containerVariants}
           >
             <div
-              className="py-12 px-8 text-white h-[340px]"
+              className="py-12 px-8 text-white h-[340px] rounded-t-sm"
               style={{
                 background:
                   "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
@@ -229,10 +223,10 @@ const MissionVisionValues = () => {
             {/* Image below the values content - Fixed height */}
             <motion.div
               variants={imageVariants}
-              className="w-full h-64 relative"
+              className="w-full h-64 relative "
             >
               <Image
-                src="https://img.freepik.com/free-photo/group-people-working-out-business-plan-office_1303-15861.jpg?w=1380&t=st=1744398861~exp=1744399461~hmac=5fe60c59a1494bfcfe660cd5821cedec5c8e2fe029ac9a93d7cf84b8aebe04f8"
+                src="/valores.jpg"
                 alt="Nossos valores"
                 fill
                 className="object-cover"

@@ -14,7 +14,13 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
+  width: 100%;
 }
+
+/* * {
+  border: 1px solid red;
+} */
 
 /* Definir estilos base para o corpo do documento */
 body {

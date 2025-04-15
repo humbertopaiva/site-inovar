@@ -34,12 +34,10 @@ export default function Home() {
       <main>
         <Navbar />
         <Hero />
-
         <About />
         <MissionVisionValues />
         <Services />
         <WorkflowProcess />
-        {/* <Testimonials /> */}
         <BusinessPartnersGrid />
         <CTA />
         <ContactSection />

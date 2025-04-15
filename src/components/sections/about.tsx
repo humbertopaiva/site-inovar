@@ -17,9 +17,6 @@ const About = () => {
     offset: ["start end", "end start"],
   });
 
-  // Transformações baseadas no scroll
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
   const contentOpacity = useTransform(
     scrollYProgress,
     [0, 0.2, 0.8, 1],
@@ -55,16 +52,6 @@ const About = () => {
       ref={sectionRef}
       className="py-24 relative overflow-hidden bg-white"
     >
-      {/* Background Elements with Parallax */}
-      <motion.div
-        className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-bl-sm"
-        style={{ y: backgroundY, scale: imageScale }}
-      />
-      <motion.div
-        className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent/5 rounded-tr-sm"
-        style={{ y: backgroundY, scale: imageScale }}
-      />
-
       <motion.div
         className="container relative z-10"
         style={{ opacity: contentOpacity }}
@@ -100,14 +87,13 @@ const About = () => {
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent z-10"></div>
             <Image
-              src="https://img.freepik.com/free-photo/business-concept-with-team-close-up_23-2149151159.jpg?t=st=1744397681~exp=1744401281~hmac=7b58c87b5cf4683d3dc1c6b6576103cd9c810f47c2da4bdc1cda3d2ec0122e19&w=996"
+              src="/abordagem.jpg"
               alt="Estratégia empresarial em ação"
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-110"
             />
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 to-transparent z-20 translate-y-0 transition-transform duration-300 group-hover:translate-y-0">
+            <div className="absolute bottom-0 left-0 right-0 p-6 z-20 translate-y-0 transition-transform duration-300 group-hover:translate-y-0">
               <h3 className="text-white text-2xl font-montserrat font-semibold mb-2">
                 Estratégia & Inovação
               </h3>
@@ -120,18 +106,18 @@ const About = () => {
           {/* Text Content Cell - Spans 7 columns (DIREITA) */}
           <motion.div
             ref={textRef}
-            className="lg:col-span-7 bg-gray-50 rounded-md p-8 shadow-md border-l-4 border-[var(--secondary)]"
+            className="lg:col-span-7 bg-primary rounded-md p-8 shadow-md border-l-4 border-[var(--accent)] relative"
             variants={itemVariants}
             initial="hidden"
             animate={isTextInView ? "visible" : "hidden"}
           >
-            <h3 className="text-2xl text-primary font-montserrat font-semibold mb-4">
+            <h3 className="text-2xl text-[#65a09a] font-montserrat font-semibold mb-4">
               Nossa Abordagem
             </h3>
             <div className="space-y-4">
-              <p className="text-gray-700">
+              <p className="text-white">
                 A{" "}
-                <span className="text-primary font-medium">
+                <span className="text-white font-medium">
                   Inovar Assessoria Empresarial
                 </span>{" "}
                 desenvolve um serviço diferenciado para as empresas nas áreas
@@ -140,7 +126,7 @@ const About = () => {
                 avaliar as necessidades específicas de cada cliente e, assim,
                 traçar um planejamento estratégico das ações a serem executadas.
               </p>
-              <p className="text-gray-700">
+              <p className="text-white">
                 Visando um novo conceito de gestão, buscamos continuamente
                 assessorar e desenvolver o empreendimento dos nossos clientes.
                 Identificamos com precisão os pontos a serem revisados e
@@ -152,7 +138,7 @@ const About = () => {
         </div>
 
         {/* Stats/Numbers Section */}
-        <motion.div
+        {/* <motion.div
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={
@@ -184,7 +170,7 @@ const About = () => {
             </div>
             <div className="text-gray-600">Aumento Médio de ROI</div>
           </div>
-        </motion.div>
+        </motion.div> */}
       </motion.div>
     </section>
   );
