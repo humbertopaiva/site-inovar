@@ -111,7 +111,7 @@ const Hero = () => {
           {/* Light Gradient Overlay */}
           <motion.div className="absolute inset-0 z-10" style={{ y, opacity }}>
             <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
-              <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#edfffd,transparent)]"></div>
+              <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#cce5e2,transparent)]"></div>
             </div>
           </motion.div>
 
@@ -125,7 +125,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 items-center min-h-[90vh]">
           {/* Left Column - Content */}
           <motion.div
-            className="flex flex-col md:gap-8 gap-4 md:py-20 py-0 pt-10"
+            className="flex flex-col md:gap-8 gap-4 md:py-20 py-0 pt-6"
             variants={containerVariants}
             initial="hidden"
             animate="visible"

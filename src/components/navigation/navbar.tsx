@@ -31,7 +31,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`py-4 sticky top-0 z-50 transition-all duration-300 ${
+      className={`py-3 sticky top-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-white/70 backdrop-blur-md border-b border-gray-100/50 shadow-sm"
           : "bg-white/50 backdrop-blur-sm"
@@ -50,42 +50,48 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-5">
           <Link
             href="#sobre"
-            className="text-primary hover:text-secondary transition-colors"
+            className="text-primary hover:text-secondary transition-colors font-medium px-2"
           >
             Sobre
           </Link>
           <Link
             href="#servicos"
-            className="text-primary hover:text-secondary transition-colors"
+            className="text-primary hover:text-secondary transition-colors font-medium px-2"
           >
             Serviços
           </Link>
           <Link
             href="#contato"
-            className="text-primary hover:text-secondary transition-colors"
+            className="text-primary hover:text-secondary transition-colors font-medium px-2"
           >
             Contato
           </Link>
-          <Button
-            variant="outline"
-            asChild
-            className="border-primary text-primary hover:bg-primary/10"
-          >
-            <Link href="/cliente">Área do Cliente</Link>
-          </Button>
-          <Button variant="accent" asChild>
-            <Link
-              href={formatWhatsAppLink(
-                "32999083793",
-                "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria."
-              )}
+          <div className="flex space-x-3 ml-2">
+            <Button
+              variant="outline"
+              asChild
+              className="border-primary text-primary hover:bg-primary/10 rounded-md py-2 px-4 shadow-sm hover:shadow-md transition-all duration-300 border-2"
             >
-              Fale Conosco
-            </Link>
-          </Button>
+              <Link href="/cliente">Área do Cliente</Link>
+            </Button>
+            <Button
+              variant="accent"
+              asChild
+              className="rounded-md py-2 px-4 bg-accent text-white shadow-sm hover:shadow-md hover:bg-accent-light hover:scale-105 transition-all duration-300"
+            >
+              <Link
+                href={formatWhatsAppLink(
+                  "32999083793",
+                  "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria."
+                )}
+              >
+                Fale Conosco
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Menu Button */}
@@ -167,7 +173,7 @@ const Navbar = () => {
               >
                 <Button
                   variant="outline"
-                  className="w-full mb-3 border-primary text-primary hover:bg-primary/10"
+                  className="w-full mb-3 border-primary text-primary hover:bg-primary/10 rounded-md py-2 border-2 shadow-sm hover:shadow-md transition-all duration-300"
                   asChild
                 >
                   <Link href="/cliente" onClick={() => setIsMenuOpen(false)}>
@@ -182,7 +188,11 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <Button variant="accent" className="w-full" asChild>
+                <Button
+                  variant="accent"
+                  className="w-full bg-accent text-white rounded-md py-2 shadow-sm hover:shadow-md hover:bg-accent-light transition-all duration-300"
+                  asChild
+                >
                   <Link
                     href={formatWhatsAppLink(
                       "32999083793",

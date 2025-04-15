@@ -32,7 +32,7 @@ const MissionVisionValues = () => {
   return (
     <section
       id="missao-visao-valores"
-      className="py-16 md:py-20 relative bg-white overflow-hidden"
+      className="pt-0 pb-6 py-0 md:py-20 relative bg-white overflow-hidden"
     >
       {/* Section Header */}
       <motion.div

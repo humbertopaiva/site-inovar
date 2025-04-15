@@ -109,7 +109,7 @@ const BusinessPartnersGrid: React.FC<PartnersGridProps> = ({
     <section
       ref={sectionRef}
       id="parceiros"
-      className="py-20 relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100"
+      className="md:py-20 py-8 relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100"
     >
       {/* Background decorativo */}
       <div className="absolute inset-0 z-0">
