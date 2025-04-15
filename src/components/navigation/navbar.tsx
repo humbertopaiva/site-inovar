@@ -256,7 +256,7 @@ const Navbar = () => {
                   >
                     <Link
                       href={item.href}
-                      className="text-primary hover:text-secondary transition-colors py-3 px-4 block flex items-center text-lg font-medium"
+                      className="text-primary hover:text-secondary transition-colors  px-4 block flex items-center text-lg font-medium"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <span className="mr-3 text-accent">{item.icon}</span>
