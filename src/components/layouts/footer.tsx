@@ -120,7 +120,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="border-t border-gray-300">
+      <div className="border-t border-gray-300 pb-12 md:pb-0">
         <div className="container py-6">
           <p className="text-center text-gray-500">
             &copy; {currentYear} Inovar Assessoria Empresarial. Todos os

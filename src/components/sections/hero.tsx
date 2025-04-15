@@ -130,9 +130,9 @@ const Hero = () => {
             animate="visible"
           >
             <motion.div variants={itemVariants}>
-              <h1 className="font-montserrat text-4xl md:text-5xl lg:text-6xl relative md:mb-24 sm:flex">
+              <h1 className="font-montserrat text-4xl md:text-5xl lg:text-6xl relative  flex flex-col mt-12">
                 <motion.span
-                  className="text-primary text-lg md:text-3xl font-light uppercase md:absolute md:-top-24 sm:text-center md:text-left block text-center mb-1 "
+                  className="text-primary text-lg md:text-3xl font-light uppercase sm:text-center md:text-left block text-center md:mb-1 mb-2 "
                   variants={titleVariants}
                   initial="hidden"
                   animate="visible"
@@ -140,21 +140,12 @@ const Hero = () => {
                   Transforme Desafios em
                 </motion.span>
                 <motion.span
-                  className="text-accent  text-[10vw] block md:text-[74px] font-bold uppercase md:block md:absolute md:-top-14 left-0 z-50 text-center md:text-left"
+                  className="text-accent text-[10vw] block md:text-[74px] font-bold uppercase md:block text-center md:text-left leading-none"
                   variants={secondTitleVariants}
                   initial="hidden"
                   animate="visible"
                 >
-                  RESULTADOS
-                </motion.span>
-
-                <motion.span
-                  className="md:mt-2 md:block block text-accent text-[10vw] min-w-full md:text-[74px] font-bold uppercase z-40 pt-2 md:absolute  md:ml-0 text-center md:text-left"
-                  variants={secondTitleVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  Concretos
+                  RESULTADOS CONCRETOS
                 </motion.span>
               </h1>
             </motion.div>

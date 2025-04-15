@@ -77,7 +77,7 @@ const MobileProcessStep: React.FC<
     <div
       onClick={onClick}
       className={cn(
-        "p-5 bg-white rounded-lg transition-all duration-300 min-w-[90vw] max-w-[90vw] mx-2 flex flex-col cursor-pointer snap-center h-full",
+        "p-5 bg-white rounded-lg transition-all duration-300  min-w-[90vw] max-w-[90vw] mx-2 flex flex-col cursor-pointer snap-center h-full",
         isActive ? "border-[var(--secondary)] shadow-lg" : "border-gray-200"
       )}
     >
@@ -464,7 +464,7 @@ const WorkflowProcess = () => {
     <section
       id="metodologia"
       ref={sectionRef}
-      className="py-16 md:py-24 bg-gray-50 relative md:overflow-visible overflow-hidden"
+      className="py-16 md:py-24 bg-gray-100 relative md:overflow-visible overflow-hidden"
       style={{ minHeight: "100vh" }}
     >
       <div className="container relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
