@@ -1,10 +1,8 @@
-// src/components/navigation/navbar.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { formatWhatsAppLink } from "@/lib/utils";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -16,6 +14,7 @@ import {
   Instagram,
   Facebook,
 } from "lucide-react";
+import { useContactForm } from "@/contexts/contact-form.context";
 
 // Hook para detectar a interseção com o footer
 const useFooterIntersection = () => {
@@ -56,6 +55,15 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const isFooterVisible = useFooterIntersection();
+
+  const { openContactForm } = useContactForm();
+
+  // Função para abrir o formulário de contato
+  const handleContactClick = () => {
+    openContactForm(
+      "Olá! Gostaria de agendar uma consultoria estratégica com a Inovar Assessoria."
+    );
+  };
 
   // Detectar scroll para ajustar a transparência
   useEffect(() => {
@@ -204,18 +212,13 @@ const Navbar = () => {
             <Button
               variant="accent"
               asChild
-              className="rounded-md py-2 px-4 bg-primary text-white shadow-sm hover:shadow-md hover:bg-accent-light hover:scale-105 transition-all duration-300 group"
+              className="rounded-md cursor-pointer py-2 px-4 bg-primary text-white shadow-sm hover:shadow-md hover:bg-accent-light hover:scale-105 transition-all duration-300 group"
+              onClick={handleContactClick}
             >
-              <Link
-                href={formatWhatsAppLink(
-                  "32999083793",
-                  "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria."
-                )}
-                className="flex items-center"
-              >
+              <div>
                 <MessageSquare className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:rotate-12" />
                 <span>Fale Conosco</span>
-              </Link>
+              </div>
             </Button>
           </div>
         </div>
@@ -338,18 +341,12 @@ const Navbar = () => {
                     variant="accent"
                     className="w-full bg-accent text-white rounded-md py-3 shadow-sm hover:shadow-md hover:bg-accent-light transition-all duration-300 group"
                     asChild
+                    onClick={handleContactClick}
                   >
-                    <Link
-                      href={formatWhatsAppLink(
-                        "32999083793",
-                        "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria."
-                      )}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center justify-center"
-                    >
-                      <MessageSquare className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:rotate-12" />
-                      Fale Conosco
-                    </Link>
+                    <div>
+                      <MessageSquare className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:rotate-12" />
+                      <span>Fale Conosco</span>
+                    </div>
                   </Button>
                 </motion.div>
               </div>

@@ -136,7 +136,7 @@ const ContactFormModal: React.FC = () => {
 
             {/* Header */}
             <div className="bg-gradient-to-r from-primary to-secondary px-6 pt-6 text-white">
-              <h3 className="text-2xl font-montserrat font-bold text-primary">
+              <h3 className="text-2xl font-montserrat font-bold text-primary tracking-tight">
                 Agende sua Consultoria
               </h3>
               <p className="mt-1 opacity-90 text-gray-500">
