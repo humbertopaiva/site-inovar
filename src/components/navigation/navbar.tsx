@@ -204,7 +204,7 @@ const Navbar = () => {
             <Button
               variant="accent"
               asChild
-              className="rounded-md py-2 px-4 bg-accent text-white shadow-sm hover:shadow-md hover:bg-accent-light hover:scale-105 transition-all duration-300 group"
+              className="rounded-md py-2 px-4 bg-primary text-white shadow-sm hover:shadow-md hover:bg-accent-light hover:scale-105 transition-all duration-300 group"
             >
               <Link
                 href={formatWhatsAppLink(

@@ -168,7 +168,7 @@ const Hero = () => {
             >
               {/* Botão Saiba Mais com ação para a seção #sobre */}
               <DiagonalButton
-                variant="primary"
+                variant="accent"
                 action={scrollToSobre}
                 iconPosition="right"
                 className="cursor-pointer"
