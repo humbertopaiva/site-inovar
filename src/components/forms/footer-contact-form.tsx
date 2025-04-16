@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // src/components/forms/footer-contact-form.tsx
 "use client";
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { formatWhatsAppLink } from "@/lib/utils";
+import { useContactForm } from "@/contexts/contact-form.context";
 
 interface FooterContactFormProps {
   className?: string;
@@ -23,6 +22,7 @@ const FooterContactForm: React.FC<FooterContactFormProps> = ({ className }) => {
     "idle" | "submitting" | "success" | "error"
   >("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const { openContactForm } = useContactForm();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -35,27 +35,38 @@ const FooterContactForm: React.FC<FooterContactFormProps> = ({ className }) => {
     e.preventDefault();
     setFormStatus("submitting");
 
-    // Simulando o envio do formulário
-    setTimeout(() => {
-      // Redirecionar para WhatsApp
-      const whatsappMessage = `Olá! Sou ${formData.name} (${formData.email} / ${formData.phone}) e gostaria de agendar uma consultoria. ${formData.message}`;
-      window.open(formatWhatsAppLink("32999083793", whatsappMessage), "_blank");
-
-      // Resetar formulário
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        message:
-          "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria.",
-      });
-      setFormStatus("success");
-
-      // Reset success status after 3 seconds
+    try {
+      // Simulando envio de formulário com timeout
       setTimeout(() => {
-        setFormStatus("idle");
-      }, 3000);
-    }, 1500);
+        // Opção 1: Abrir o modal de contato com os dados preenchidos
+        openContactForm(formData.message);
+
+        // Opção 2: Redirecionar para WhatsApp (descomente se preferir essa opção)
+        // const whatsappMessage = `Olá! Sou ${formData.name} (${formData.email} / ${formData.phone}) e gostaria de saber mais sobre seus serviços. ${formData.message}`;
+        // window.open(formatWhatsAppLink("32999083793", whatsappMessage), "_blank");
+
+        // Resetar formulário
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message:
+            "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria.",
+        });
+        setFormStatus("success");
+
+        // Reset success status após alguns segundos
+        setTimeout(() => {
+          setFormStatus("idle");
+        }, 3000);
+      }, 1500);
+    } catch (error) {
+      console.error("Erro ao processar formulário:", error);
+      setFormStatus("error");
+      setErrorMessage(
+        "Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente."
+      );
+    }
   };
 
   return (
