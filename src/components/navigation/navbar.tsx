@@ -7,7 +7,6 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  User,
   MessageSquare,
   Info,
   Briefcase,

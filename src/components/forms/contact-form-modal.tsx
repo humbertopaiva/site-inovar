@@ -11,7 +11,7 @@ import { useContactForm } from "@/contexts/contact-form.context";
 
 // Configuração do Web3Forms
 const CONFIG = {
-  accessKey: "SUA_CHAVE_WEB3FORMS_AQUI", // Substitua pela sua chave
+  accessKey: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "",
   phoneNumber: "32999083793",
 };
 
