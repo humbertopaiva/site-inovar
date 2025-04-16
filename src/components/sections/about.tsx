@@ -115,9 +115,9 @@ const About = () => {
               Nossa Abordagem
             </h3>
             <div className="space-y-4">
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-justify md:text-left">
                 A{" "}
-                <span className="text-secondary font-medium">
+                <span className="text-secondary font-medium ">
                   Inovar Assessoria Empresarial
                 </span>{" "}
                 revoluciona a gestão do seu negócio através de metodologias
@@ -127,7 +127,7 @@ const About = () => {
                 construindo um plano estratégico personalizado com metas
                 tangíveis e prazos realistas.
               </p>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-justify md:text-left">
                 Mais que consultores, somos parceiros comprometidos com a
                 transformação do seu empreendimento. Identificamos oportunidades
                 invisíveis aos olhos convencionais e implementamos soluções que

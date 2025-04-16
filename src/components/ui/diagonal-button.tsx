@@ -14,7 +14,7 @@ type DiagonalVariant =
   | "outline-accent"
   | "gradient";
 
-interface DiagonalButtonProps extends Omit<ButtonProps, "variant"> {
+export interface DiagonalButtonProps extends Omit<ButtonProps, "variant"> {
   skewAmount?: string;
   variant?: DiagonalVariant;
   hoverScale?: boolean;

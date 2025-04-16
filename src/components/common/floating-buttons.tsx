@@ -1,10 +1,11 @@
 "use client";
 
+import { useContactForm } from "@/contexts/contact-form.context";
 import React, { useState, useEffect } from "react";
-import { formatWhatsAppLink } from "@/lib/utils";
 
 const FloatingButtons = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const { openContactForm } = useContactForm();
 
   useEffect(() => {
     const checkScrollTop = () => {
@@ -23,16 +24,19 @@ const FloatingButtons = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleWhatsAppClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    openContactForm(
+      "Olá! Gostaria de agendar uma reunião para saber mais sobre os serviços da Inovar Assessoria."
+    );
+  };
+
   return (
     <>
       {/* WhatsApp flutuante */}
       <a
-        href={formatWhatsAppLink(
-          "32999083793",
-          "Olá! Gostaria de saber mais sobre os serviços da Inovar Assessoria."
-        )}
-        target="_blank"
-        rel="noreferrer"
+        href="#"
+        onClick={handleWhatsAppClick}
         className="fixed bottom-8 right-6 z-50 bg-green-500 hover:bg-accent/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
         aria-label="Contato por WhatsApp"
       >

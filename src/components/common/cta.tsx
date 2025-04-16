@@ -2,17 +2,23 @@
 "use client";
 
 import React, { useRef } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-
-import { formatWhatsAppLink } from "@/lib/utils";
 import { DiagonalButton } from "../ui/diagonal-button";
+import { useContactForm } from "@/contexts/contact-form.context";
 
 const CTA = () => {
   const sectionRef = useRef(null);
   // Removendo a opção "once: true" para que a animação ocorra toda vez que a seção entrar na viewport
   const isInView = useInView(sectionRef, { amount: 0.3 });
+  const { openContactForm } = useContactForm();
+
+  // Função para abrir o formulário de contato
+  const handleContactClick = () => {
+    openContactForm(
+      "Olá! Gostaria de agendar uma consultoria estratégica com a Inovar Assessoria."
+    );
+  };
 
   // Animações
   const containerVariants = {
@@ -108,15 +114,12 @@ const CTA = () => {
               className="flex flex-col sm:flex-row gap-4"
               variants={itemVariants}
             >
-              <DiagonalButton variant="accent" className="cursor-pointer">
-                <Link
-                  href={formatWhatsAppLink(
-                    "32999083793",
-                    "Olá! Gostaria de agendar uma consultoria estratégica com a Inovar Assessoria."
-                  )}
-                >
-                  Iniciar Transformação
-                </Link>
+              <DiagonalButton
+                variant="accent"
+                className="cursor-pointer"
+                action={handleContactClick}
+              >
+                Iniciar Transformação
               </DiagonalButton>
             </motion.div>
           </motion.div>

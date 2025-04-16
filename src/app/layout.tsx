@@ -1,8 +1,11 @@
+// src/app/layout.tsx
 import { Raleway } from "next/font/google";
 import { Montserrat } from "next/font/google";
 import type { Metadata } from "next";
 
 import "./globals.css";
+import { ContactFormProvider } from "@/contexts/contact-form.context";
+import ContactFormModal from "@/components/forms/contact-form-modal";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -35,7 +38,12 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${raleway.variable} ${montserrat.variable} scroll-smooth`}
     >
-      <body>{children}</body>
+      <body>
+        <ContactFormProvider>
+          {children}
+          <ContactFormModal />
+        </ContactFormProvider>
+      </body>
     </html>
   );
 }
