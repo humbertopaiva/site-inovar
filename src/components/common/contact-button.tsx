@@ -7,7 +7,7 @@ import {
   DiagonalButtonProps,
 } from "@/components/ui/diagonal-button";
 import { Button, ButtonProps } from "@/components/ui/button";
-import { useContactForm } from "@/contexts/ContactFormContext";
+import { useContactForm } from "@/contexts/contact-form.context";
 
 interface ContactButtonProps {
   text?: string;
