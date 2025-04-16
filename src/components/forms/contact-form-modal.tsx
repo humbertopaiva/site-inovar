@@ -1,6 +1,7 @@
+// src/components/forms/contact-form-modal.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,9 +9,9 @@ import { Button } from "@/components/ui/button";
 import { formatWhatsAppLink } from "@/lib/utils";
 import { useContactForm } from "@/contexts/contact-form.context";
 
-// Configuração do Web3Forms - centralize para fácil manutenção
+// Configuração do Web3Forms
 const CONFIG = {
-  accessKey: "SUA_CHAVE_WEB3FORMS_AQUI",
+  accessKey: "SUA_CHAVE_WEB3FORMS_AQUI", // Substitua pela sua chave
   phoneNumber: "32999083793",
 };
 
@@ -27,12 +28,29 @@ const ContactFormModal: React.FC = () => {
   });
 
   // Atualizar mensagem padrão quando o contexto mudar
-  React.useEffect(() => {
+  useEffect(() => {
     setFormData((prev) => ({
       ...prev,
       message: defaultMessage,
     }));
   }, [defaultMessage]);
+
+  // Fechamento do modal com a tecla ESC
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isFormOpen) {
+        closeContactForm();
+      }
+    };
+
+    if (isFormOpen) {
+      document.addEventListener("keydown", handleEscKey);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscKey);
+    };
+  }, [isFormOpen, closeContactForm]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -66,9 +84,9 @@ const ContactFormModal: React.FC = () => {
         // Redirecionar para WhatsApp após 1.5 segundos
         setTimeout(() => {
           const whatsappMessage = `Olá! Sou ${formData.name} e acabei de solicitar uma consultoria pelo site. ${formData.message}`;
-          window.location.href = formatWhatsAppLink(
-            CONFIG.phoneNumber,
-            whatsappMessage
+          window.open(
+            formatWhatsAppLink(CONFIG.phoneNumber, whatsappMessage),
+            "_blank"
           );
 
           // Resetar formulário (caso o navegador bloqueie o redirecionamento)
@@ -104,49 +122,65 @@ const ContactFormModal: React.FC = () => {
     closeContactForm();
   };
 
+  const handleModalClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
     <AnimatePresence>
       {isFormOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center">
-          {/* Backdrop/Overlay */}
+          {/* Backdrop/Overlay com animação suave */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={closeContactForm}
           />
 
-          {/* Modal Content */}
+          {/* Modal Content com animação de escala suave */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="bg-white rounded-lg shadow-2xl w-full max-w-md mx-4 relative overflow-hidden"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{
+              type: "spring",
+              damping: 25,
+              stiffness: 300,
+              duration: 0.4,
+            }}
+            className="bg-white rounded-lg shadow-2xl w-full max-w-md mx-4 relative overflow-hidden my-4"
+            onClick={handleModalClick}
           >
             {/* Close Button */}
             <button
               onClick={closeContactForm}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors cursor-pointer z-10"
               aria-label="Fechar"
             >
               <X size={20} />
             </button>
 
             {/* Header */}
-            <div className="bg-gradient-to-r from-primary to-secondary px-6 pt-6 text-white">
-              <h3 className="text-2xl font-montserrat font-bold text-primary tracking-tight">
+            <div className="bg-gradient-to-r from-primary to-secondary px-6 pt-6  text-white">
+              <h3 className="text-xl font-montserrat font-bold text-primary tracking-tight">
                 Agende sua Consultoria
               </h3>
-              <p className="mt-1 opacity-90 text-gray-500">
+              <p className="mt-1 text-gray-500">
                 Preencha seus dados para agendarmos um horário
               </p>
             </div>
 
             <div className="p-6">
               {formStatus === "success" ? (
-                <div className="text-center py-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-center py-8"
+                >
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg
                       className="w-8 h-8 text-green-600"
@@ -169,7 +203,7 @@ const ContactFormModal: React.FC = () => {
                   <p className="text-gray-600 mb-4">
                     Você será redirecionado para o WhatsApp em instantes...
                   </p>
-                </div>
+                </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
@@ -229,9 +263,13 @@ const ContactFormModal: React.FC = () => {
                   </div>
 
                   {formStatus === "error" && (
-                    <div className="p-3 bg-red-50 text-red-700 rounded-md text-sm">
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-3 bg-red-50 text-red-700 rounded-md text-sm"
+                    >
                       {errorMessage}
-                    </div>
+                    </motion.div>
                   )}
 
                   <div className="flex flex-col sm:flex-row gap-3">
