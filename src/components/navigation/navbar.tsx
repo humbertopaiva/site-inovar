@@ -200,7 +200,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex space-x-3 ml-2">
-            <Button
+            {/* <Button
               asChild
               className="border-primary text-primary bg-transparent hover:bg-primary hover:text-accent hover:border-accent rounded-md py-2 px-4 shadow-sm hover:shadow-md transition-all duration-300 border-2 group overflow-hidden"
             >
@@ -209,7 +209,7 @@ const Navbar = () => {
                 <User className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:scale-110" />
                 <span className="relative z-10">Área do Cliente</span>
               </Link>
-            </Button>
+            </Button> */}
             <Button
               variant="accent"
               asChild
@@ -310,7 +310,7 @@ const Navbar = () => {
                   </motion.div>
                 ))}
 
-                <motion.div
+                {/* <motion.div
                   className="px-4 md:pt-4"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -330,7 +330,7 @@ const Navbar = () => {
                       Área do Cliente
                     </Link>
                   </Button>
-                </motion.div>
+                </motion.div> */}
 
                 <motion.div
                   className="px-4"
