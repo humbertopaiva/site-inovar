@@ -1,3 +1,4 @@
+// src/components/navigation/navbar.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -212,10 +213,10 @@ const Navbar = () => {
             <Button
               variant="accent"
               asChild
-              className="rounded-md cursor-pointer py-2 px-4 bg-primary text-white shadow-sm hover:shadow-md hover:bg-accent-light hover:scale-105 transition-all duration-300 group"
+              className="rounded-md py-2 px-4 bg-primary text-white shadow-sm hover:shadow-md hover:bg-accent-light hover:scale-105 transition-all duration-300 group"
               onClick={handleContactClick}
             >
-              <div>
+              <div className="flex items-center justify-center cursor-pointer ">
                 <MessageSquare className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:rotate-12" />
                 <span>Fale Conosco</span>
               </div>
@@ -339,13 +340,13 @@ const Navbar = () => {
                 >
                   <Button
                     variant="accent"
-                    className="w-full bg-accent text-white rounded-md py-3 shadow-sm hover:shadow-md hover:bg-accent-light transition-all duration-300 group"
+                    className="w-full bg-accent  text-white rounded-md py-3 shadow-sm hover:shadow-md hover:bg-accent-light transition-all duration-300 group"
                     asChild
                     onClick={handleContactClick}
                   >
-                    <div>
-                      <MessageSquare className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:rotate-12" />
-                      <span>Fale Conosco</span>
+                    <div className="flex items-center justify-center cursor-pointer">
+                      <MessageSquare className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:rotate-12" />
+                      Fale Conosco
                     </div>
                   </Button>
                 </motion.div>
