@@ -14,7 +14,7 @@ const Hero = () => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0.3]);
-  const scale = useTransform(scrollY, [0, 300], [1, 1.1]);
+
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -96,17 +96,6 @@ const Hero = () => {
       {/* Parallax Background with Image and Overlay */}
       {isMounted && (
         <>
-          {/* Background Image with Parallax */}
-          <motion.div className="absolute inset-0 z-0" style={{ y, scale }}>
-            <Image
-              src="/light-office-background.jpg"
-              alt="Office background"
-              fill
-              className="object-cover opacity-20"
-              priority
-            />
-          </motion.div>
-
           {/* Light Gradient Overlay */}
           <motion.div className="absolute inset-0 z-10" style={{ y, opacity }}>
             <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
@@ -218,7 +207,7 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 1 }}
             >
               <Image
-                src="/hero-inovar.jpg"
+                src="/hero-inovar.webp"
                 alt="Inovar Assessoria Empresarial"
                 fill
                 className="object-cover max-h-[70vh] rounded-sm md:p-0 p-4"

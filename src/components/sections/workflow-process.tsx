@@ -284,7 +284,7 @@ const WorkflowProcess = () => {
     {
       step: 1,
       title: "Análise Criteriosa",
-      image: "/step-1.jpg",
+      image: "/step-1.webp",
       content: [
         "Identificação dos pontos de melhoria através de diagnóstico empresarial",
         "Desenvolvimento de metas claras e alcançáveis",
@@ -295,7 +295,7 @@ const WorkflowProcess = () => {
     {
       step: 2,
       title: "Implementação de Soluções",
-      image: "/step-2.jpg",
+      image: "/step-2.webp",
       content: [
         "Seleção de parceiros estratégicos para impulsionar resultados",
         "Implementação de sistemas modernos de gerenciamento",
@@ -306,7 +306,7 @@ const WorkflowProcess = () => {
     {
       step: 3,
       title: "Controle e Sustentabilidade",
-      image: "/step-3.jpg",
+      image: "/step-3.webp",
       content: [
         "Estabelecimento de métricas para acompanhar resultados",
         "Documentação de processos para consistência",

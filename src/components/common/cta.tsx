@@ -131,7 +131,7 @@ const CTA = () => {
 
             {/* Imagem principal */}
             <Image
-              src="/cta.png"
+              src="/cta.webp"
               alt="Crescimento empresarial"
               fill
               className="object-contain overflow-visible md:h-full h-[70%] md:w-full w-[70%] z-20 pr-4 md:pr-0"
