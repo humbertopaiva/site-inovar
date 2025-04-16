@@ -356,15 +356,15 @@ const Navbar = () => {
 
               {/* Social Media Icons for Mobile Menu */}
               <motion.div
-                className="border-t border-gray-100 py-6 px-4 mt-auto"
+                className="border-t border-gray-100 py-6 px-4 flex items-center justify-center gap-2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="text-gray-500 mb-4 text-center text-sm">
+                <p className="text-gray-500  text-center text-sm">
                   Siga-nos nas redes sociais
                 </p>
-                <div className="flex justify-center space-x-6">
+                <div className="flex justify-center items-center space-x-6">
                   <a
                     href={socialLinks.instagram}
                     target="_blank"
@@ -372,7 +372,7 @@ const Navbar = () => {
                     className="text-primary hover:text-accent transition-colors p-2 bg-gray-50 rounded-full"
                     aria-label="Instagram"
                   >
-                    <Instagram size={24} />
+                    <Instagram size={18} />
                   </a>
                 </div>
               </motion.div>
