@@ -152,7 +152,7 @@ const Hero = () => {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 pt-4"
+              className="flex flex-col sm:flex-row gap-4 pt-4 md:px-0 px-4"
               variants={itemVariants}
             >
               {/* Botão Saiba Mais com ação para a seção #sobre */}
