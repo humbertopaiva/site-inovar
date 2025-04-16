@@ -207,11 +207,10 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 1 }}
             >
               <Image
-                src="/hero-inovar.webp"
+                src="/hero-inovar.jpg"
                 alt="Inovar Assessoria Empresarial"
                 fill
                 className="object-cover max-h-[70vh] rounded-sm md:p-0 p-4"
-                priority
               />
             </motion.div>
 
