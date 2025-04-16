@@ -76,7 +76,7 @@ const MissionVisionValues = () => {
                 }}
                 initial={{ height: "0%" }}
                 animate={{
-                  height: isHoveringMission || isMobile ? "56%" : "0%",
+                  height: isHoveringMission || isMobile ? "60%" : "0%",
                 }}
                 transition={{
                   duration: 1.2,
@@ -122,7 +122,7 @@ const MissionVisionValues = () => {
                 initial={{ height: "100%", top: "0%" }}
                 animate={{
                   height: isHoveringMission || isMobile ? "44%" : "100%",
-                  top: isHoveringMission || isMobile ? "56%" : "0%",
+                  top: isHoveringMission || isMobile ? "60%" : "0%",
                 }}
                 transition={{
                   duration: 1.2,
@@ -199,7 +199,7 @@ const MissionVisionValues = () => {
                 }}
                 initial={{ height: "0%" }}
                 animate={{
-                  height: isHoveringVision || isMobile ? "56%" : "0%",
+                  height: isHoveringVision || isMobile ? "60%" : "0%",
                 }}
                 transition={{
                   duration: 1.2,
@@ -245,7 +245,7 @@ const MissionVisionValues = () => {
                 initial={{ height: "100%", top: "0%" }}
                 animate={{
                   height: isHoveringVision || isMobile ? "44%" : "100%",
-                  top: isHoveringVision || isMobile ? "56%" : "0%",
+                  top: isHoveringVision || isMobile ? "60%" : "0%",
                 }}
                 transition={{
                   duration: 1.2,
@@ -322,7 +322,7 @@ const MissionVisionValues = () => {
                 }}
                 initial={{ height: "0%" }}
                 animate={{
-                  height: isHoveringValues || isMobile ? "56%" : "0%",
+                  height: isHoveringValues || isMobile ? "60%" : "0%",
                 }}
                 transition={{
                   duration: 1.2,
@@ -379,11 +379,11 @@ const MissionVisionValues = () => {
 
               {/* Image container */}
               <motion.div
-                className="w-full relative"
+                className="w-full relative bg-red-500 flex items-end justify-end"
                 initial={{ height: "100%", top: "0%" }}
                 animate={{
                   height: isHoveringValues || isMobile ? "44%" : "100%",
-                  top: isHoveringValues || isMobile ? "56%" : "0%",
+                  top: isHoveringValues || isMobile ? "60%" : "0%",
                 }}
                 transition={{
                   duration: 1.2,
@@ -398,7 +398,7 @@ const MissionVisionValues = () => {
                   src="/valores.jpg"
                   alt="Nossos valores"
                   fill
-                  className="object-cover"
+                  className="object-cover "
                 />
                 {/* Title overlay visible only when not hovering */}
                 <motion.div
